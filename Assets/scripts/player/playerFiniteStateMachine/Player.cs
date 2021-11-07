@@ -24,7 +24,6 @@ public class Player : MonoBehaviour {
 
   private BoxCollider2D bCollider;
   private Vector2 velocityWorkspace;
-  //private ItemCollector itemCollector;
 
   private void Awake() {
     this.initializeStates();
