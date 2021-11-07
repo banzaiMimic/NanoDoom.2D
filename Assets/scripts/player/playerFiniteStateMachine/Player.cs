@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+  public PlayerStateMachine stateMachine { get; private set; }
+
   [SerializeField] 
   private LayerMask jumpableGround;
 
@@ -15,9 +17,14 @@ public class Player : MonoBehaviour {
   //private ItemCollector itemCollector;
 
   void Awake() {
+    this.initializeStates();
     this.rBody = GetComponent<Rigidbody2D>();
     this.bCollider = GetComponent<BoxCollider2D>();
     this.AddComponents();
+  }
+
+  private void initializeStates() {
+    stateMachine = new PlayerStateMachine();
   }
 
   private void AddComponents() {
@@ -25,6 +32,11 @@ public class Player : MonoBehaviour {
     //this.itemCollector = gameObject.AddComponent(typeof(ItemCollector)) as ItemCollector;
   }
 
-  void Update() {
+  private void Update() {
+    stateMachine.currentState.LogicUpdate();
+  }
+
+  private void FixedUpdate() {
+    stateMachine.currentState.PhysicsUpdate();
   }
 }
