@@ -2,6 +2,9 @@
 
 ### team:
 
-Game Engineer
-- banzaiMimic
+icarus.gg | core: 
+- @banzaimimic - Game Engineer / Lead
+
+guest.collaborator:
+- @Crossedkiller - Music & SFX
 
