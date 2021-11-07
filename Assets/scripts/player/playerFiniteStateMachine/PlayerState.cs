@@ -26,11 +26,13 @@ public class PlayerState {
 
   public virtual void Enter() {
     DoChecks();
+    player.animator.SetBool(animBoolName, true);
     startTime = Time.time;
+    Debug.Log(animBoolName);
   }
 
   public virtual void Exit() {
-
+    player.animator.SetBool(animBoolName, false);
   }
 
   public virtual void LogicUpdate() {
