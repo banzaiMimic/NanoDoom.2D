@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGroundedState : PlayerState {
+public class PlayerInAirState : PlayerState {
 
-  protected int xInput;
+  private int xInput;
+  private bool isGrounded;
 
-  private bool jumpInput;
-
-  public PlayerGroundedState(
+  public PlayerInAirState(
     Player player, 
     PlayerStateMachine stateMachine, 
     SO_PlayerData playerData, 
@@ -19,6 +18,7 @@ public class PlayerGroundedState : PlayerState {
 
   public override void DoChecks() {
     base.DoChecks();
+    isGrounded = player.CheckIfGrounded();
   }
 
   public override void Enter() {
@@ -31,12 +31,15 @@ public class PlayerGroundedState : PlayerState {
 
   public override void LogicUpdate() {
     base.LogicUpdate();
-    xInput = player.inputHandler.normalizedInputX;
-    jumpInput = player.inputHandler.jumpInput;
 
-    if (jumpInput) {
-      player.inputHandler.UseJumpInput(); // not sure on this, should be a better way to reset our jump bool
-      stateMachine.ChangeState(player.jumpState);
+    xInput = player.inputHandler.normalizedInputX;
+
+    if (isGrounded && player.currentVelocity.y < 0.01f) {
+      stateMachine.ChangeState(player.landState);
+    } else {
+      // might not want to move in the air 
+      player.CheckIfShouldFlip(xInput);
+      player.SetVelocityX(playerData.moveVelocity * xInput);
     }
   }
 

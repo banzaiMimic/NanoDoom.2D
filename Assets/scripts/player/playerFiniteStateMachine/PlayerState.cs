@@ -9,6 +9,7 @@ public class PlayerState {
   protected PlayerStateMachine stateMachine;
   protected SO_PlayerData playerData;
   protected float startTime;
+  protected bool isAnimationFinished;
 
   private string animBoolName;
 
@@ -29,22 +30,23 @@ public class PlayerState {
     player.animator.SetBool(animBoolName, true);
     startTime = Time.time;
     Debug.Log(animBoolName);
+    isAnimationFinished = false;
   }
 
   public virtual void Exit() {
     player.animator.SetBool(animBoolName, false);
   }
 
-  public virtual void LogicUpdate() {
-
-  }
+  public virtual void LogicUpdate() {}
 
   public virtual void PhysicsUpdate() {
     DoChecks();
   }
 
-  public virtual void DoChecks() {
+  public virtual void DoChecks() {}
 
-  }
+  public virtual void AnimationStarted() {}
+
+  public virtual void AnimationFinished() => isAnimationFinished = true;
 
 }

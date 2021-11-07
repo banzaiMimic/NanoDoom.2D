@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGroundedState : PlayerState {
+public class PlayerAbilityState : PlayerState {
 
-  protected int xInput;
+  protected bool isAbilityDone;
 
-  private bool jumpInput;
+  private bool isGrounded;
 
-  public PlayerGroundedState(
+  public PlayerAbilityState(
     Player player, 
     PlayerStateMachine stateMachine, 
     SO_PlayerData playerData, 
@@ -19,10 +19,12 @@ public class PlayerGroundedState : PlayerState {
 
   public override void DoChecks() {
     base.DoChecks();
+    isGrounded = player.CheckIfGrounded();
   }
 
   public override void Enter() {
     base.Enter();
+    isAbilityDone = false;
   }
 
   public override void Exit() {
@@ -31,12 +33,12 @@ public class PlayerGroundedState : PlayerState {
 
   public override void LogicUpdate() {
     base.LogicUpdate();
-    xInput = player.inputHandler.normalizedInputX;
-    jumpInput = player.inputHandler.jumpInput;
-
-    if (jumpInput) {
-      player.inputHandler.UseJumpInput(); // not sure on this, should be a better way to reset our jump bool
-      stateMachine.ChangeState(player.jumpState);
+    if (isAbilityDone) {
+      if (isGrounded && player.currentVelocity.y < 0.01f) {
+        stateMachine.ChangeState(player.idleState);
+      } else {
+        stateMachine.ChangeState(player.inAirState);
+      }
     }
   }
 
