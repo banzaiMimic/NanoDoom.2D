@@ -14,4 +14,29 @@ public class PlayerIdleState : PlayerGroundedState {
   ) : base(player, stateMachine, playerData, animBoolName) {
 
   }
+
+  public override void DoChecks() {
+    base.DoChecks();
+  }
+
+  public override void Enter() {
+    base.Enter();
+    player.SetVelocityX(0f);
+  }
+
+  public override void Exit() {
+    base.Exit();
+  }
+
+  public override void LogicUpdate() {
+    base.LogicUpdate();
+    if (xInput != 0) {
+      stateMachine.ChangeState(player.moveState);
+    }
+  }
+
+  public override void PhysicsUpdate() {
+    base.PhysicsUpdate();
+  }
+
 }

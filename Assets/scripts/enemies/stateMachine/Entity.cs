@@ -8,10 +8,11 @@ public class Entity : MonoBehaviour {
   public FiniteStateMachine stateMachine;
   public SO_Entity entityData;
   public int facingDirection { get; private set; }
+  public GameObject aliveGO { get; private set; }
   public Rigidbody2D rb { get; private set; }
   public Animator animator { get; private set; }
-  public GameObject aliveGO { get; private set; }
   public AnimationToStateMachine atsm { get; private set; }
+  public Vector2 velocityWorkspace { get; private set; }
 
   [SerializeField]
   private Transform wallCheck;
@@ -19,8 +20,6 @@ public class Entity : MonoBehaviour {
   private Transform ledgeCheck;
   [SerializeField]
   private Transform playerCheck;
-
-  private Vector2 velocityWorkspace;
 
   public virtual void Start() {
     facingDirection = 1;

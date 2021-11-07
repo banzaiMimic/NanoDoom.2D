@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+  public Animator animator { get; private set; }
   public PlayerStateMachine stateMachine { get; private set; }
   public PlayerIdleState idleState { get; private set; }
   public PlayerMoveState moveState { get; private set; }
-  public Animator animator { get; private set; }
+  public PlayerInputHandler inputHandler { get; private set; }
+  public Rigidbody2D rBody { get; private set; }
+  public Vector2 currentVelocity { get; private set; }
 
   [SerializeField]
   private SO_PlayerData playerData;
@@ -18,19 +21,20 @@ public class Player : MonoBehaviour {
   [HideInInspector]
   public MovementSM movementSm;
 
-  private Rigidbody2D rBody;
   private BoxCollider2D bCollider;
+  private Vector2 velocityWorkspace;
   //private ItemCollector itemCollector;
 
   private void Awake() {
     this.initializeStates();
-    this.rBody = GetComponent<Rigidbody2D>();
-    this.bCollider = GetComponent<BoxCollider2D>();
   }
 
   private void Start() {
-    animator = GetComponent<Animator>();
-    stateMachine.Initialize(idleState);
+    this.animator = GetComponent<Animator>();
+    this.inputHandler = GetComponent<PlayerInputHandler>();
+    this.rBody = GetComponent<Rigidbody2D>();
+    this.bCollider = GetComponent<BoxCollider2D>();
+    this.stateMachine.Initialize(idleState);
   }
 
   private void initializeStates() {
@@ -40,10 +44,17 @@ public class Player : MonoBehaviour {
   }
 
   private void Update() {
+    currentVelocity = rBody.velocity;
     stateMachine.currentState.LogicUpdate();
   }
 
   private void FixedUpdate() {
     stateMachine.currentState.PhysicsUpdate();
+  }
+
+  public void SetVelocityX(float velocity) {
+    velocityWorkspace.Set(velocity, currentVelocity.y);
+    rBody.velocity = velocityWorkspace;
+    currentVelocity = velocityWorkspace;
   }
 }
