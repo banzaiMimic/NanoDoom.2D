@@ -7,6 +7,7 @@ public class PlayerGroundedState : PlayerState {
   protected int xInput;
 
   private bool jumpInput;
+  private bool isGrounded;
 
   public PlayerGroundedState(
     Player player, 
@@ -19,10 +20,12 @@ public class PlayerGroundedState : PlayerState {
 
   public override void DoChecks() {
     base.DoChecks();
+    isGrounded = player.CheckIfGrounded();
   }
 
   public override void Enter() {
     base.Enter();
+    player.jumpState.ResetAmountOfJumpsLeft();
   }
 
   public override void Exit() {
@@ -34,9 +37,12 @@ public class PlayerGroundedState : PlayerState {
     xInput = player.inputHandler.normalizedInputX;
     jumpInput = player.inputHandler.jumpInput;
 
-    if (jumpInput) {
+    if (jumpInput && player.jumpState.CanJump()) {
       player.inputHandler.UseJumpInput(); // not sure on this, should be a better way to reset our jump bool
       stateMachine.ChangeState(player.jumpState);
+    } else if (!isGrounded) {
+      player.jumpState.DecreaseAmountOfJumpsLeft();
+      stateMachine.ChangeState(player.inAirState);
     }
   }
 
