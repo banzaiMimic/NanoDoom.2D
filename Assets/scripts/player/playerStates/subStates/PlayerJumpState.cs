@@ -24,7 +24,8 @@ public class PlayerJumpState : PlayerAbilityState {
   }
 
   public bool CanJump() {
-    if (amountOfJumpsLeft > 0) {
+    //@Todo fix below if we want double jumps but leaving out for now
+    if (amountOfJumpsLeft > 0 && player.currentVelocity.y >= -0.2f) {
       return true;
     } else {
       return false;
