@@ -31,6 +31,7 @@ public class E1_MoveState : MoveState {
     if (isPlayerInMinAggroRange) {
       stateMachine.ChangeState(enemy.playerDetectedState);
     } else if (isDetectingWall || !isDetectingLedge) {
+      Debug.Log("[Enemy1] -> going to IdleState");
       enemy.idleState.SetFlipAfterIdle(true);
       stateMachine.ChangeState(enemy.idleState);
     }

@@ -26,6 +26,7 @@ public class AttackState : State {
     base.Enter();
     entity.atsm.attackState = this;
     isAnimationFinished = false;
+    Debug.Log("[AttackState] entity velocity to 0");
     entity.SetVelocity(0f);
   }
 

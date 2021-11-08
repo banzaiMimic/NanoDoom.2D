@@ -32,6 +32,7 @@ public class LookForPlayerState : State {
     isAllTurnsTimeDone = false;
     lastTurnTime = startTime;
     amountOfTurnsDone = 0;
+    Debug.Log("[LookForPlayerState] entity velocity to 0");
     entity.SetVelocity(0f);
   }
 

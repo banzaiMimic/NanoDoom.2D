@@ -18,9 +18,17 @@ public class MoveState : State {
       this.stateData = stateData;
   }
 
+  public override void DoChecks() {
+    base.DoChecks();
+    isDetectingLedge = entity.CheckLedge();
+    isDetectingWall = entity.CheckWall();
+    isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
+  }
+
   public override void Enter() {
     base.Enter();
     entity.SetVelocity(stateData.movementSpeed);
+    Debug.Log("[MoveState] entity velocity to " + stateData.movementSpeed);
   }
 
   public override void Exit() {
@@ -29,16 +37,12 @@ public class MoveState : State {
 
   public override void LogicUpdate() {
     base.LogicUpdate();
+    entity.SetVelocity(stateData.movementSpeed);
+    Debug.Log("entity velocity x: " + entity.rb.velocity.x );
   }
 
   public override void PhysicsUpdate() {
     base.PhysicsUpdate();
   }
 
-  public override void DoChecks() {
-    base.DoChecks();
-    isDetectingLedge = entity.CheckLedge();
-    isDetectingWall = entity.CheckWall();
-    isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
-  }
 }

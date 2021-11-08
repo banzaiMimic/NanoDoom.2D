@@ -29,6 +29,7 @@ public class PlayerDetectedState : State {
   public override void Enter() {
     base.Enter();
     performLongRangeAction = false;
+    Debug.Log("[PlayerDetectedState] entity velocity to 0");
     entity.SetVelocity(0f);
   }
 

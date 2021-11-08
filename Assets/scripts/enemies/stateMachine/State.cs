@@ -17,11 +17,13 @@ public class State {
 
   public virtual void Enter() {
     startTime = Time.time;
+    Debug.Log("[State] animator ENTER --" + animBoolName + "--");
     entity.animator.SetBool(animBoolName, true);
     DoChecks();
   }
 
   public virtual void Exit() {
+    Debug.Log("[State] animator EXIT --" + animBoolName + "--");
     entity.animator.SetBool(animBoolName, false);
   }
 
