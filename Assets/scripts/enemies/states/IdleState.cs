@@ -21,7 +21,6 @@ public class IdleState : State {
 
   public override void Enter() {
     base.Enter();
-    Debug.Log("[IdleState] entity velocity to 0");
     entity.SetVelocity(0f);
     isIdleTimeOver = false;
     SetRandomIdleTime();

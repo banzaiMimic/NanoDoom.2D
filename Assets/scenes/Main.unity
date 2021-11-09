@@ -7344,7 +7344,7 @@ GameObject:
   - component: {fileID: 328712711}
   - component: {fileID: 328712710}
   - component: {fileID: 328712714}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Alive
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -7382,7 +7382,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.013579369, y: -0.31604946}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -7393,7 +7393,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 0.88647795, y: 1.1868405}
   m_EdgeRadius: 0
 --- !u!95 &328712711
 Animator:
@@ -7433,7 +7433,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 1908acdf27186244fa53f9b37e52c91e, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!212 &328712713
 SpriteRenderer:
@@ -7543,6 +7543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityData: {fileID: 11400000, guid: 2243c1e901dab0a4b8ec16278af6d2c9, type: 2}
+  velocityWorkspace: {x: 0, y: 0}
   wallCheck: {fileID: 2116782026}
   ledgeCheck: {fileID: 1546436802}
   playerCheck: {fileID: 1203775062}
@@ -7802,7 +7803,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 1908acdf27186244fa53f9b37e52c91e, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!212 &1813809952
 SpriteRenderer:

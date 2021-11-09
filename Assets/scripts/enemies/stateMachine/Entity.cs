@@ -12,7 +12,7 @@ public class Entity : MonoBehaviour {
   public Rigidbody2D rb { get; private set; }
   public Animator animator { get; private set; }
   public AnimationToStateMachine atsm { get; private set; }
-  public Vector2 velocityWorkspace { get; private set; }
+  public Vector2 velocityWorkspace;
 
   [SerializeField]
   private Transform wallCheck;
