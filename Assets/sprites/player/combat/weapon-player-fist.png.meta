@@ -8,6 +8,15 @@ TextureImporter:
   - first:
       213: -8420095027477617838
     second: weapon-player-fist_1
+  - first:
+      213: 3558366369994718558
+    second: weapon-player-fist_2
+  - first:
+      213: -5264476823282042425
+    second: weapon-player-fist_3
+  - first:
+      213: 9202718565720224244
+    second: weapon-player-fist_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -52,7 +61,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -112,7 +121,7 @@ TextureImporter:
       name: weapon-player-fist_0
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 0
         width: 64
         height: 64
@@ -133,7 +142,7 @@ TextureImporter:
       name: weapon-player-fist_1
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 0
         width: 64
         height: 64
@@ -146,6 +155,69 @@ TextureImporter:
       bones: []
       spriteID: 253e9202f20d52b80800000000000000
       internalID: -8420095027477617838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapon-player-fist_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5d3b384c5bd16130800000000000000
+      internalID: 3558366369994718558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapon-player-fist_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c93ffbb832d0f6b0800000000000000
+      internalID: -5264476823282042425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: weapon-player-fist_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f175a507cf96bf70800000000000000
+      internalID: 9202718565720224244
       vertices: []
       indices: 
       edges: []

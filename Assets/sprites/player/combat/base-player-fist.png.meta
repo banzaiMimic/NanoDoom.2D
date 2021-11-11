@@ -17,6 +17,21 @@ TextureImporter:
   - first:
       213: -186186220044481354
     second: player-fist_4
+  - first:
+      213: -5106701428996603651
+    second: base-player-fist_0
+  - first:
+      213: 7998032166096281178
+    second: base-player-fist_1
+  - first:
+      213: -775172624628852977
+    second: base-player-fist_2
+  - first:
+      213: 5873923249150513994
+    second: base-player-fist_3
+  - first:
+      213: 2880593973892150573
+    second: base-player-fist_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -61,7 +76,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -118,7 +133,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player-fist_0
+      name: base-player-fist_0
       rect:
         serializedVersion: 2
         x: 0
@@ -132,14 +147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3fda3e29611bd9b0800000000000000
-      internalID: -5054427013348401349
+      spriteID: df08da65b1a5129b0800000000000000
+      internalID: -5106701428996603651
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player-fist_1
+      name: base-player-fist_1
       rect:
         serializedVersion: 2
         x: 64
@@ -153,14 +168,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63a0d5dbaf733ef50800000000000000
-      internalID: 6909427803374815798
+      spriteID: a5e115231e7befe60800000000000000
+      internalID: 7998032166096281178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player-fist_2
+      name: base-player-fist_2
       rect:
         serializedVersion: 2
         x: 128
@@ -174,14 +189,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a056b0491de542e0800000000000000
-      internalID: -2142045355029147479
+      spriteID: f07d36dda980e35f0800000000000000
+      internalID: -775172624628852977
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player-fist_3
+      name: base-player-fist_3
       rect:
         serializedVersion: 2
         x: 192
@@ -195,14 +210,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f59520ed083e1c430800000000000000
-      internalID: 3801569703097424223
+      spriteID: a43568fd21e548150800000000000000
+      internalID: 5873923249150513994
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player-fist_4
+      name: base-player-fist_4
       rect:
         serializedVersion: 2
         x: 256
@@ -216,8 +231,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bc0d2c8e988a6df0800000000000000
-      internalID: -186186220044481354
+      spriteID: d25f8fb05fce9f720800000000000000
+      internalID: 2880593973892150573
       vertices: []
       indices: 
       edges: []
