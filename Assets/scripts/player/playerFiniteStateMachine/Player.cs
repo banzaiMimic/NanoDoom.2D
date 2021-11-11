@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
   public Rigidbody2D rBody { get; private set; }
   public Vector2 currentVelocity { get; private set; }
   public int facingDirection { get; private set; }
+  public PlayerInventory inventory { get; private set; }
 
   [SerializeField]
   private SO_PlayerData playerData;
@@ -42,6 +43,9 @@ public class Player : MonoBehaviour {
     this.bCollider = GetComponent<BoxCollider2D>();
     this.stateMachine.Initialize(idleState);
     this.facingDirection = 1;
+    this.inventory = GetComponent<PlayerInventory>();
+    this.primaryAttackState.SetWeapon(inventory.weapons[(int)CombatInputs.primary]);
+    //this.secondaryAttackState.SetWeapon(inventory.weapons[(int)CombatInputs.primary]);
   }
 
   private void initializeStates() {
