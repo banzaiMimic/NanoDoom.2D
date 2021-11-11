@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,20 +11,48 @@ public class PlayerInputHandler : MonoBehaviour {
   public int normalizedInputY { get; private set; }
   public bool jumpInput { get; private set; }
   public bool jumpInputStop { get; private set; }
+  public bool[] attackInputs { get; private set; }
+  public PlayerInput playerInput { get; private set; }
 
   [SerializeField]
   private float inputHoldTime = 0.2f;
 
   private float jumpInputStartTime;
 
+  private void Start() {
+    this.playerInput = GetComponent<PlayerInput>();
+    int count = Enum.GetValues(typeof(CombatInputs)).Length;
+    attackInputs = new bool[count];
+  }
+
   private void Update() {
     CheckJumpInputHoldTime();
+  }
+
+  public void OnPrimaryAttackInput(InputAction.CallbackContext context) {
+    if (context.started) {
+      attackInputs[(int)CombatInputs.primary] = true;
+    }
+
+    if (context.canceled) {
+      attackInputs[(int)CombatInputs.primary] = false;
+    }
+  }
+
+  public void OnSecondaryAttackInput(InputAction.CallbackContext context) {
+    if (context.started) {
+      attackInputs[(int)CombatInputs.secondary] = true;
+    }
+
+    if (context.canceled) {
+      attackInputs[(int)CombatInputs.secondary] = false;
+    }
   }
   
   public void OnMoveInput(InputAction.CallbackContext context) {
     rawMovementInput = context.ReadValue<Vector2>();
-    normalizedInputX = (int)(rawMovementInput * Vector2.right).normalized.x;
-    normalizedInputY = (int)(rawMovementInput * Vector2.up).normalized.y;
+    normalizedInputX = Mathf.RoundToInt(rawMovementInput.x);
+    normalizedInputY = Mathf.RoundToInt(rawMovementInput.y);
   }
   
   public void OnJumpInput(InputAction.CallbackContext context) {
@@ -46,4 +75,9 @@ public class PlayerInputHandler : MonoBehaviour {
     }
   }
 
+}
+
+public enum CombatInputs {
+  primary,
+  secondary
 }

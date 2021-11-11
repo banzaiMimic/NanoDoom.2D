@@ -6,6 +6,7 @@ public class PlayerAbilityState : PlayerState {
 
   protected bool isAbilityDone;
 
+  private string animBoolName;
   private bool isGrounded;
 
   public PlayerAbilityState(
@@ -14,7 +15,7 @@ public class PlayerAbilityState : PlayerState {
     SO_PlayerData playerData, 
     string animBoolName
   ) : base(player, stateMachine, playerData, animBoolName) {
-
+    this.animBoolName = animBoolName;
   }
 
   public override void DoChecks() {
@@ -25,6 +26,7 @@ public class PlayerAbilityState : PlayerState {
   public override void Enter() {
     base.Enter();
     isAbilityDone = false;
+    Debug.Log("[playerAbility] " + animBoolName);
   }
 
   public override void Exit() {

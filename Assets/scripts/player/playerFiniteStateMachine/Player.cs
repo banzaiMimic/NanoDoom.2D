@@ -10,6 +10,8 @@ public class Player : MonoBehaviour {
   public PlayerJumpState jumpState { get; private set; }
   public PlayerInAirState inAirState { get; private set; }
   public PlayerLandState landState { get; private set; }
+  public PlayerAttackState primaryAttackState { get; private set; }
+  public PlayerAttackState secondaryAttackState { get; private set; }
 
   public Animator animator { get; private set; }
   public PlayerInputHandler inputHandler { get; private set; }
@@ -49,6 +51,8 @@ public class Player : MonoBehaviour {
     this.jumpState = new PlayerJumpState(this, stateMachine, playerData, "inAir");
     this.inAirState = new PlayerInAirState(this, stateMachine, playerData, "inAir");
     this.landState = new PlayerLandState(this, stateMachine, playerData, "land");
+    this.primaryAttackState = new PlayerAttackState(this, stateMachine, playerData, "attack");
+    this.secondaryAttackState = new PlayerAttackState(this, stateMachine, playerData, "attack");
   }
 
   private void Update() {
