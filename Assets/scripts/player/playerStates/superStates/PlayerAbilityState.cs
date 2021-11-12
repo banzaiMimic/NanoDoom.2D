@@ -36,7 +36,7 @@ public class PlayerAbilityState : PlayerState {
   public override void LogicUpdate() {
     base.LogicUpdate();
     if (isAbilityDone) {
-      if (isGrounded && player.currentVelocity.y < 0.01f) {
+      if (isGrounded && core.movement.currentVelocity.y < 0.01f) {
         stateMachine.ChangeState(player.idleState);
       } else {
         stateMachine.ChangeState(player.inAirState);

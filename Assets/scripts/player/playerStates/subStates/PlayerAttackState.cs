@@ -39,7 +39,7 @@ public class PlayerAttackState : PlayerAbilityState {
     }
 
     if (setVelocity) {
-      player.SetVelocityX(velocityToSet * player.facingDirection);
+      core.movement.SetVelocityX(velocityToSet * player.facingDirection);
     }
   }
 
@@ -49,7 +49,7 @@ public class PlayerAttackState : PlayerAbilityState {
   }
 
   public void SetPlayerVelocity(float velocity) {
-    player.SetVelocityX(velocity * player.facingDirection);
+    core.movement.SetVelocityX(velocity * player.facingDirection);
     velocityToSet = velocity;
     setVelocity = true;
   }

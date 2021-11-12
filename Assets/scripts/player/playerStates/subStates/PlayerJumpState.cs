@@ -17,7 +17,7 @@ public class PlayerJumpState : PlayerAbilityState {
 
   public override void Enter() {
     base.Enter();
-    player.SetVelocityY(playerData.jumpVelocity);
+    core.movement.SetVelocityY(playerData.jumpVelocity);
     isAbilityDone = true;
     DecreaseAmountOfJumpsLeft();
     player.inAirState.SetIsJumping();
@@ -25,7 +25,7 @@ public class PlayerJumpState : PlayerAbilityState {
 
   public bool CanJump() {
     //@Todo fix below if we want double jumps but leaving out for now
-    if (amountOfJumpsLeft > 0 && player.currentVelocity.y >= -0.2f) {
+    if (amountOfJumpsLeft > 0 && core.movement.currentVelocity.y >= -0.2f) {
       return true;
     } else {
       return false;

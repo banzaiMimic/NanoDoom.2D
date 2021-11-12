@@ -13,10 +13,10 @@ public class Player : MonoBehaviour {
   public PlayerAttackState primaryAttackState { get; private set; }
   public PlayerAttackState secondaryAttackState { get; private set; }
 
+  public Core core { get; private set; }
   public Animator animator { get; private set; }
   public PlayerInputHandler inputHandler { get; private set; }
   public Rigidbody2D rBody { get; private set; }
-  public Vector2 currentVelocity { get; private set; }
   public int facingDirection { get; private set; }
   public PlayerInventory inventory { get; private set; }
 
@@ -33,6 +33,7 @@ public class Player : MonoBehaviour {
   private Vector2 velocityWorkspace;
 
   private void Awake() {
+    core = GetComponentInChildren<Core>();
     this.initializeStates();
   }
 
@@ -60,24 +61,12 @@ public class Player : MonoBehaviour {
   }
 
   private void Update() {
-    currentVelocity = rBody.velocity;
+    core.LogicUpdate();
     stateMachine.currentState.LogicUpdate();
   }
 
   private void FixedUpdate() {
     stateMachine.currentState.PhysicsUpdate();
-  }
-
-  public void SetVelocityX(float velocity) {
-    velocityWorkspace.Set(velocity, currentVelocity.y);
-    rBody.velocity = velocityWorkspace;
-    currentVelocity = velocityWorkspace;
-  }
-
-  public void SetVelocityY(float velocity) {
-    velocityWorkspace.Set(currentVelocity.x, velocity);
-    rBody.velocity = velocityWorkspace;
-    currentVelocity = velocityWorkspace;
   }
 
   public bool CheckIfGrounded() {
