@@ -7225,7 +7225,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &248497019
@@ -7490,6 +7490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e74fa003ae5ed4592096042cf5021d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 2317c2824ccefa24386e2f04b0981cf8, type: 2}
 --- !u!1 &328712708
 GameObject:
   m_ObjectHideFlags: 0
