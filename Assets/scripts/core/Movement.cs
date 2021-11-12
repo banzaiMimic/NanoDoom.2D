@@ -55,7 +55,6 @@ public class Movement : CoreComponent {
 
   public void CheckIfShouldFlip(int xInput) {
     if (xInput != 0 && xInput != facingDirection) {
-      Debug.Log("FLIP NOW");
       Flip();
     }
   }

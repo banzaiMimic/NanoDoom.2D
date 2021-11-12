@@ -41,11 +41,7 @@ public class Entity : MonoBehaviour {
 
   public virtual void SetVelocity(float velocity) {
     velocityWorkspace.Set(facingDirection * velocity, rb.velocity.y);
-    Debug.Log("[SetVelocity] " + (facingDirection * velocity));
-    Debug.Log("  facing Direction: " + facingDirection);
-    Debug.Log("  vel : " + velocity);
     rb.velocity = velocityWorkspace;
-    Debug.Log("[Entity] set rb.velocity x to : " + rb.velocity.x);
   }
 
   public virtual bool CheckWall() {
