@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerAttackState : PlayerAbilityState {
 
   private Weapon weapon;
+  private int xInput;
   private float velocityToSet;
   private bool setVelocity;
+  private bool shouldCheckFlip;
 
   public PlayerAttackState(
     Player player, 
@@ -30,10 +32,15 @@ public class PlayerAttackState : PlayerAbilityState {
 
   public override void LogicUpdate() {
     base.LogicUpdate();
+    xInput = player.inputHandler.normalizedInputX;
+    
+    if (shouldCheckFlip) {
+      player.CheckIfShouldFlip(xInput);
+    }
+
     if (setVelocity) {
       player.SetVelocityX(velocityToSet * player.facingDirection);
     }
-
   }
 
   public void SetWeapon(Weapon weapon) {
@@ -45,6 +52,10 @@ public class PlayerAttackState : PlayerAbilityState {
     player.SetVelocityX(velocity * player.facingDirection);
     velocityToSet = velocity;
     setVelocity = true;
+  }
+
+  public void SetFlipCheck(bool check) {
+    shouldCheckFlip = check;
   }
 
   public override void AnimationFinished() {
