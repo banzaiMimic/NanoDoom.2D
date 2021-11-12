@@ -17,14 +17,10 @@ public class Player : MonoBehaviour {
   public Animator animator { get; private set; }
   public PlayerInputHandler inputHandler { get; private set; }
   public Rigidbody2D rBody { get; private set; }
-  public int facingDirection { get; private set; }
   public PlayerInventory inventory { get; private set; }
 
   [SerializeField]
   private SO_PlayerData playerData;
-
-  [SerializeField]
-  private Transform groundCheck;
 
   [HideInInspector]
   public MovementSM movementSm;
@@ -43,7 +39,6 @@ public class Player : MonoBehaviour {
     this.rBody = GetComponent<Rigidbody2D>();
     this.bCollider = GetComponent<BoxCollider2D>();
     this.stateMachine.Initialize(idleState);
-    this.facingDirection = 1;
     this.inventory = GetComponent<PlayerInventory>();
     this.primaryAttackState.SetWeapon(inventory.weapons[(int)CombatInputs.primary]);
     //this.secondaryAttackState.SetWeapon(inventory.weapons[(int)CombatInputs.primary]);
@@ -69,21 +64,7 @@ public class Player : MonoBehaviour {
     stateMachine.currentState.PhysicsUpdate();
   }
 
-  public bool CheckIfGrounded() {
-    return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.whatIsGround);
-  }
-
-  public void CheckIfShouldFlip(int xInput) {
-    if (xInput != 0 && xInput != facingDirection) {
-      Flip();
-    }
-  }
-
   private void AnimationStarted() => stateMachine.currentState.AnimationStarted();
   private void AnimationFinished() => stateMachine.currentState.AnimationFinished();
 
-  private void Flip() {
-    facingDirection *= -1;
-    transform.Rotate(0.0f, 180.0f, 0.0f);
-  }
 }

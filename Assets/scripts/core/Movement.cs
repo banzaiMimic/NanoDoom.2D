@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Movement : CoreComponent {
 
+  [SerializeField]
+  public Transform tForm;
+
   public Rigidbody2D rBody { get; private set; }
   public Vector2 currentVelocity { get; private set; }
+  public int facingDirection { get; private set; }
 
   private Vector2 velocityWorkspace;
 
   protected override void Awake() {
     base.Awake();
     rBody = GetComponentInParent<Rigidbody2D>();
+    this.facingDirection = 1;
   }
 
   public void LogicUpdate() {
@@ -46,5 +51,17 @@ public class Movement : CoreComponent {
     velocityWorkspace = direction * velocity;
     rBody.velocity = velocityWorkspace;
     currentVelocity = velocityWorkspace;
+  }
+
+  public void CheckIfShouldFlip(int xInput) {
+    if (xInput != 0 && xInput != facingDirection) {
+      Debug.Log("FLIP NOW");
+      Flip();
+    }
+  }
+
+  public void Flip() {
+    facingDirection *= -1;
+    tForm.Rotate(0.0f, 180.0f, 0.0f);
   }
 }

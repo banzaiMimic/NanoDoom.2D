@@ -21,7 +21,7 @@ public class PlayerInAirState : PlayerState {
 
   public override void DoChecks() {
     base.DoChecks();
-    isGrounded = player.CheckIfGrounded();
+    isGrounded = core.collisionSense.CheckIfGrounded();
   }
 
   public override void Enter() {
@@ -51,7 +51,7 @@ public class PlayerInAirState : PlayerState {
       stateMachine.ChangeState(player.jumpState);
     } else {
       // might not want to move in the air 
-      player.CheckIfShouldFlip(xInput);
+      core.movement.CheckIfShouldFlip(xInput);
       core.movement.SetVelocityX(playerData.moveVelocity * xInput);
     }
   }
