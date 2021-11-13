@@ -9,6 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5476553a780082748bd08d9b95fa6eda, type: 3}
-  m_Name: Fist1
+  m_Script: {fileID: 11500000, guid: 1e743d305b4c54a488ae9b29de859b8e, type: 3}
+  m_Name: Fist
   m_EditorClassIdentifier: 
+  attackDetails:
+  - attackName: Fist attack 1
+    movementSpeed: 3
+    damageAmount: 10

@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
-  [SerializeField]
-  private SO_WeaponData weaponData;
+  [SerializeField] protected SO_WeaponData weaponData;
 
   protected Animator baseAnimator;
   protected Animator weaponAnimator;
   protected PlayerAttackState attackState;
   protected int attackCounter;
-  private int numAttacks = 0;
 
-  protected virtual void Start() {
+  protected virtual void Awake() {
     this.baseAnimator = transform.Find("Base").GetComponent<Animator>();
     this.weaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
     gameObject.SetActive(false);
@@ -21,7 +19,7 @@ public class Weapon : MonoBehaviour {
 
   public virtual void EnterWeapon() {
     gameObject.SetActive(true);
-    if (attackCounter >= numAttacks) {
+    if (attackCounter >= weaponData.amountOfAttacks) {
       attackCounter = 0;
     }
     baseAnimator.SetBool("attack", true);
