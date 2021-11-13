@@ -6,7 +6,6 @@ using UnityEngine;
 public class MeleeAttackState : AttackState {
 
   protected SO_MeleeAttackState stateData;
-  protected AttackDetails attackDetails;
 
   public MeleeAttackState(
     Entity entity, 
@@ -24,8 +23,6 @@ public class MeleeAttackState : AttackState {
 
   public override void Enter() {
     base.Enter();
-    attackDetails.damageAmount = stateData.attackDamage;
-    attackDetails.position = entity.transform.position;
   }
 
   public override void Exit() {
@@ -51,7 +48,12 @@ public class MeleeAttackState : AttackState {
     foreach (Collider2D collider in detectedObjects) {
       IDamageable damageable = collider.GetComponent<IDamageable>();
       if (damageable != null) {
-        damageable.Damage(attackDetails.damageAmount);
+        damageable.Damage(stateData.attackDamage);
+      }
+
+      IKnockbackable knockbackable = collider.GetComponent<IKnockbackable>();
+      if (knockbackable != null) {
+        knockbackable.Knockback(stateData.knockbackAngle, stateData.knockbackStrength, core.Movement.facingDirection);
       }
     }
   }
