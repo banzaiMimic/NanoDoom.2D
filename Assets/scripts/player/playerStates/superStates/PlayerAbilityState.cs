@@ -20,7 +20,7 @@ public class PlayerAbilityState : PlayerState {
 
   public override void DoChecks() {
     base.DoChecks();
-    isGrounded = core.collisionSense.CheckIfGrounded();
+    isGrounded = core.CollisionSense.Ground;
   }
 
   public override void Enter() {
@@ -36,7 +36,7 @@ public class PlayerAbilityState : PlayerState {
   public override void LogicUpdate() {
     base.LogicUpdate();
     if (isAbilityDone) {
-      if (isGrounded && core.movement.currentVelocity.y < 0.01f) {
+      if (isGrounded && core.Movement.currentVelocity.y < 0.01f) {
         stateMachine.ChangeState(player.idleState);
       } else {
         stateMachine.ChangeState(player.inAirState);

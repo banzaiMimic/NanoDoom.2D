@@ -32,7 +32,7 @@ public class LookForPlayerState : State {
     isAllTurnsTimeDone = false;
     lastTurnTime = startTime;
     amountOfTurnsDone = 0;
-    core.movement.SetVelocityX(0f);
+    core.Movement.SetVelocityX(0f);
   }
 
   public override void Exit() {
@@ -42,13 +42,15 @@ public class LookForPlayerState : State {
   public override void LogicUpdate() {
     base.LogicUpdate();
 
+    core.Movement.SetVelocityX(0f);
+
     if (flipImmediately) {
-      core.movement.Flip();
+      core.Movement.Flip();
       lastTurnTime = Time.time;
       amountOfTurnsDone++;
       flipImmediately = false;
     } else if (Time.time >= lastTurnTime + stateData.timeBetweenTurns && !isAllTurnsDone) {
-      core.movement.Flip();
+      core.Movement.Flip();
       lastTurnTime = Time.time;
       amountOfTurnsDone++;
     }

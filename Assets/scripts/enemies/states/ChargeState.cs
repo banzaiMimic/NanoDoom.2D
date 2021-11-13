@@ -31,7 +31,7 @@ public class ChargeState : State {
   public override void Enter() {
     base.Enter();
     isChargeTimeOver = false;
-    core.movement.SetVelocityX(stateData.chargeSpeed * core.Movement.facingDirection);
+    core.Movement.SetVelocityX(stateData.chargeSpeed * core.Movement.facingDirection);
   }
 
   public override void Exit() {

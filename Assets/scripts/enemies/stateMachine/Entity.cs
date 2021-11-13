@@ -61,7 +61,7 @@ public class Entity : MonoBehaviour {
 
   public virtual void OnDrawGizmos() {
     if (core != null) {
-      Debug.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * core.movement.facingDirection * entityData.wallCheckDistance), Color.blue);
+      Debug.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * core.Movement.facingDirection * entityData.wallCheckDistance), Color.blue);
       Debug.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance), Color.blue);
       Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.closeRangeActionDistance), 0.2f);
       Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.minAggroDistance), 0.2f);

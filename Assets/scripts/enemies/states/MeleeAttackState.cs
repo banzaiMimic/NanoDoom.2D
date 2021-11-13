@@ -48,7 +48,6 @@ public class MeleeAttackState : AttackState {
     base.TriggerAttack();
     Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.whatIsPlayer);
 
-    //@Todo might want to let Dispatcher handle this
     foreach (Collider2D collider in detectedObjects) {
       IDamageable damageable = collider.GetComponent<IDamageable>();
       if (damageable != null) {

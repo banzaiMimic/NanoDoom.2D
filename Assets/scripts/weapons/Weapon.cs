@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour {
   protected Animator weaponAnimator;
   protected PlayerAttackState attackState;
   protected int attackCounter;
+  protected Core core;
 
   protected virtual void Awake() {
     this.baseAnimator = transform.Find("Base").GetComponent<Animator>();
@@ -57,8 +58,9 @@ public class Weapon : MonoBehaviour {
 
   public virtual void AnimationActionTrigger() {}
 
-  public void InitializeWeapon(PlayerAttackState state) {
+  public void InitializeWeapon(PlayerAttackState state, Core core) {
     this.attackState = state;
+    this.core = core;
   }
 
 }

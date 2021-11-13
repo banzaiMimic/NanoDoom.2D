@@ -29,5 +29,6 @@ public class Core : MonoBehaviour {
 
   public void LogicUpdate() {
     Movement.LogicUpdate();
+    Combat.LogicUpdate();
   }
 }

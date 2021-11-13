@@ -36,8 +36,8 @@ public class Movement : CoreComponent {
   }
 
   public void SetVelocityZero() {
-    rBody.velocity = Vector2.zero;
-    currentVelocity = Vector2.zero;
+    velocityWorkspace = Vector2.zero;
+    SetFinalVelocity();
   }
 
   private void SetFinalVelocity() {

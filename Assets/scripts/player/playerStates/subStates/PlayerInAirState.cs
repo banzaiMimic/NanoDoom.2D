@@ -21,7 +21,7 @@ public class PlayerInAirState : PlayerState {
 
   public override void DoChecks() {
     base.DoChecks();
-    isGrounded = core.collisionSense.CheckIfGrounded();
+    isGrounded = core.CollisionSense.Ground;
   }
 
   public override void Enter() {
@@ -45,14 +45,14 @@ public class PlayerInAirState : PlayerState {
       stateMachine.ChangeState(player.primaryAttackState);
     } else if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
       stateMachine.ChangeState(player.secondaryAttackState);
-    } else if (isGrounded && core.movement.currentVelocity.y < 0.01f) {
+    } else if (isGrounded && core.Movement.currentVelocity.y < 0.01f) {
       stateMachine.ChangeState(player.landState);
     } else if (jumpInput && player.jumpState.CanJump()) {
       stateMachine.ChangeState(player.jumpState);
     } else {
       // might not want to move in the air 
-      core.movement.CheckIfShouldFlip(xInput);
-      core.movement.SetVelocityX(playerData.moveVelocity * xInput);
+      core.Movement.CheckIfShouldFlip(xInput);
+      core.Movement.SetVelocityX(playerData.moveVelocity * xInput);
     }
   }
 
@@ -63,9 +63,9 @@ public class PlayerInAirState : PlayerState {
   private void CheckJumpMultiplier() {
     if (isJumping) {
       if (jumpInputStop) {
-        core.movement.SetVelocityY(core.movement.currentVelocity.y * playerData.variableJumpHeightMultiplier);
+        core.Movement.SetVelocityY(core.Movement.currentVelocity.y * playerData.variableJumpHeightMultiplier);
         isJumping = false;
-      } else if (core.movement.currentVelocity.y <= 0f) {
+      } else if (core.Movement.currentVelocity.y <= 0f) {
         isJumping = false;
       }
     }

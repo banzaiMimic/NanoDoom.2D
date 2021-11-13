@@ -16,3 +16,5 @@ MonoBehaviour:
   - attackName: Fist attack 1
     movementSpeed: 3
     damageAmount: 10
+    knockbackStrength: 10
+    knockbackAngle: {x: 1, y: 2}
