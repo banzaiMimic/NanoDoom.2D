@@ -6,7 +6,6 @@ using UnityEngine;
 public class MeleeAttackState : AttackState {
 
   protected SO_MeleeAttackState stateData;
-  protected AttackDetails attackDetails;
 
   public MeleeAttackState(
     Entity entity, 
@@ -24,8 +23,6 @@ public class MeleeAttackState : AttackState {
 
   public override void Enter() {
     base.Enter();
-    attackDetails.damageAmount = stateData.attackDamage;
-    attackDetails.position = entity.aliveGO.transform.position;
   }
 
   public override void Exit() {
@@ -48,9 +45,17 @@ public class MeleeAttackState : AttackState {
     base.TriggerAttack();
     Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.whatIsPlayer);
 
-    //@Todo might want to let Dispatcher handle this
     foreach (Collider2D collider in detectedObjects) {
-      collider.transform.SendMessage("damage", attackDetails);
+      IDamageable damageable = collider.GetComponent<IDamageable>();
+      if (damageable != null) {
+        Debug.Log("[MeleeAttackState] sending Damage on " + collider.transform.parent.name);
+        damageable.Damage(stateData.attackDamage);
+      }
+
+      IKnockbackable knockbackable = collider.GetComponent<IKnockbackable>();
+      if (knockbackable != null) {
+        knockbackable.Knockback(stateData.knockbackAngle, stateData.knockbackStrength, core.Movement.facingDirection);
+      }
     }
   }
 }

@@ -1,3 +1,9 @@
+## notes
+- using this (Bardent's YouTube channel)[https://www.youtube.com/channel/UCKrEpRpu7isPB3p_nRv9Jwg] to learn a bit more on state machines in game dev.
+- lots of @Todos floating around while deving
+- not sure I like the logic of non-inheritance and all references to places and the constructors etc. but all things considered it's a super good tutorial to learn.
+- keep.refactoring.
+
 ## Input System
 we're using updated Input System, however Input Actions are not added via ui
 

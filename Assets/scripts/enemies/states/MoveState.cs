@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,9 +19,16 @@ public class MoveState : State {
       this.stateData = stateData;
   }
 
+  public override void DoChecks() {
+    base.DoChecks();
+    isDetectingLedge = entity.CheckLedge();
+    isDetectingWall = core.CollisionSense.WallFront;
+    isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
+  }
+
   public override void Enter() {
     base.Enter();
-    entity.SetVelocity(stateData.movementSpeed);
+    core.Movement.SetVelocityX(stateData.movementSpeed * core.Movement.facingDirection);
   }
 
   public override void Exit() {
@@ -29,16 +37,11 @@ public class MoveState : State {
 
   public override void LogicUpdate() {
     base.LogicUpdate();
+    core.Movement.SetVelocityX(stateData.movementSpeed * core.Movement.facingDirection);
   }
 
   public override void PhysicsUpdate() {
     base.PhysicsUpdate();
   }
 
-  public override void DoChecks() {
-    base.DoChecks();
-    isDetectingLedge = entity.CheckLedge();
-    isDetectingWall = entity.CheckWall();
-    isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
-  }
 }
