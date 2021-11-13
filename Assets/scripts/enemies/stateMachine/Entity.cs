@@ -26,7 +26,12 @@ public class Entity : MonoBehaviour {
     stateMachine = new FiniteStateMachine();
   }
 
+  public virtual void Start() {
+
+  }
+
   public virtual void Update() {
+    core.LogicUpdate();
     stateMachine.currentState.LogicUpdate();
   }
 
