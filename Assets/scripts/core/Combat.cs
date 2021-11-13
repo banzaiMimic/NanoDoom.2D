@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Combat : CoreComponent, IDamageable, IKnockbackable {
 
-  [SerializeField] private float maxHealth = 10f;
-  private float currentHealth;
+  [SerializeField] public float maxHealth = 10f;
+  public float currentHealth;
   private bool isKnockbackActive;
   private float knockbackStartTime;
 
@@ -25,6 +25,9 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
       Debug.Log("  maxHealth: " + this.maxHealth);
       Debug.Log("  currentHealth: " + this.currentHealth);
       this.currentHealth -= amount;
+      if (core.transform.parent.name == "Player") {
+        Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
+      }
       if (this.currentHealth <= 0) {
         Destroy(core.transform.parent.gameObject);
       }
