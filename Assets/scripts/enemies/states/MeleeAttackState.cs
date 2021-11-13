@@ -50,7 +50,10 @@ public class MeleeAttackState : AttackState {
 
     //@Todo might want to let Dispatcher handle this
     foreach (Collider2D collider in detectedObjects) {
-      collider.transform.SendMessage("damage", attackDetails);
+      IDamageable damageable = collider.GetComponent<IDamageable>();
+      if (damageable != null) {
+        damageable.Damage(attackDetails.damageAmount);
+      }
     }
   }
 }

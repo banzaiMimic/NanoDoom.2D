@@ -20,17 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 4465829113291031069, guid: 1ee3bf6339818d649a384b091b525777,
-        type: 3}
+      value: {fileID: 4465829113291031069, guid: 1ee3bf6339818d649a384b091b525777, type: 3}
     - time: 0.07692308
-      value: {fileID: 8661473460990623777, guid: 1ee3bf6339818d649a384b091b525777,
-        type: 3}
+      value: {fileID: 8661473460990623777, guid: 1ee3bf6339818d649a384b091b525777, type: 3}
     - time: 0.15384616
-      value: {fileID: -7320176894881775036, guid: 1ee3bf6339818d649a384b091b525777,
-        type: 3}
+      value: {fileID: -7320176894881775036, guid: 1ee3bf6339818d649a384b091b525777, type: 3}
     - time: 0.23076923
-      value: {fileID: 7850783155425755697, guid: 1ee3bf6339818d649a384b091b525777,
-        type: 3}
+      value: {fileID: 7850783155425755697, guid: 1ee3bf6339818d649a384b091b525777, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -79,7 +75,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.15384616
+  - time: 0.07692308
     functionName: TriggerAttack
     data: 
     objectReferenceParameter: {fileID: 0}
