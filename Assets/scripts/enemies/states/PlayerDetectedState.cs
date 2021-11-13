@@ -29,7 +29,7 @@ public class PlayerDetectedState : State {
   public override void Enter() {
     base.Enter();
     performLongRangeAction = false;
-    entity.SetVelocity(0f);
+    core.movement.SetVelocityX(0f);
   }
 
   public override void Exit() {

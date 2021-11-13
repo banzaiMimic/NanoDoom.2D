@@ -21,7 +21,7 @@ public class IdleState : State {
 
   public override void Enter() {
     base.Enter();
-    entity.SetVelocity(0f);
+    core.movement.SetVelocityX(0f);
     isIdleTimeOver = false;
     SetRandomIdleTime();
   }
@@ -30,7 +30,7 @@ public class IdleState : State {
     base.Exit();
 
     if (flipAfterIdle) {
-      entity.Flip();
+      core.movement.Flip();
     }
   }
 

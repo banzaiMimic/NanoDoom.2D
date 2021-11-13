@@ -11,12 +11,10 @@ public class WeaponHitboxToWeapon : MonoBehaviour {
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
-    Debug.Log("[weapontohitbox - trigger enter]");
     weapon.AddToDetected(collision);
   }
 
   private void OnTriggerExit2D(Collider2D collision) {
-    Debug.Log("[weapontohitbox - trigger exit]");
     weapon.RemoveFromDetected(collision);
   }
 

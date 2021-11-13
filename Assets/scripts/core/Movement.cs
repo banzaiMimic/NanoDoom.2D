@@ -10,6 +10,7 @@ public class Movement : CoreComponent {
   public Rigidbody2D rBody { get; private set; }
   public Vector2 currentVelocity { get; private set; }
   public int facingDirection { get; private set; }
+  public bool canSetVelocity { get; set; }
 
   private Vector2 velocityWorkspace;
 
@@ -17,6 +18,7 @@ public class Movement : CoreComponent {
     base.Awake();
     rBody = GetComponentInParent<Rigidbody2D>();
     this.facingDirection = 1;
+    this.canSetVelocity = true;
   }
 
   public void LogicUpdate() {
@@ -25,19 +27,24 @@ public class Movement : CoreComponent {
 
   public void SetVelocityX(float velocity) {
     velocityWorkspace.Set(velocity, currentVelocity.y);
-    rBody.velocity = velocityWorkspace;
-    currentVelocity = velocityWorkspace;
+    SetFinalVelocity();
   }
 
   public void SetVelocityY(float velocity) {
     velocityWorkspace.Set(currentVelocity.x, velocity);
-    rBody.velocity = velocityWorkspace;
-    currentVelocity = velocityWorkspace;
+    SetFinalVelocity();
   }
 
   public void SetVelocityZero() {
     rBody.velocity = Vector2.zero;
     currentVelocity = Vector2.zero;
+  }
+
+  private void SetFinalVelocity() {
+    if (canSetVelocity) {
+      rBody.velocity = velocityWorkspace;
+      currentVelocity = velocityWorkspace;
+    }
   }
 
   public void SetVelocity(float velocity, Vector2 angle, int direction) {

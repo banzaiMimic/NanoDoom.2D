@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+// using .Linq for -> .ToList it will loop a copy instead of actual (so when destroyed there is no error thrown)
 
 public class AggressiveWeapon : Weapon {
 
@@ -22,30 +24,24 @@ public class AggressiveWeapon : Weapon {
   }
 
   private void CheckMeleeAttack() {
-    Debug.Log("CheckMeleeAttack >> ------");
     WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[attackCounter];
-    foreach (IDamageable item in detectedDamageable) {
-      Debug.Log("checking melee attack found idamageable ------");
+    foreach (IDamageable item in detectedDamageable.ToList()) {
       item.Damage(details.damageAmount);
     }
   }
 
   public void AddToDetected(Collider2D collision) {
-    Debug.Log("[aggressiveWeapon - addToDetected]");
     IDamageable damageable = collision.GetComponent<IDamageable>();
 
     if (damageable != null) {
-      Debug.Log("[aggressiveWeapon - added!]");
       detectedDamageable.Add(damageable);
     }
   }
 
   public void RemoveFromDetected(Collider2D collision) {
-    Debug.Log("[aggressiveWeapon - removeFromDetected]");
     IDamageable damageable = collision.GetComponent<IDamageable>();
 
     if (damageable != null) {
-      Debug.Log("[aggressiveWeapon - removed!]");
       detectedDamageable.Remove(damageable);
     }
   }

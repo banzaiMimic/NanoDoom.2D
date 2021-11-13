@@ -8,11 +8,13 @@ public class State {
   protected Entity entity;
   protected float startTime;
   protected string animBoolName;
+  protected Core core;
 
   public State(Entity entity, FiniteStateMachine stateMachine, string animBoolName) {
     this.entity = entity;
     this.stateMachine = stateMachine;
     this.animBoolName = animBoolName;
+    this.core = entity.core;
   }
 
   public virtual void Enter() {
