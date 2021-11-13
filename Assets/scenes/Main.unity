@@ -7954,6 +7954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1def685296588243a0f4e7c6d6397f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 30
 --- !u!61 &1250786056
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8421,6 +8422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1def685296588243a0f4e7c6d6397f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &1813809950
 GameObject:
   m_ObjectHideFlags: 0

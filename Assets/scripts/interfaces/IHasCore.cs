@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageable : IHasCore {
+public interface IHasCore {
   
-  void Damage(float amount);
+  bool HasCore();
 
 }

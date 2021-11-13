@@ -27,10 +27,19 @@ public class AggressiveWeapon : Weapon {
   private void CheckMeleeAttack() {
     WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[attackCounter];
     foreach (IDamageable item in detectedDamageables.ToList()) {
-      item.Damage(details.damageAmount);
+      if (item.HasCore()) {
+        item.Damage(details.damageAmount);
+      } else {
+        RemoveDamageableFromList(item);
+      }
+      
     }
     foreach (IKnockbackable item in detectedKnockbackables.ToList()) {
-      item.Knockback(details.knockbackAngle, details.knockbackStrength, core.Movement.facingDirection);
+      if (item.HasCore()) {
+        item.Knockback(details.knockbackAngle, details.knockbackStrength, core.Movement.facingDirection);
+      } else {
+        RemoveKnockbackableFromList(item);
+      }
     }
   }
 
@@ -45,6 +54,14 @@ public class AggressiveWeapon : Weapon {
     if (knockbackable != null) {
       detectedKnockbackables.Add(knockbackable);
     }
+  }
+
+  private void RemoveDamageableFromList(IDamageable item) {
+    detectedDamageables.Remove(item);
+  }
+
+  private void RemoveKnockbackableFromList(IKnockbackable item) {
+    detectedKnockbackables.Remove(item);
   }
 
   public void RemoveFromDetected(Collider2D collision) {

@@ -13,4 +13,7 @@ public class CombatTestDummy : MonoBehaviour, IDamageable {
     //anim.SetTrigger("damage");  
   }
 
+  public bool HasCore() {
+    return false;
+  }
 }
