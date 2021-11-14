@@ -8,12 +8,14 @@ public class ParallaxBackground : MonoBehaviour {
   [SerializeField] private Transform cameraTransform;
   private Vector3 lastCameraPosition;
   private float textureUnitSizeX;
+  private float textureUnitSizeY;
 
   private void Start() {
     lastCameraPosition = cameraTransform.position;
     Sprite sprite = GetComponent<SpriteRenderer>().sprite;
     Texture2D texture = sprite.texture;
     textureUnitSizeX = texture.width / sprite.pixelsPerUnit;
+    textureUnitSizeY = texture.height / sprite.pixelsPerUnit;
   }
 
   private void LateUpdate() {
@@ -21,10 +23,13 @@ public class ParallaxBackground : MonoBehaviour {
     transform.position += new Vector3(deltaMovement.x * parallaxEffectMultiplier.x, deltaMovement.y * parallaxEffectMultiplier.y);
     lastCameraPosition = cameraTransform.position;
 
-    if (cameraTransform.position.x - transform.position.x >= textureUnitSizeX) {
-      // we've moved passed 
+    if (Mathf.Abs(cameraTransform.position.x - transform.position.x) >= textureUnitSizeX) {
       float offsetPositionX = (cameraTransform.position.x - transform.position.x) % textureUnitSizeX;
       transform.position = new Vector3(cameraTransform.position.x + offsetPositionX, transform.position.y);
+    }
+    if (Mathf.Abs(cameraTransform.position.y - transform.position.y) >= textureUnitSizeY) {
+      float offsetPositionY = (cameraTransform.position.y - transform.position.y) % textureUnitSizeY;
+      transform.position = new Vector3(cameraTransform.position.x, transform.position.y + offsetPositionY);
     }
   }
 }
