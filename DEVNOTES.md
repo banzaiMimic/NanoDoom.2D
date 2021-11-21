@@ -45,6 +45,8 @@ we're using updated Input System, however Input Actions are not added via ui
 - append to constructor -> `this.enemy = enemy`
 
 ### NewEnemy class
+DEPRECATED should use updated FSM
+
 - create reference to new state: 
 ```
 public EnemyName_NewState newState { get; private set; }
@@ -64,3 +66,5 @@ stateNameState = new EnemyName_NewState(this, stateMachine, "stateName", stateNa
   - select `Alive` component on enemy
   - open Animator window && select animation dropdown -> create new animation -> animations/enemy/enemyx_someAnimation
   - drag png(s) into it via Animator window (open Animator window -> Select 'Alive' component -> select animation from dropdown)
+
+  - stop time : https://www.youtube.com/watch?v=xJn4jWr2gV8

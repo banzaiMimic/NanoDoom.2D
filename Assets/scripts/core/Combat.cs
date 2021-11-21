@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class Combat : CoreComponent, IDamageable, IKnockbackable {
 
+  public GameObject deathEffect;
   [SerializeField] public float maxHealth = 10f;
   public float currentHealth;
   private bool isKnockbackActive;
   private float knockbackStartTime;
 
+  private IEnumerator coroutine;
+
+  private IEnumerator TestParticles(float waitTime) {
+    while (true) {
+      yield return new WaitForSeconds(waitTime);
+      Instantiate(deathEffect, core.transform.position, Quaternion.identity);
+    }
+  }
+
   protected override void Awake() {
     base.Awake();
     this.currentHealth = this.maxHealth;
+    coroutine = TestParticles(2.0f);
+    StartCoroutine(coroutine);
   }
 
   public void LogicUpdate() {
@@ -19,7 +31,7 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
   }
 
   public void Damage(float amount) {
-    if(core != null) {
+    if (core != null) {
       Debug.Log(core.transform.parent.name + " Damaged!");
       Debug.Log("  amount: " + amount);
       Debug.Log("  maxHealth: " + this.maxHealth);
@@ -32,10 +44,15 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
         Dispatcher.Instance.OnPlayerMeleeHit();
       }
       if (this.currentHealth <= 0) {
-        Destroy(core.transform.parent.gameObject);
+        HandleDeath();
       }
       Debug.Log("  currentHealthUpdate: " + this.currentHealth);
     }
+  }
+
+  private void HandleDeath() {
+    Instantiate(deathEffect, core.transform.position, Quaternion.identity);
+    Destroy(core.transform.parent.gameObject);
   }
 
   public void Knockback(Vector2 angle, float strength, int direction) {
@@ -53,4 +70,5 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
   }
 
   public bool HasCore() => core != null;
+
 }

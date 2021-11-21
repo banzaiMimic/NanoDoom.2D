@@ -10320,6 +10320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1def685296588243a0f4e7c6d6397f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEffect: {fileID: 6808186670054077751, guid: 47837a5b73fab4d4ca48475a6d485cc2, type: 3}
   maxHealth: 30
   currentHealth: 0
 --- !u!61 &1250786056
@@ -11094,6 +11095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1def685296588243a0f4e7c6d6397f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEffect: {fileID: 0}
   maxHealth: 10
   currentHealth: 0
 --- !u!61 &1772488423
@@ -11289,6 +11291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1def685296588243a0f4e7c6d6397f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEffect: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
 --- !u!1 &1813809950
