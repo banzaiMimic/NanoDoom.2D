@@ -7,6 +7,8 @@ using UnityEngine;
 public class PlayerAudio : MonoBehaviour {
 
   [SerializeField] private AudioSource audioSource;
+  [SerializeField] private AudioClip bgAmbient;
+  [SerializeField] private AudioClip bgBoss;
   [SerializeField] private AudioClip[] footsteps;
   [SerializeField] private AudioClip jump;
   [SerializeField] private AudioClip land;
@@ -16,6 +18,13 @@ public class PlayerAudio : MonoBehaviour {
 
   private float timer;
   private bool isMoving = false;
+
+  private void Start() {
+    audioSource.clip = bgAmbient;
+    audioSource.loop = true;
+    audioSource.volume = .8f;
+    audioSource.Play();
+  }
   
   private void OnEnable() {
     Dispatcher.Instance.OnPlayerMoveStateEnterAction += this.enterMove;

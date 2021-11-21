@@ -11598,6 +11598,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1813809961}
+  bgAmbient: {fileID: 8300000, guid: a97d3b335c900e542af301ade4927947, type: 3}
+  bgBoss: {fileID: 8300000, guid: 38ebdcf98a2ac974984c9cd54cb3b025, type: 3}
   footsteps:
   - {fileID: 8300000, guid: 5004482ad42bd004aa0c8fb8ffd29447, type: 3}
   - {fileID: 8300000, guid: ed70f0d7f405624408b8c22b56c1a605, type: 3}
