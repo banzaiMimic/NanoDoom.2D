@@ -5,11 +5,12 @@ using UnityEngine;
 public class ParallaxBackground : MonoBehaviour {
 
   [SerializeField] private Vector2 parallaxEffectMultiplier;
-  [SerializeField] private Transform cameraTransform;
+  [SerializeField] public Transform cameraTransform;
   private Vector3 lastCameraPosition;
   private float textureUnitSizeX;
 
   private void Start() {
+    Debug.Log("Parallax running");
     lastCameraPosition = cameraTransform.position;
     Sprite sprite = GetComponent<SpriteRenderer>().sprite;
     Texture2D texture = sprite.texture;

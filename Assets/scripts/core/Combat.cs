@@ -4,26 +4,17 @@ using UnityEngine;
 
 public class Combat : CoreComponent, IDamageable, IKnockbackable {
 
-  public GameObject deathEffect;
   [SerializeField] public float maxHealth = 10f;
+  [SerializeField] public GameObject[] bloodSplatters;
+  [SerializeField] private Transform cameraTransform;
+  public GameObject deathEffect;
   public float currentHealth;
   private bool isKnockbackActive;
   private float knockbackStartTime;
 
-  private IEnumerator coroutine;
-
-  private IEnumerator TestParticles(float waitTime) {
-    while (true) {
-      yield return new WaitForSeconds(waitTime);
-      Instantiate(deathEffect, core.transform.position, Quaternion.identity);
-    }
-  }
-
   protected override void Awake() {
     base.Awake();
     this.currentHealth = this.maxHealth;
-    coroutine = TestParticles(2.0f);
-    StartCoroutine(coroutine);
   }
 
   public void LogicUpdate() {
@@ -44,15 +35,24 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
         Dispatcher.Instance.OnPlayerMeleeHit();
       }
       if (this.currentHealth <= 0) {
-        HandleDeath();
+        handleDeath();
       }
       Debug.Log("  currentHealthUpdate: " + this.currentHealth);
     }
   }
 
-  private void HandleDeath() {
+  private void handleDeath() {
     Instantiate(deathEffect, core.transform.position, Quaternion.identity);
+    if (bloodSplatters.Length > 0) {
+      splatterBlood();
+    }
     Destroy(core.transform.parent.gameObject);
+  }
+
+  private void splatterBlood() {
+    int randNum = UnityEngine.Random.Range(0, bloodSplatters.Length);
+    GameObject blood = Instantiate(bloodSplatters[randNum], core.transform.position, Quaternion.identity);
+    blood.AddComponent<ParallaxBackground>().cameraTransform = this.cameraTransform;
   }
 
   public void Knockback(Vector2 angle, float strength, int direction) {
