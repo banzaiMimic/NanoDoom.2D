@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,7 +53,8 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
   private void splatterBlood() {
     int randNum = UnityEngine.Random.Range(0, bloodSplatters.Length);
     GameObject blood = Instantiate(bloodSplatters[randNum], core.transform.position, Quaternion.identity);
-    blood.AddComponent<ParallaxBackground>().cameraTransform = this.cameraTransform;
+    blood.transform.eulerAngles = new Vector3( blood.transform.rotation.x, blood.transform.rotation.y, UnityEngine.Random.Range(0, 360));
+    blood.AddComponent<BloodSplatterMovement>().cameraTransform = this.cameraTransform;
   }
 
   public void Knockback(Vector2 angle, float strength, int direction) {
