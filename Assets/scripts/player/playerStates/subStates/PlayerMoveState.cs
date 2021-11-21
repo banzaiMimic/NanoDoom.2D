@@ -19,10 +19,12 @@ public class PlayerMoveState : PlayerGroundedState {
 
   public override void Enter() {
     base.Enter();
+    Dispatcher.Instance.OnPlayerMoveStateEnter();
   }
 
   public override void Exit() {
     base.Exit();
+    Dispatcher.Instance.OnPlayerMoveStateExit();
   }
 
   public override void LogicUpdate() {

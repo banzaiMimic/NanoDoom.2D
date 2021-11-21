@@ -21,6 +21,7 @@ public class PlayerAttackState : PlayerAbilityState {
 
   public override void Enter() {
     base.Enter();
+    Dispatcher.Instance.OnPlayerMeleeSwing();
     setVelocity = false;
     weapon.EnterWeapon();
   }
