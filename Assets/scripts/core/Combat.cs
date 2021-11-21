@@ -27,6 +27,9 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
       this.currentHealth -= amount;
       if (core.transform.parent.name == "Player") {
         Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
+      } else {
+        // leaving here for now but should have better way to handle for each entity
+        Dispatcher.Instance.OnPlayerMeleeHit();
       }
       if (this.currentHealth <= 0) {
         Destroy(core.transform.parent.gameObject);

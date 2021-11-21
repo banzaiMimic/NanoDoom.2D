@@ -5,9 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour {
-  
-  public AudioSource audioSource;
-  public AudioClip[] footsteps;
+
+  [SerializeField] private AudioSource audioSource;
+  [SerializeField] private AudioClip[] footsteps;
+  [SerializeField] private AudioClip jump;
+  [SerializeField] private AudioClip land;
+  [SerializeField] private AudioClip meleeSwing;
+  [SerializeField] private AudioClip meleeHit;
   public float timeBetweenSteps = 0.39f;
 
   private float timer;
@@ -16,11 +20,40 @@ public class PlayerAudio : MonoBehaviour {
   private void OnEnable() {
     Dispatcher.Instance.OnPlayerMoveStateEnterAction += this.enterMove;
     Dispatcher.Instance.OnPlayerMoveStateExitAction += this.exitMove;
+    Dispatcher.Instance.OnPlayerJumpAction += this.onPlayerJump;
+    Dispatcher.Instance.OnPlayerLandAction += this.onPlayerLand;
+    Dispatcher.Instance.OnPlayerMeleeSwingAction += this.onPlayerMeleeSwing;
+    Dispatcher.Instance.OnPlayerMeleeHitAction += this.onPlayerMeleeHit;
   }
 
   private void OnDisable() {
     Dispatcher.Instance.OnPlayerMoveStateEnterAction -= this.enterMove;
     Dispatcher.Instance.OnPlayerMoveStateExitAction -= this.exitMove;
+    Dispatcher.Instance.OnPlayerJumpAction -= this.onPlayerJump;
+    Dispatcher.Instance.OnPlayerLandAction -= this.onPlayerLand;
+    Dispatcher.Instance.OnPlayerMeleeSwingAction -= this.onPlayerMeleeSwing;
+    Dispatcher.Instance.OnPlayerMeleeHitAction -= this.onPlayerMeleeHit;
+  }
+
+  public void onPlayerJump() {
+    audioSource.PlayOneShot(jump, .1f);
+  }
+  public void onPlayerLand() {
+    audioSource.PlayOneShot(land, .5f);
+  }
+  public void onPlayerMeleeSwing() {
+    audioSource.PlayOneShot(meleeSwing, 1f);
+  }
+  public void onPlayerMeleeHit() {
+    audioSource.PlayOneShot(meleeHit, .6f);
+  }
+
+  private void playRunSfx() {
+    timer += Time.deltaTime;
+    if (timer > timeBetweenSteps) {
+      audioSource.PlayOneShot(RandomClip(), 1f);
+      timer = 0;
+    }
   }
 
   private void enterMove() {
@@ -36,14 +69,6 @@ public class PlayerAudio : MonoBehaviour {
   private void Update() {
     if (isMoving) {
       playRunSfx();
-    }
-  }
-
-  private void playRunSfx() {
-    timer += Time.deltaTime;
-    if (timer > timeBetweenSteps) {
-      audioSource.PlayOneShot(RandomClip());
-      timer = 0;
     }
   }
 

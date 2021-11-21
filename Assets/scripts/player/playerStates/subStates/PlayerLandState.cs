@@ -13,6 +13,11 @@ public class PlayerLandState : PlayerGroundedState {
 
   }
 
+  public override void Enter() {
+    base.Enter();
+    Dispatcher.Instance.OnPlayerLand();
+  }
+
   public override void LogicUpdate() {
     base.LogicUpdate();
     if (xInput != 0) {

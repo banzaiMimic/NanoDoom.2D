@@ -11601,6 +11601,10 @@ MonoBehaviour:
   footsteps:
   - {fileID: 8300000, guid: 5004482ad42bd004aa0c8fb8ffd29447, type: 3}
   - {fileID: 8300000, guid: ed70f0d7f405624408b8c22b56c1a605, type: 3}
+  jump: {fileID: 8300000, guid: db0f4d7709bc17e41b2ff641867b37b4, type: 3}
+  land: {fileID: 8300000, guid: 8e075a0b271c6d94faebc22e33fdb740, type: 3}
+  meleeSwing: {fileID: 8300000, guid: f6947538a32c67741967e0ecdd708c4c, type: 3}
+  meleeHit: {fileID: 8300000, guid: 414908e69a061da4da93ad691d2768ca, type: 3}
   timeBetweenSteps: 0.39
 --- !u!82 &1813809961
 AudioSource:
