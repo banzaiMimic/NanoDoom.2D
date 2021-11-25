@@ -28,6 +28,14 @@ public class Player : MonoBehaviour {
   private BoxCollider2D bCollider;
   private Vector2 velocityWorkspace;
 
+  private void OnEnable() {
+    Dispatcher.Instance.OnTriggerPlayerHitAction += this.TriggerPlayerHit;
+  }
+
+  private void OnDisable() {
+    Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
+  }
+
   private void Awake() {
     core = GetComponentInChildren<Core>();
     Dispatcher.Instance.OnUpdatePlayerHealth(core.Combat.currentHealth, core.Combat.maxHealth);
@@ -66,5 +74,11 @@ public class Player : MonoBehaviour {
 
   private void AnimationStarted() => stateMachine.currentState.AnimationStarted();
   private void AnimationFinished() => stateMachine.currentState.AnimationFinished();
+
+  private void TriggerPlayerHit(float damage, int direction) {
+    core.Combat.Damage(damage);
+    float knockBackStrength = 12f;
+    core.Combat.Knockback(new Vector2(direction, 2), knockBackStrength, direction);
+  }
 
 }
