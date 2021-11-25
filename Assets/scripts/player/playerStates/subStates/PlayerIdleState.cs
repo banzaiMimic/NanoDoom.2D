@@ -21,11 +21,13 @@ public class PlayerIdleState : PlayerGroundedState {
 
   public override void Enter() {
     base.Enter();
+    Debug.Log("entered Idle state ----");
     core.Movement.SetVelocityX(0f);
   }
 
   public override void Exit() {
     base.Exit();
+    Debug.Log("exited Idle state ----");
   }
 
   public override void LogicUpdate() {

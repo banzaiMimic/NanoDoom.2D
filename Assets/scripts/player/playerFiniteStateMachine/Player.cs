@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
   public PlayerInAirState inAirState { get; private set; }
   public PlayerLandState landState { get; private set; }
   public PlayerAttackState primaryAttackState { get; private set; }
-  public PlayerAttackState secondaryAttackState { get; private set; }
+  public PlayerDashState dashState { get; private set; }
 
   public Core core { get; private set; }
   public Animator animator { get; private set; }
@@ -34,17 +34,6 @@ public class Player : MonoBehaviour {
     this.initializeStates();
   }
 
-  private void Start() {
-    this.animator = GetComponent<Animator>();
-    this.inputHandler = GetComponent<PlayerInputHandler>();
-    this.rBody = GetComponent<Rigidbody2D>();
-    this.bCollider = GetComponent<BoxCollider2D>();
-    this.stateMachine.Initialize(idleState);
-    this.inventory = GetComponent<PlayerInventory>();
-    this.primaryAttackState.SetWeapon(inventory.weapons[(int)CombatInputs.primary]);
-    //this.secondaryAttackState.SetWeapon(inventory.weapons[(int)CombatInputs.primary]);
-  }
-
   private void initializeStates() {
     this.stateMachine = new PlayerStateMachine();
     this.idleState = new PlayerIdleState(this, stateMachine, playerData, "idle");
@@ -53,7 +42,17 @@ public class Player : MonoBehaviour {
     this.inAirState = new PlayerInAirState(this, stateMachine, playerData, "inAir");
     this.landState = new PlayerLandState(this, stateMachine, playerData, "land");
     this.primaryAttackState = new PlayerAttackState(this, stateMachine, playerData, "attack");
-    this.secondaryAttackState = new PlayerAttackState(this, stateMachine, playerData, "attack");
+    this.dashState = new PlayerDashState(this, stateMachine, playerData, "dash");
+  }
+
+  private void Start() {
+    this.animator = GetComponent<Animator>();
+    this.inputHandler = GetComponent<PlayerInputHandler>();
+    this.rBody = GetComponent<Rigidbody2D>();
+    this.bCollider = GetComponent<BoxCollider2D>();
+    this.stateMachine.Initialize(idleState);
+    this.inventory = GetComponent<PlayerInventory>();
+    this.primaryAttackState.SetWeapon(inventory.weapons[(int)CombatInputs.primary]);
   }
 
   private void Update() {

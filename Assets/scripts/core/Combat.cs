@@ -24,10 +24,6 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
 
   public void Damage(float amount) {
     if (core != null) {
-      Debug.Log(core.transform.parent.name + " Damaged!");
-      Debug.Log("  amount: " + amount);
-      Debug.Log("  maxHealth: " + this.maxHealth);
-      Debug.Log("  currentHealth: " + this.currentHealth);
       this.currentHealth -= amount;
       if (core.transform.parent.name == "Player") {
         Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
@@ -38,7 +34,6 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
       if (this.currentHealth <= 0) {
         handleDeath();
       }
-      Debug.Log("  currentHealthUpdate: " + this.currentHealth);
     }
   }
 

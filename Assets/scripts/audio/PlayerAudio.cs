@@ -83,7 +83,6 @@ public class PlayerAudio : MonoBehaviour {
 
   private AudioClip RandomClip() {
     int randNum = UnityEngine.Random.Range(0, footsteps.Length);
-    Debug.Log("randNum: " + randNum);
     return footsteps[randNum];
   }
 

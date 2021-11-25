@@ -50,7 +50,6 @@ public sealed class Dispatcher {
   }
 
   public void OnUpdatePlayerHealth(float currentHealth, float maxHealth) {
-    Debug.Log("[Dispatcher] OnUpdatePlayerHealth received <-");
     OnUpdatePlayerHealthAction?.Invoke(currentHealth, maxHealth);
   }
 }
