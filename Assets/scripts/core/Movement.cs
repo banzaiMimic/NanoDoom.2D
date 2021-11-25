@@ -11,6 +11,7 @@ public class Movement : CoreComponent {
   public Vector2 currentVelocity { get; private set; }
   public int facingDirection { get; private set; }
   public bool canSetVelocity { get; set; }
+  public bool canFlip { get; set; }
 
   private Vector2 velocityWorkspace;
 
@@ -19,6 +20,7 @@ public class Movement : CoreComponent {
     rBody = GetComponentInParent<Rigidbody2D>();
     this.facingDirection = 1;
     this.canSetVelocity = true;
+    this.canFlip = true;
   }
 
   public void LogicUpdate() {
@@ -60,6 +62,12 @@ public class Movement : CoreComponent {
     currentVelocity = velocityWorkspace;
   }
 
+  public void SetVelocity(float velX, float velY) {
+    velocityWorkspace = new Vector2(velX, velY);
+    rBody.velocity = velocityWorkspace;
+    currentVelocity = velocityWorkspace;
+  }
+
   public void CheckIfShouldFlip(int xInput) {
     if (xInput != 0 && xInput != facingDirection) {
       Flip();
@@ -67,7 +75,9 @@ public class Movement : CoreComponent {
   }
 
   public void Flip() {
-    facingDirection *= -1;
-    tForm.Rotate(0.0f, 180.0f, 0.0f);
+    if (canFlip) {
+      facingDirection *= -1;
+      tForm.Rotate(0.0f, 180.0f, 0.0f);
+    }
   }
 }

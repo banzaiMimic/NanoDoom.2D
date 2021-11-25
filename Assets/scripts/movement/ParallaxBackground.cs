@@ -10,7 +10,6 @@ public class ParallaxBackground : MonoBehaviour {
   private float textureUnitSizeX;
 
   private void Start() {
-    Debug.Log("Parallax running");
     lastCameraPosition = cameraTransform.position;
     Sprite sprite = GetComponent<SpriteRenderer>().sprite;
     Texture2D texture = sprite.texture;

@@ -43,7 +43,7 @@ public class PlayerGroundedState : PlayerState {
     if (player.inputHandler.attackInputs[(int)CombatInputs.primary]) {
       stateMachine.ChangeState(player.primaryAttackState);
     } else if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
-      stateMachine.ChangeState(player.secondaryAttackState);
+      stateMachine.ChangeState(player.dashState);
     } else if (jumpInput && player.jumpState.CanJump()) {
       player.inputHandler.UseJumpInput(); // not sure on this, should be a better way to reset our jump bool
       stateMachine.ChangeState(player.jumpState);

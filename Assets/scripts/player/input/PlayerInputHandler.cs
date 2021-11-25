@@ -50,7 +50,6 @@ public class PlayerInputHandler : MonoBehaviour {
   }
   
   public void OnMoveInput(InputAction.CallbackContext context) {
-    Debug.Log("OnMoveInput --> " + context.ReadValue<Vector2>());
     rawMovementInput = context.ReadValue<Vector2>();
     normalizedInputX = Mathf.RoundToInt(rawMovementInput.x);
     normalizedInputY = Mathf.RoundToInt(rawMovementInput.y);
