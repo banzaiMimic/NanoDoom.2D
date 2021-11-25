@@ -42,7 +42,7 @@ public class PlayerDashState : PlayerAbilityState {
       TryDash();
     } else {
       Debug.Log("Cannot dash... Time.time: " + Time.time + " lastDash + dashCoolDown: " + (lastDash + dashCoolDown));
-      stateMachine.ChangeState(player.idleState);
+      stateMachine.ChangeState(player.stateMachine.previousState);
     }
   }
 
