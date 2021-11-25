@@ -47,6 +47,9 @@ TextureImporter:
   - first:
       213: -2418196558428526619
     second: player_14
+  - first:
+      213: -480808811739928509
+    second: player_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -77,7 +80,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -458,6 +461,27 @@ TextureImporter:
       bones: []
       spriteID: 5e7abc1da07d07ed0800000000000000
       internalID: -2418196558428526619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_15
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3482d53eee2d359f0800000000000000
+      internalID: -480808811739928509
       vertices: []
       indices: 
       edges: []
