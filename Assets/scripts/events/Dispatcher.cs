@@ -15,6 +15,7 @@ public sealed class Dispatcher {
   public event Action OnPlayerLandAction;
   public event Action OnPlayerMeleeSwingAction;
   public event Action OnPlayerMeleeHitAction;
+  public event Action<float, int> OnTriggerPlayerHitAction;
 
   static Dispatcher() { }
   private Dispatcher() { }
@@ -51,5 +52,9 @@ public sealed class Dispatcher {
 
   public void OnUpdatePlayerHealth(float currentHealth, float maxHealth) {
     OnUpdatePlayerHealthAction?.Invoke(currentHealth, maxHealth);
+  }
+
+  public void OnTriggerPlayerHit(float damage, int direction) {
+    OnTriggerPlayerHitAction?.Invoke(damage, direction);
   }
 }
