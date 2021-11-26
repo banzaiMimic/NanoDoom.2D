@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerAbilityState : PlayerState {
 
   protected bool isAbilityDone;
+  protected int chargesAvailable;
+  protected int chargesTotal;
 
   private string animBoolName;
   private bool isGrounded;
@@ -16,6 +18,8 @@ public class PlayerAbilityState : PlayerState {
     string animBoolName
   ) : base(player, stateMachine, playerData, animBoolName) {
     this.animBoolName = animBoolName;
+    this.chargesAvailable = playerData.startingAbilityCharges;
+    this.chargesTotal = playerData.maxAbilityCharges;
   }
 
   public override void DoChecks() {

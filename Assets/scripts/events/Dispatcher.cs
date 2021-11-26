@@ -16,12 +16,17 @@ public sealed class Dispatcher {
   public event Action OnPlayerMeleeSwingAction;
   public event Action OnPlayerMeleeHitAction;
   public event Action<float, int> OnTriggerPlayerHitAction;
+  public event Action<int, int> OnUpdatePlayerAbilityChargesAction;
 
   static Dispatcher() { }
   private Dispatcher() { }
 
   public static Dispatcher Instance {
     get { return instance; }
+  }
+
+  public void OnUpdatePlayerAbilityCharges(int charges, int max) {
+    OnUpdatePlayerAbilityChargesAction?.Invoke(charges, max);
   }
 
   public void OnPlayerJump() {

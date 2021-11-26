@@ -38,8 +38,9 @@ public class Player : MonoBehaviour {
 
   private void Awake() {
     core = GetComponentInChildren<Core>();
-    Dispatcher.Instance.OnUpdatePlayerHealth(core.Combat.currentHealth, core.Combat.maxHealth);
     this.initializeStates();
+    Dispatcher.Instance.OnUpdatePlayerHealth(core.Combat.currentHealth, core.Combat.maxHealth);
+    Dispatcher.Instance.OnUpdatePlayerAbilityCharges( playerData.startingAbilityCharges, playerData.maxAbilityCharges);
   }
 
   private void initializeStates() {
