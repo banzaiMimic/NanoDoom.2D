@@ -11,4 +11,6 @@ public class SO_PlayerData : ScriptableObject {
   public int amountOfJumps = 1;
   [Header("inAirState")]
   public float variableJumpHeightMultiplier = 0.5f;
+  public int startingAbilityCharges = 3;
+  public int maxAbilityCharges = 9;
 }

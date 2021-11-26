@@ -2,7 +2,14 @@ using System.Runtime.InteropServices;
 using System;
 using UnityEngine;
 
+public enum CollectibleType {
+  ABILITY,
+  HEALTH
+}
+
 public class Collectible : MonoBehaviour {
+
+  public CollectibleType type;
 
   private void OnEnable() {
     Dispatcher.Instance.OnPickupAction += this.handlePickup;

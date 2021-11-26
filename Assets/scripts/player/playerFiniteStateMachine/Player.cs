@@ -30,16 +30,19 @@ public class Player : MonoBehaviour {
 
   private void OnEnable() {
     Dispatcher.Instance.OnTriggerPlayerHitAction += this.TriggerPlayerHit;
+    Dispatcher.Instance.OnPickupAction += this.HandlePickup;
   }
 
   private void OnDisable() {
     Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
+    Dispatcher.Instance.OnPickupAction -= this.HandlePickup;
   }
 
   private void Awake() {
     core = GetComponentInChildren<Core>();
-    Dispatcher.Instance.OnUpdatePlayerHealth(core.Combat.currentHealth, core.Combat.maxHealth);
     this.initializeStates();
+    Dispatcher.Instance.OnUpdatePlayerHealth(core.Combat.currentHealth, core.Combat.maxHealth);
+    Dispatcher.Instance.OnUpdatePlayerAbilityCharges( playerData.startingAbilityCharges, playerData.maxAbilityCharges);
   }
 
   private void initializeStates() {
@@ -79,6 +82,15 @@ public class Player : MonoBehaviour {
     core.Combat.Damage(damage);
     float knockBackStrength = 12f;
     core.Combat.Knockback(new Vector2(direction, 2), knockBackStrength, direction);
+  }
+
+  private void HandlePickup(Collectible collectible) {
+    if (collectible.type == CollectibleType.ABILITY) {
+      int chargeUpdate = this.dashState.AddCharge();
+      Dispatcher.Instance.OnUpdatePlayerAbilityCharges(chargeUpdate, this.dashState.GetMaxCharges());
+    } else if (collectible.type == CollectibleType.HEALTH) {
+
+    }
   }
 
 }

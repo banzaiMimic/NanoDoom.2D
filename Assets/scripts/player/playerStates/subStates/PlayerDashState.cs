@@ -9,7 +9,7 @@ public class PlayerDashState : PlayerAbilityState {
   private float lastImageXpos;
   private float lastDash = -100f; // last dash time
   public float dashTime = 0.2f;
-  public float dashSpeed = 50f;
+  public float dashSpeed = 25f;
   public float distanceBetweenImages = 0.1f;
   public float dashCoolDown = 2.5f;
 
@@ -33,15 +33,19 @@ public class PlayerDashState : PlayerAbilityState {
   public override void Enter() {
     base.Enter();
     Debug.Log("entered Dash state ----");
-    if (dashTimeLeft < 0) {
-      dashTimeLeft = 0f;
-    }
-    Debug.Log("lastDash: " + lastDash + " isDashing: " + isDashing + " dashTimeLeft: " + dashTimeLeft + " isAbilityDone: " + isAbilityDone + " canSetVelocity: " + player.core.movement.canSetVelocity + " canFlip: " + player.core.movement.canFlip);
-    
-    if (Time.time >= (lastDash + dashCoolDown)) {
-      TryDash();
+    if (this.chargesAvailable > 0) {
+      if (dashTimeLeft < 0) {
+        dashTimeLeft = 0f;
+      }
+      Debug.Log("lastDash: " + lastDash + " isDashing: " + isDashing + " dashTimeLeft: " + dashTimeLeft + " isAbilityDone: " + isAbilityDone + " canSetVelocity: " + player.core.movement.canSetVelocity + " canFlip: " + player.core.movement.canFlip);
+      
+      if (Time.time >= (lastDash + dashCoolDown)) {
+        TryDash();
+      } else {
+        Debug.Log("Cannot dash... Time.time: " + Time.time + " lastDash + dashCoolDown: " + (lastDash + dashCoolDown));
+        stateMachine.ChangeState(player.stateMachine.previousState);
+      }
     } else {
-      Debug.Log("Cannot dash... Time.time: " + Time.time + " lastDash + dashCoolDown: " + (lastDash + dashCoolDown));
       stateMachine.ChangeState(player.stateMachine.previousState);
     }
   }
@@ -54,6 +58,8 @@ public class PlayerDashState : PlayerAbilityState {
 
     PlayerAfterImagePool.Instance.GetFromPool();
     lastImageXpos = player.core.transform.position.x;
+    this.chargesAvailable--;
+    Dispatcher.Instance.OnUpdatePlayerAbilityCharges(this.chargesAvailable, this.chargesTotal);
   }
 
   // check if should be dashing or stop
@@ -83,6 +89,7 @@ public class PlayerDashState : PlayerAbilityState {
 
   public override void Exit() {
     base.Exit();
+    player.core.movement.canSetVelocity = true;
     Debug.Log("---- exited Dash state ");
   }
 

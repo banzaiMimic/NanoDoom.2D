@@ -10,18 +10,9 @@ public class DamagesPlayer : MonoBehaviour {
     collider = GetComponent<Collider2D>();
   }
 
-  private void OnEnable() {
-    //Dispatcher.Instance.OnPickupAction += this.handlePickup;
-  }
-
-  private void OnDisable() {
-    //Dispatcher.Instance.OnPickupAction -= this.handlePickup;
-  }
-
   void OnTriggerEnter2D(Collider2D collision) {
     var player = collision.GetComponent<Player>();
     if (player) {
-      Debug.Log("[DamagesPlayer] Trigger out ->");
       if (collision.transform.position.x < collider.transform.position.x) {
         // player on left
         Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
@@ -29,7 +20,6 @@ public class DamagesPlayer : MonoBehaviour {
         // player on right
         Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
       }
-      //Dispatcher.Instance.OnPickup(this);
     }
   }
 
