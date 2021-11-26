@@ -28,7 +28,7 @@ public class EnemyFlying_MoveState : MoveState {
     base.LogicUpdate();
     // @TODO move vel y up and down
     float travelDistanceY = startY - Mathf.Abs(entity.transform.position.y);
-    Debug.Log("Mathf.Abs(travelDistanceY): " + Mathf.Abs(travelDistanceY));
+    
     if (Mathf.Abs(travelDistanceY) >= maxTravelDistanceY) {
       startY = Mathf.Abs(entity.transform.position.y);
       entity.core.Movement.SetVelocityY(-entity.core.Movement.currentVelocity.y);

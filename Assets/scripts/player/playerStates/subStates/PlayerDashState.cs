@@ -9,7 +9,7 @@ public class PlayerDashState : PlayerAbilityState {
   private float lastImageXpos;
   private float lastDash = -100f; // last dash time
   public float dashTime = 0.2f;
-  public float dashSpeed = 50f;
+  public float dashSpeed = 25f;
   public float distanceBetweenImages = 0.1f;
   public float dashCoolDown = 2.5f;
 
@@ -83,6 +83,7 @@ public class PlayerDashState : PlayerAbilityState {
 
   public override void Exit() {
     base.Exit();
+    player.core.movement.canSetVelocity = true;
     Debug.Log("---- exited Dash state ");
   }
 
