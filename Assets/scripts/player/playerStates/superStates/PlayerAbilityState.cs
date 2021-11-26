@@ -22,6 +22,21 @@ public class PlayerAbilityState : PlayerState {
     this.chargesTotal = playerData.maxAbilityCharges;
   }
 
+  public bool HasCharges() {
+    return this.chargesAvailable > 0;
+  }
+
+  public int AddCharge() {
+    if (this.chargesAvailable < this.chargesTotal) {
+      this.chargesAvailable++;
+    }
+    return this.chargesAvailable;
+  }
+
+  public int GetMaxCharges() {
+    return this.chargesTotal;
+  }
+
   public override void DoChecks() {
     base.DoChecks();
     isGrounded = core.CollisionSense.Ground;
