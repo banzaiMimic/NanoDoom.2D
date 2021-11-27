@@ -20,9 +20,9 @@ public class PlayerAudio : MonoBehaviour {
   private bool isMoving = false;
 
   private void Start() {
-    audioSource.clip = bgAmbient;
+    audioSource.clip = bgBoss;
     audioSource.loop = true;
-    audioSource.volume = .8f;
+    audioSource.volume = .6f;
     audioSource.Play();
   }
   
@@ -45,16 +45,16 @@ public class PlayerAudio : MonoBehaviour {
   }
 
   public void onPlayerJump() {
-    audioSource.PlayOneShot(jump, .1f);
+    audioSource.PlayOneShot(jump, .3f);
   }
   public void onPlayerLand() {
-    audioSource.PlayOneShot(land, .5f);
+    audioSource.PlayOneShot(land, .7f);
   }
   public void onPlayerMeleeSwing() {
     audioSource.PlayOneShot(meleeSwing, 1f);
   }
   public void onPlayerMeleeHit() {
-    audioSource.PlayOneShot(meleeHit, .6f);
+    audioSource.PlayOneShot(meleeHit, .8f);
   }
 
   private void playRunSfx() {
