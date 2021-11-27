@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnFlying : MonoBehaviour {
   
   [SerializeField] private GameObject flyingEnemy;
+  [SerializeField] private Player player;
 
   public float maxTime = 5;
   public float minTime = 2;
@@ -25,7 +26,7 @@ public class SpawnFlying : MonoBehaviour {
     time += Time.deltaTime;
 
     //Check if its the right time to spawn the object
-    if(time >= spawnTime){
+    if(time >= spawnTime && player){
       SpawnObject();
       SetRandomTime();
     }
@@ -37,7 +38,9 @@ public class SpawnFlying : MonoBehaviour {
   void SpawnObject(){
     Debug.Log("[SpawnFlying] -- spawning enemy flyer");
     time = minTime;
-    Instantiate (flyingEnemy, transform.position, flyingEnemy.transform.rotation);
+    float spawnY = player.core.Movement.rBody.transform.position.y + Random.Range(0f, 5f);
+    Vector3 spawnPoint = new Vector3(player.core.Movement.rBody.transform.position.x + 200, spawnY, player.core.Movement.rBody.transform.position.z);
+    Instantiate (flyingEnemy, player.core.Movement.rBody.transform.position , flyingEnemy.transform.rotation);
   }
 
   //Sets the random time between minTime and maxTime
