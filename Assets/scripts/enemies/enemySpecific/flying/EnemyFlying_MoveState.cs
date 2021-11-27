@@ -12,7 +12,7 @@ public class EnemyFlying_MoveState : MoveState {
   private float startY = 0f;
   private float startX = 0f;
   private float maxTravelDistanceY = 3f;
-  private float maxTravelDistanceX = 5f;
+  private float maxTravelDistanceX = 30f;
   
   public EnemyFlying_MoveState(
     Entity entity, 
@@ -40,7 +40,6 @@ public class EnemyFlying_MoveState : MoveState {
     base.LogicUpdate();
     float travelDistanceY = startY - Mathf.Abs(entity.core.Movement.rBody.transform.position.y);
     float travelDistanceX = startX - Mathf.Abs(entity.core.Movement.rBody.transform.position.x);
-    Debug.Log("[ef] travelDistanceX: " + travelDistanceX);
     if (Mathf.Abs(travelDistanceY) >= maxTravelDistanceY) {
       startY = Mathf.Abs(entity.transform.position.y);
       entity.core.Movement.SetVelocityY(-entity.core.Movement.currentVelocity.y);

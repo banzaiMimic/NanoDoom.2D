@@ -15,6 +15,9 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
 
   protected override void Awake() {
     base.Awake();
+    if (!this.cameraTransform) {
+      this.cameraTransform = GameObject.Find("CAM").transform;
+    }
     this.currentHealth = this.maxHealth;
   }
 

@@ -2089,7 +2089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &493330404
 Transform:
   m_ObjectHideFlags: 0
@@ -3470,9 +3470,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e014e2813385a748b22febf4c5ef277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {fileID: 0}
-  collisionSense: {fileID: 0}
-  combat: {fileID: 0}
+  movement: {fileID: 1235493508}
+  collisionSense: {fileID: 1974673672}
+  combat: {fileID: 1805848176}
 --- !u!1 &1407857633
 GameObject:
   m_ObjectHideFlags: 0
@@ -5195,7 +5195,7 @@ GameObject:
   - component: {fileID: 2145175088}
   - component: {fileID: 2145175087}
   m_Layer: 0
-  m_Name: CM vcam2
+  m_Name: CAM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
