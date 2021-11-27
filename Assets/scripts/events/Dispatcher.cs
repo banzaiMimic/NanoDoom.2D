@@ -51,7 +51,6 @@ public sealed class Dispatcher {
   }
 
   public void OnPickup(Collectible collectible) {
-    Debug.Log("[Dispatcher] OnPickup received <-");
     OnPickupAction?.Invoke(collectible);
   }
 

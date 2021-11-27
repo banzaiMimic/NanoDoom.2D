@@ -45,7 +45,6 @@ public class PlayerAbilityState : PlayerState {
   public override void Enter() {
     base.Enter();
     isAbilityDone = false;
-    Debug.Log("[playerAbility] " + animBoolName);
   }
 
   public override void Exit() {

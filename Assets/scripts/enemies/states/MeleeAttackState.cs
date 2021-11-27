@@ -48,7 +48,6 @@ public class MeleeAttackState : AttackState {
     foreach (Collider2D collider in detectedObjects) {
       IDamageable damageable = collider.GetComponent<IDamageable>();
       if (damageable != null) {
-        Debug.Log("[MeleeAttackState] sending Damage on " + collider.transform.parent.name);
         damageable.Damage(stateData.attackDamage);
       }
 

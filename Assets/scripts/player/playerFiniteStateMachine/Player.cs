@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,17 @@ public class Player : MonoBehaviour {
     Dispatcher.Instance.OnUpdatePlayerAbilityCharges( playerData.startingAbilityCharges, playerData.maxAbilityCharges);
   }
 
+  private void initializeStates() {
+    this.stateMachine = new PlayerStateMachine();
+    this.idleState = new PlayerIdleState(this, stateMachine, playerData, "idle");
+    this.moveState = new PlayerMoveState(this, stateMachine, playerData, "move");
+    this.jumpState = new PlayerJumpState(this, stateMachine, playerData, "inAir");
+    this.inAirState = new PlayerInAirState(this, stateMachine, playerData, "inAir");
+    this.landState = new PlayerLandState(this, stateMachine, playerData, "land");
+    this.primaryAttackState = new PlayerAttackState(this, stateMachine, playerData, "attack");
+    this.dashState = new PlayerDashState(this, stateMachine, playerData, "dash");
+  }
+
   public PlayerAbilityState GetActiveAbility() {
     return this.activeAbility;
   }
@@ -47,8 +59,11 @@ public class Player : MonoBehaviour {
   }
 
   public void UnlockAbility(PlayerAbilityState abilityState) {
-    if (this.unlockedAbilities.Contains(abilityState)) {
+    Debug.Log("Unlocking ability:" + abilityState);
+    if (!this.unlockedAbilities.Contains(abilityState)) {
       this.unlockedAbilities.Add(abilityState);
+      this.SetActiveAbility(abilityState);
+      Debug.Log("active ability set to : " + this.activeAbility);
     }
   }
 
@@ -60,17 +75,6 @@ public class Player : MonoBehaviour {
   private void OnDisable() {
     Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
     Dispatcher.Instance.OnPickupAction -= this.HandlePickup;
-  }
-
-  private void initializeStates() {
-    this.stateMachine = new PlayerStateMachine();
-    this.idleState = new PlayerIdleState(this, stateMachine, playerData, "idle");
-    this.moveState = new PlayerMoveState(this, stateMachine, playerData, "move");
-    this.jumpState = new PlayerJumpState(this, stateMachine, playerData, "inAir");
-    this.inAirState = new PlayerInAirState(this, stateMachine, playerData, "inAir");
-    this.landState = new PlayerLandState(this, stateMachine, playerData, "land");
-    this.primaryAttackState = new PlayerAttackState(this, stateMachine, playerData, "attack");
-    this.dashState = new PlayerDashState(this, stateMachine, playerData, "dash");
   }
 
   private void Start() {
@@ -102,12 +106,26 @@ public class Player : MonoBehaviour {
   }
 
   private void HandlePickup(Collectible collectible) {
-    if (collectible.type == CollectibleType.ABILITY) {
-      int chargeUpdate = this.dashState.AddCharge();
-      Dispatcher.Instance.OnUpdatePlayerAbilityCharges(chargeUpdate, this.dashState.GetMaxCharges());
-    } else if (collectible.type == CollectibleType.HEALTH) {
+    Debug.Log("Collected: " + collectible.type + " abilityType: " + collectible.abilityType);
+    switch (collectible.type) {
+      case CollectibleType.ABILITY_CHARGE:
+        int chargeUpdate = this.dashState.AddCharge();
+        Dispatcher.Instance.OnUpdatePlayerAbilityCharges(chargeUpdate, this.dashState.GetMaxCharges());
+      break;
+      case CollectibleType.HEALTH:
 
+      break;
+      case CollectibleType.ABILITY:
+        switch (collectible.abilityType) {
+          case AbilityType.DASH:
+            UnlockAbility(this.dashState);
+          break;
+          default:
+          break;
+        }
+      break;
     }
+    
   }
 
 }

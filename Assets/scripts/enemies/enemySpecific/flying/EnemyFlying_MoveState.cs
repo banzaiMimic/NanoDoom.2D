@@ -30,7 +30,6 @@ public class EnemyFlying_MoveState : MoveState {
 
   public override void Enter() {
     base.Enter();
-    Debug.Log("Flying move state entered");
     startY = Mathf.Abs(entity.transform.position.y);
     startX = Mathf.Abs(entity.transform.position.x);
     entity.core.Movement.SetVelocityY(-speedY);
@@ -46,14 +45,12 @@ public class EnemyFlying_MoveState : MoveState {
     }
 
     if (Mathf.Abs(travelDistanceX) >= maxTravelDistanceX) {
-      Debug.Log("DESTROY EF");
       this.entity.DestroyEntity();
     }
   }
 
   public override void Exit() {
     base.Exit();
-    Debug.Log("Flying move state exit");
   }
 
 }

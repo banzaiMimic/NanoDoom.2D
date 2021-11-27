@@ -4,12 +4,19 @@ using UnityEngine;
 
 public enum CollectibleType {
   ABILITY,
+  ABILITY_CHARGE,
   HEALTH
+}
+
+public enum AbilityType {
+  NONE,
+  DASH
 }
 
 public class Collectible : MonoBehaviour {
 
   public CollectibleType type;
+  public AbilityType abilityType = AbilityType.NONE;
 
   private void OnEnable() {
     Dispatcher.Instance.OnPickupAction += this.handlePickup;
@@ -22,7 +29,6 @@ public class Collectible : MonoBehaviour {
   void OnTriggerEnter2D(Collider2D other) {
     var player = other.GetComponent<Player>();
     if (player) {
-      Debug.Log("sending dispatcher onPickup from Collectible ->");
       Dispatcher.Instance.OnPickup(this);
     }
   }

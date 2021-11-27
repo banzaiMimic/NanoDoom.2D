@@ -45,6 +45,7 @@ public class PlayerGroundedState : PlayerState {
     } else if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
       
       PlayerAbilityState abilityState = player.GetActiveAbility();
+      Debug.Log("activeAbility: : " + abilityState);
       if (abilityState != null) {
         stateMachine.ChangeState(abilityState);
       }
