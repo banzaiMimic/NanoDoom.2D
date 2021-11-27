@@ -69,4 +69,8 @@ public class Entity : MonoBehaviour {
     }
   }
 
+  public void DestroyEntity() {
+    Destroy(this.gameObject);
+  }
+
 }

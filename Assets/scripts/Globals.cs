@@ -8,6 +8,7 @@ using UnityEngine;
 public sealed class Globals {
 
   private static readonly Globals instance = new Globals();
+  public float SpawnFlyingEnemyTime = 4f;
 
   // Explicit static constructor to tell C# compiler
   // not to mark type as beforefieldinit
