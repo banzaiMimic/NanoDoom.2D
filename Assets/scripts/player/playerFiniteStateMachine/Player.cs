@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
   public PlayerLandState landState { get; private set; }
   public PlayerAttackState primaryAttackState { get; private set; }
   public PlayerDashState dashState { get; private set; }
+  public List<PlayerAbilityState> unlockedAbilities { get; private set; }
+  public PlayerAbilityState activeAbility { get; private set; }
 
   public Core core { get; private set; }
   public Animator animator { get; private set; }
@@ -28,6 +30,28 @@ public class Player : MonoBehaviour {
   private BoxCollider2D bCollider;
   private Vector2 velocityWorkspace;
 
+  private void Awake() {
+    this.unlockedAbilities = new List<PlayerAbilityState>();
+    core = GetComponentInChildren<Core>();
+    this.initializeStates();
+    Dispatcher.Instance.OnUpdatePlayerHealth(core.Combat.currentHealth, core.Combat.maxHealth);
+    Dispatcher.Instance.OnUpdatePlayerAbilityCharges( playerData.startingAbilityCharges, playerData.maxAbilityCharges);
+  }
+
+  public PlayerAbilityState GetActiveAbility() {
+    return this.activeAbility;
+  }
+
+  public void SetActiveAbility(PlayerAbilityState abilityState) {
+    this.activeAbility = abilityState;
+  }
+
+  public void UnlockAbility(PlayerAbilityState abilityState) {
+    if (this.unlockedAbilities.Contains(abilityState)) {
+      this.unlockedAbilities.Add(abilityState);
+    }
+  }
+
   private void OnEnable() {
     Dispatcher.Instance.OnTriggerPlayerHitAction += this.TriggerPlayerHit;
     Dispatcher.Instance.OnPickupAction += this.HandlePickup;
@@ -36,13 +60,6 @@ public class Player : MonoBehaviour {
   private void OnDisable() {
     Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
     Dispatcher.Instance.OnPickupAction -= this.HandlePickup;
-  }
-
-  private void Awake() {
-    core = GetComponentInChildren<Core>();
-    this.initializeStates();
-    Dispatcher.Instance.OnUpdatePlayerHealth(core.Combat.currentHealth, core.Combat.maxHealth);
-    Dispatcher.Instance.OnUpdatePlayerAbilityCharges( playerData.startingAbilityCharges, playerData.maxAbilityCharges);
   }
 
   private void initializeStates() {
