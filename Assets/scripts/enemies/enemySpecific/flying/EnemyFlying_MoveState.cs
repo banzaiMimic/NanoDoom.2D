@@ -5,10 +5,6 @@ using UnityEngine;
 public class EnemyFlying_MoveState : MoveState {
 
   private float speedY = 3f;
-  private float minSpeedY = 1f;
-  private float maxSpeedY = 6f;
-  private float minSpeedX = 1f;
-  private float maxSpeedX = 6f;
   private float startY = 0f;
   private float startX = 0f;
   private float maxTravelDistanceY = 3f;
@@ -20,12 +16,7 @@ public class EnemyFlying_MoveState : MoveState {
     string animBoolName, 
     SO_MoveState stateData
   ) : base(entity, stateMachine, animBoolName, stateData) {
-    RandomizeParams();
-  }
 
-  private void RandomizeParams() {
-    this.speedY = Random.Range(minSpeedY, maxSpeedY);
-    this.stateData.movementSpeed = -Random.Range(minSpeedX, maxSpeedX);
   }
 
   public override void Enter() {

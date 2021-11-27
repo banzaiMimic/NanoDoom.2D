@@ -12,6 +12,7 @@ public class Movement : CoreComponent {
   public int facingDirection { get; private set; }
   public bool canSetVelocity { get; set; }
   public bool canFlip { get; set; }
+  public float baseSpeedMultiplier = 1;
 
   private Vector2 velocityWorkspace;
 
