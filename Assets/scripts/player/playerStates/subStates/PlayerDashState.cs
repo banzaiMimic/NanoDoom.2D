@@ -56,6 +56,7 @@ public class PlayerDashState : PlayerAbilityState {
     lastImageXpos = player.core.transform.position.x;
     this.chargesAvailable--;
     Dispatcher.Instance.OnUpdatePlayerAbilityCharges(this.chargesAvailable, this.chargesTotal);
+    Dispatcher.Instance.OnPlayerAbility(AbilityType.DASH, dashCoolDown);
   }
 
   // check if should be dashing or stop

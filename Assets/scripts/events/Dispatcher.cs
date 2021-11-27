@@ -17,6 +17,7 @@ public sealed class Dispatcher {
   public event Action OnPlayerMeleeHitAction;
   public event Action<float, int> OnTriggerPlayerHitAction;
   public event Action<int, int> OnUpdatePlayerAbilityChargesAction;
+  public event Action<AbilityType, float> OnPlayerAbilityAction;
 
   static Dispatcher() { }
   private Dispatcher() { }
@@ -27,6 +28,10 @@ public sealed class Dispatcher {
 
   public void OnUpdatePlayerAbilityCharges(int charges, int max) {
     OnUpdatePlayerAbilityChargesAction?.Invoke(charges, max);
+  }
+
+  public void OnPlayerAbility(AbilityType abilityType, float cdTime) {
+    OnPlayerAbilityAction?.Invoke(abilityType, cdTime);
   }
 
   public void OnPlayerJump() {
