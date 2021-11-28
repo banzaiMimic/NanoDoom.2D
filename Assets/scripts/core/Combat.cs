@@ -35,17 +35,20 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
         Dispatcher.Instance.OnPlayerMeleeHit();
       }
       if (this.currentHealth <= 0) {
-        handleDeath();
+        handleDeath(core.transform.parent.name);
       }
     }
   }
 
-  private void handleDeath() {
+  private void handleDeath(String name) {
     Instantiate(deathEffect, core.transform.position, Quaternion.identity);
     if (bloodSplatters.Length > 0) {
       splatterBlood();
     }
     Destroy(core.transform.parent.gameObject);
+    if (name == "Player") {
+      Dispatcher.Instance.OnPlayerDeath();
+    }
   }
 
   private void splatterBlood() {

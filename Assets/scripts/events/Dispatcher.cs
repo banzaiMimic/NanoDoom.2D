@@ -18,12 +18,17 @@ public sealed class Dispatcher {
   public event Action<float, int> OnTriggerPlayerHitAction;
   public event Action<int, int> OnUpdatePlayerAbilityChargesAction;
   public event Action<AbilityType, float> OnPlayerAbilityAction;
+  public event Action OnPlayerDeathAction;
 
   static Dispatcher() { }
   private Dispatcher() { }
 
   public static Dispatcher Instance {
     get { return instance; }
+  }
+
+  public void OnPlayerDeath() {
+    OnPlayerDeathAction?.Invoke();
   }
 
   public void OnUpdatePlayerAbilityCharges(int charges, int max) {
