@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
@@ -24,6 +25,8 @@ public class Player : MonoBehaviour {
 
   [SerializeField]
   private SO_PlayerData playerData;
+  [SerializeField]
+  private GameObject abilityDashUi;
 
   [HideInInspector]
   public MovementSM movementSm;
@@ -32,6 +35,7 @@ public class Player : MonoBehaviour {
   private Vector2 velocityWorkspace;
 
   private void Awake() {
+    this.abilityDashUi.SetActive(false);
     this.unlockedAbilities = new List<PlayerAbilityState>();
     core = GetComponentInChildren<Core>();
     this.initializeStates();
@@ -90,6 +94,13 @@ public class Player : MonoBehaviour {
   private void Update() {
     core.LogicUpdate();
     stateMachine.currentState.LogicUpdate();
+    PreventInfiniteFall();
+  }
+
+  private void PreventInfiniteFall() {
+    if (gameObject.transform.position.y <= -100f) {
+      SceneManager.LoadScene("Main", LoadSceneMode.Single);
+    }
   }
 
   private void FixedUpdate() {
@@ -118,6 +129,7 @@ public class Player : MonoBehaviour {
       case CollectibleType.ABILITY:
         switch (collectible.abilityType) {
           case AbilityType.DASH:
+            this.abilityDashUi.SetActive(true);
             UnlockAbility(this.dashState);
           break;
           default:
