@@ -11,23 +11,21 @@ public class DialogueManager : MonoBehaviour {
   [SerializeField] private GameObject continueButton;
   [SerializeField] private GameObject marshmallowPile0;
   [SerializeField] private GameObject marshmallowPile1;
+  [SerializeField] private GameObject bug;
   private bool isWriting = false;
 
   private void Awake() {
+    bug.SetActive(false);
     continueButton.SetActive(false);
     marshmallowPile0.SetActive(false);
     marshmallowPile1.SetActive(false);
   }
 
   public void StartDialogue(Dialogue dialogue) {
-    Debug.Log("Starting conversation with " + dialogue.name);
-
     this.sentences.Clear();
-
     foreach (string sentence in dialogue.sentences) {
       sentences.Enqueue(sentence);
     }
-
     DisplayNextSentence();
   }
 
@@ -37,8 +35,10 @@ public class DialogueManager : MonoBehaviour {
       return;
     } else if (sentences.Count == 1) {
       marshmallowPile1.SetActive(true);
+      bug.SetActive(false);
     } else if (sentences.Count == 2) {
       marshmallowPile0.SetActive(true);
+      bug.SetActive(true);
     }
 
     if (!isWriting) {
@@ -57,7 +57,6 @@ public class DialogueManager : MonoBehaviour {
       dialogue.text += letter;
       yield return new WaitForSeconds(.1f);
     }
-    Debug.Log("end typing sentence");
     isWriting = false;
     continueButton.SetActive(true);
   }
