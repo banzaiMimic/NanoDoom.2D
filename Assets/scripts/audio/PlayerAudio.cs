@@ -23,7 +23,7 @@ public class PlayerAudio : MonoBehaviour {
     audioSource.clip = bgBoss;
     audioSource.loop = true;
     audioSource.volume = .6f;
-    //audioSource.Play();
+    audioSource.Play();
   }
   
   private void OnEnable() {

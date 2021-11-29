@@ -9,10 +9,14 @@ public class DialogueManager : MonoBehaviour {
   private Queue<string> sentences = new Queue<string>();
   [SerializeField] private TMP_Text dialogue;
   [SerializeField] private GameObject continueButton;
+  [SerializeField] private GameObject marshmallowPile0;
+  [SerializeField] private GameObject marshmallowPile1;
   private bool isWriting = false;
 
   private void Awake() {
     continueButton.SetActive(false);
+    marshmallowPile0.SetActive(false);
+    marshmallowPile1.SetActive(false);
   }
 
   public void StartDialogue(Dialogue dialogue) {
@@ -31,6 +35,10 @@ public class DialogueManager : MonoBehaviour {
     if (sentences.Count == 0) {
       EndDialogue();
       return;
+    } else if (sentences.Count == 1) {
+      marshmallowPile1.SetActive(true);
+    } else if (sentences.Count == 2) {
+      marshmallowPile0.SetActive(true);
     }
 
     if (!isWriting) {
