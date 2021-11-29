@@ -21,10 +21,16 @@ public class SpawnFlying : MonoBehaviour {
 
   private void OnEnable() {
     Dispatcher.Instance.OnPlayerDeathAction += this.clearSpawns;
+    Dispatcher.Instance.OnPlayerRespawnAction += this.updatePlayer;
   }
 
   private void OnDisable() {
     Dispatcher.Instance.OnPlayerDeathAction -= this.clearSpawns;
+    Dispatcher.Instance.OnPlayerRespawnAction -= this.updatePlayer;
+  }
+
+  private void updatePlayer(Player playerUpdate) {
+    this.player = playerUpdate;
   }
 
   private void clearSpawns() {

@@ -29,6 +29,7 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     if (core != null) {
       this.currentHealth -= amount;
       if (core.transform.parent.name == "Player") {
+        Debug.Log("[Combat]-- playerHealth> " + currentHealth);
         Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
       } else {
         // leaving here for now but should have better way to handle for each entity
