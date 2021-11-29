@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,7 +40,7 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     }
   }
 
-  private void handleDeath(String name) {
+  private void handleDeath(string name) {
     Instantiate(deathEffect, core.transform.position, Quaternion.identity);
     if (bloodSplatters.Length > 0) {
       splatterBlood();
@@ -64,6 +63,15 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     core.Movement.canSetVelocity = false;
     isKnockbackActive = true;
     knockbackStartTime = Time.time;
+  }
+
+  public void SuperKnockback() {
+    float randDamage = Random.Range(20f, 40f);
+    float randX = Random.Range(20f, 500f);
+    float randY = Random.Range(20f, 500f);
+    float randStrength = Random.Range(50f, 100f);
+    Damage(randDamage);
+    Knockback(new Vector2(randX, randY), randStrength, 1);
   }
 
   private void CheckKnockback() {

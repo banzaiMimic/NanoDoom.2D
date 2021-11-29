@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,6 +52,8 @@ public class MeleeAttackState : AttackState {
         if (player != null) {
           if (player.stateMachine.currentState != player.dashState) {
             damageable.Damage(stateData.attackDamage);
+          } else {
+            entity.core.Combat.SuperKnockback();
           }
         }
       }
