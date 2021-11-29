@@ -12,7 +12,7 @@ public class DamagesPlayer : MonoBehaviour {
 
   void OnTriggerEnter2D(Collider2D collision) {
     var player = collision.GetComponent<Player>();
-    if (player) {
+    if (player && player.stateMachine.currentState != player.dashState) {
       if (collision.transform.position.x < col.transform.position.x) {
         // player on left
         Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class PlayerRespawn : MonoBehaviour {
   
@@ -29,8 +30,9 @@ public class PlayerRespawn : MonoBehaviour {
       if ((Time.time - respawnStartedAt) >= respawnAfter) {
         respawnStartedAt = Time.time;
         Debug.Log("[SpawnPlayer!]");
-        SpawnPlayer();
+        //SpawnPlayer();
         isRespawning = false;
+        SceneManager.LoadScene("Main", LoadSceneMode.Single);
       }
     }
   }
