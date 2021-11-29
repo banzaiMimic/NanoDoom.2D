@@ -27,6 +27,7 @@ public class Collectible : MonoBehaviour {
   }
 
   void OnTriggerEnter2D(Collider2D other) {
+    Debug.Log("COLLIDE WITH OTHER::::" + other);
     var player = other.GetComponent<Player>();
     if (player) {
       Dispatcher.Instance.OnPickup(this);

@@ -7,6 +7,7 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
   [SerializeField] public float maxHealth = 10f;
   [SerializeField] public GameObject[] bloodSplatters;
   [SerializeField] private Transform cameraTransform;
+  [SerializeField] private GameObject drop;
   public GameObject deathEffect;
   public float currentHealth;
   private bool isKnockbackActive;
@@ -49,6 +50,13 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     if (name == "Player") {
       Dispatcher.Instance.OnPlayerDeath();
     }
+    if (drop != null) {
+      ThrowDrop();
+    }
+  }
+
+  private void ThrowDrop() {
+    Instantiate(drop, core.transform.position, Quaternion.identity);
   }
 
   private void splatterBlood() {
