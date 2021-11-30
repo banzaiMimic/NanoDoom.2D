@@ -6,7 +6,7 @@ public class EnemyFlying : Entity {
 
   public EnemyFlying_MoveState moveState { get; private set; }
 
-  [SerializeField] private SO_MoveState moveStateData;
+  [SerializeField] public SO_MoveState moveStateData;
 
   public override void Awake() {
     base.Awake();

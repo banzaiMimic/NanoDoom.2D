@@ -8,7 +8,7 @@ public class PlayerDashState : PlayerAbilityState {
   private float dashTimeLeft;
   private float lastImageXpos;
   private float lastDash = -100f; // last dash time
-  public float dashTime = 0.2f;
+  public float dashTime = 0.4f;
   public float dashSpeed = 25f;
   public float distanceBetweenImages = 0.1f;
   public float dashCoolDown = 2.5f;
@@ -32,17 +32,14 @@ public class PlayerDashState : PlayerAbilityState {
 
   public override void Enter() {
     base.Enter();
-    Debug.Log("entered Dash state ----");
     if (this.chargesAvailable > 0) {
       if (dashTimeLeft < 0) {
         dashTimeLeft = 0f;
       }
-      Debug.Log("lastDash: " + lastDash + " isDashing: " + isDashing + " dashTimeLeft: " + dashTimeLeft + " isAbilityDone: " + isAbilityDone + " canSetVelocity: " + player.core.movement.canSetVelocity + " canFlip: " + player.core.movement.canFlip);
       
       if (Time.time >= (lastDash + dashCoolDown)) {
         TryDash();
       } else {
-        Debug.Log("Cannot dash... Time.time: " + Time.time + " lastDash + dashCoolDown: " + (lastDash + dashCoolDown));
         stateMachine.ChangeState(player.stateMachine.previousState);
       }
     } else {
@@ -51,7 +48,6 @@ public class PlayerDashState : PlayerAbilityState {
   }
 
   private void TryDash() {
-    Debug.Log("Trying Dash...");
     isDashing = true;
     dashTimeLeft = dashTime;
     lastDash = Time.time;
@@ -60,6 +56,7 @@ public class PlayerDashState : PlayerAbilityState {
     lastImageXpos = player.core.transform.position.x;
     this.chargesAvailable--;
     Dispatcher.Instance.OnUpdatePlayerAbilityCharges(this.chargesAvailable, this.chargesTotal);
+    Dispatcher.Instance.OnPlayerAbility(AbilityType.DASH, dashCoolDown);
   }
 
   // check if should be dashing or stop
@@ -90,7 +87,6 @@ public class PlayerDashState : PlayerAbilityState {
   public override void Exit() {
     base.Exit();
     player.core.movement.canSetVelocity = true;
-    Debug.Log("---- exited Dash state ");
   }
 
   public override void LogicUpdate() {

@@ -12,13 +12,18 @@ public class DamagesPlayer : MonoBehaviour {
 
   void OnTriggerEnter2D(Collider2D collision) {
     var player = collision.GetComponent<Player>();
-    if (player) {
+    if (player && player.stateMachine.currentState != player.dashState) {
       if (collision.transform.position.x < col.transform.position.x) {
         // player on left
         Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
       } else {
         // player on right
         Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
+      }
+    } else if(player && player.stateMachine.currentState == player.dashState) {
+      Combat thisEnemy = GetComponentInChildren<Combat>();
+      if (thisEnemy != null) {
+        thisEnemy.SuperKnockback();
       }
     }
   }

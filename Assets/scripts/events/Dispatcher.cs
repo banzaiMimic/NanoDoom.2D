@@ -17,6 +17,10 @@ public sealed class Dispatcher {
   public event Action OnPlayerMeleeHitAction;
   public event Action<float, int> OnTriggerPlayerHitAction;
   public event Action<int, int> OnUpdatePlayerAbilityChargesAction;
+  public event Action<AbilityType, float> OnPlayerAbilityAction;
+  public event Action OnPlayerDeathAction;
+  public event Action<Player> OnPlayerRespawnAction;
+  public event Action<float> OnScoreUpdateAction;
 
   static Dispatcher() { }
   private Dispatcher() { }
@@ -25,8 +29,24 @@ public sealed class Dispatcher {
     get { return instance; }
   }
 
+  public void OnScoreUpdate(float score) {
+    OnScoreUpdateAction?.Invoke(score);
+  }
+
+  public void OnPlayerRespawn(Player player) {
+    OnPlayerRespawnAction?.Invoke(player);
+  }
+
+  public void OnPlayerDeath() {
+    OnPlayerDeathAction?.Invoke();
+  }
+
   public void OnUpdatePlayerAbilityCharges(int charges, int max) {
     OnUpdatePlayerAbilityChargesAction?.Invoke(charges, max);
+  }
+
+  public void OnPlayerAbility(AbilityType abilityType, float cdTime) {
+    OnPlayerAbilityAction?.Invoke(abilityType, cdTime);
   }
 
   public void OnPlayerJump() {
@@ -51,7 +71,6 @@ public sealed class Dispatcher {
   }
 
   public void OnPickup(Collectible collectible) {
-    Debug.Log("[Dispatcher] OnPickup received <-");
     OnPickupAction?.Invoke(collectible);
   }
 

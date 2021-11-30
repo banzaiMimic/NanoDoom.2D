@@ -47,7 +47,10 @@ public class PlayerInAirState : PlayerState {
 
     } else if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
 
-      stateMachine.ChangeState(player.dashState);
+      PlayerAbilityState abilityState = player.GetActiveAbility();
+      if (abilityState != null) {
+        stateMachine.ChangeState(abilityState);
+      }
 
     } else if (isGrounded && core.Movement.currentVelocity.y < 0.01f) {
       stateMachine.ChangeState(player.landState);

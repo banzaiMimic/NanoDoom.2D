@@ -11,14 +11,21 @@ public class PlayerHud : MonoBehaviour {
   private void OnEnable() {
     Dispatcher.Instance.OnUpdatePlayerHealthAction += this.UpdateHealth;
     Dispatcher.Instance.OnUpdatePlayerAbilityChargesAction += this.UpdateAbilityCharges;
+    Dispatcher.Instance.OnPlayerRespawnAction += this.PlayerRespawn;
   }
 
   private void OnDisable() {
     Dispatcher.Instance.OnUpdatePlayerHealthAction -= this.UpdateHealth;
     Dispatcher.Instance.OnUpdatePlayerAbilityChargesAction -= this.UpdateAbilityCharges;
+    Dispatcher.Instance.OnPlayerRespawnAction -= this.PlayerRespawn;
+  }
+
+  private void PlayerRespawn(Player player) {
+    this.UpdateHealth(100f, 100f);
   }
 
   public void UpdateHealth(float currentHealth, float maxHealth) {
+    Debug.Log("[PlayerHud]-- < " + currentHealth);
     healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
   }
 

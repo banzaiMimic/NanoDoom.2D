@@ -5,10 +5,6 @@ using UnityEngine;
 public class EnemyFlying_MoveState : MoveState {
 
   private float speedY = 3f;
-  private float minSpeedY = 1f;
-  private float maxSpeedY = 6f;
-  private float minSpeedX = 1f;
-  private float maxSpeedX = 6f;
   private float startY = 0f;
   private float startX = 0f;
   private float maxTravelDistanceY = 3f;
@@ -20,17 +16,11 @@ public class EnemyFlying_MoveState : MoveState {
     string animBoolName, 
     SO_MoveState stateData
   ) : base(entity, stateMachine, animBoolName, stateData) {
-    RandomizeParams();
-  }
 
-  private void RandomizeParams() {
-    this.speedY = Random.Range(minSpeedY, maxSpeedY);
-    this.stateData.movementSpeed = -Random.Range(minSpeedX, maxSpeedX);
   }
 
   public override void Enter() {
     base.Enter();
-    Debug.Log("Flying move state entered");
     startY = Mathf.Abs(entity.transform.position.y);
     startX = Mathf.Abs(entity.transform.position.x);
     entity.core.Movement.SetVelocityY(-speedY);
@@ -46,14 +36,12 @@ public class EnemyFlying_MoveState : MoveState {
     }
 
     if (Mathf.Abs(travelDistanceX) >= maxTravelDistanceX) {
-      Debug.Log("DESTROY EF");
       this.entity.DestroyEntity();
     }
   }
 
   public override void Exit() {
     base.Exit();
-    Debug.Log("Flying move state exit");
   }
 
 }

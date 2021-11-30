@@ -1,6 +1,8 @@
+using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
@@ -12,6 +14,8 @@ public class Player : MonoBehaviour {
   public PlayerLandState landState { get; private set; }
   public PlayerAttackState primaryAttackState { get; private set; }
   public PlayerDashState dashState { get; private set; }
+  public List<PlayerAbilityState> unlockedAbilities { get; private set; }
+  public PlayerAbilityState activeAbility { get; private set; }
 
   public Core core { get; private set; }
   public Animator animator { get; private set; }
@@ -21,6 +25,8 @@ public class Player : MonoBehaviour {
 
   [SerializeField]
   private SO_PlayerData playerData;
+  [SerializeField]
+  private GameObject abilityDashUi;
 
   [HideInInspector]
   public MovementSM movementSm;
@@ -28,17 +34,9 @@ public class Player : MonoBehaviour {
   private BoxCollider2D bCollider;
   private Vector2 velocityWorkspace;
 
-  private void OnEnable() {
-    Dispatcher.Instance.OnTriggerPlayerHitAction += this.TriggerPlayerHit;
-    Dispatcher.Instance.OnPickupAction += this.HandlePickup;
-  }
-
-  private void OnDisable() {
-    Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
-    Dispatcher.Instance.OnPickupAction -= this.HandlePickup;
-  }
-
   private void Awake() {
+    this.abilityDashUi.SetActive(false);
+    this.unlockedAbilities = new List<PlayerAbilityState>();
     core = GetComponentInChildren<Core>();
     this.initializeStates();
     Dispatcher.Instance.OnUpdatePlayerHealth(core.Combat.currentHealth, core.Combat.maxHealth);
@@ -56,6 +54,33 @@ public class Player : MonoBehaviour {
     this.dashState = new PlayerDashState(this, stateMachine, playerData, "dash");
   }
 
+  public PlayerAbilityState GetActiveAbility() {
+    return this.activeAbility;
+  }
+
+  public void SetActiveAbility(PlayerAbilityState abilityState) {
+    this.activeAbility = abilityState;
+  }
+
+  public void UnlockAbility(PlayerAbilityState abilityState) {
+    Debug.Log("Unlocking ability:" + abilityState);
+    if (!this.unlockedAbilities.Contains(abilityState)) {
+      this.unlockedAbilities.Add(abilityState);
+      this.SetActiveAbility(abilityState);
+      Debug.Log("active ability set to : " + this.activeAbility);
+    }
+  }
+
+  private void OnEnable() {
+    Dispatcher.Instance.OnTriggerPlayerHitAction += this.TriggerPlayerHit;
+    Dispatcher.Instance.OnPickupAction += this.HandlePickup;
+  }
+
+  private void OnDisable() {
+    Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
+    Dispatcher.Instance.OnPickupAction -= this.HandlePickup;
+  }
+
   private void Start() {
     this.animator = GetComponent<Animator>();
     this.inputHandler = GetComponent<PlayerInputHandler>();
@@ -69,6 +94,13 @@ public class Player : MonoBehaviour {
   private void Update() {
     core.LogicUpdate();
     stateMachine.currentState.LogicUpdate();
+    PreventInfiniteFall();
+  }
+
+  private void PreventInfiniteFall() {
+    if (gameObject.transform.position.y <= -100f) {
+      SceneManager.LoadScene("Main", LoadSceneMode.Single);
+    }
   }
 
   private void FixedUpdate() {
@@ -85,12 +117,27 @@ public class Player : MonoBehaviour {
   }
 
   private void HandlePickup(Collectible collectible) {
-    if (collectible.type == CollectibleType.ABILITY) {
-      int chargeUpdate = this.dashState.AddCharge();
-      Dispatcher.Instance.OnUpdatePlayerAbilityCharges(chargeUpdate, this.dashState.GetMaxCharges());
-    } else if (collectible.type == CollectibleType.HEALTH) {
+    Debug.Log("Collected: " + collectible.type + " abilityType: " + collectible.abilityType);
+    switch (collectible.type) {
+      case CollectibleType.ABILITY_CHARGE:
+        int chargeUpdate = this.dashState.AddCharge();
+        Dispatcher.Instance.OnUpdatePlayerAbilityCharges(chargeUpdate, this.dashState.GetMaxCharges());
+      break;
+      case CollectibleType.HEALTH:
 
+      break;
+      case CollectibleType.ABILITY:
+        switch (collectible.abilityType) {
+          case AbilityType.DASH:
+            this.abilityDashUi.SetActive(true);
+            UnlockAbility(this.dashState);
+          break;
+          default:
+          break;
+        }
+      break;
     }
+    
   }
 
 }

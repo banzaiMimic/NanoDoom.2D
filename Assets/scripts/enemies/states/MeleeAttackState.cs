@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,8 +47,15 @@ public class MeleeAttackState : AttackState {
     foreach (Collider2D collider in detectedObjects) {
       IDamageable damageable = collider.GetComponent<IDamageable>();
       if (damageable != null) {
-        Debug.Log("[MeleeAttackState] sending Damage on " + collider.transform.parent.name);
-        damageable.Damage(stateData.attackDamage);
+        Player player = collider.GetComponentInParent<Player>();
+        Debug.Log("player? : " + player);
+        if (player != null) {
+          if (player.stateMachine.currentState != player.dashState) {
+            damageable.Damage(stateData.attackDamage);
+          } else {
+            entity.core.Combat.SuperKnockback();
+          }
+        }
       }
 
       IKnockbackable knockbackable = collider.GetComponent<IKnockbackable>();
