@@ -20,12 +20,17 @@ public sealed class Dispatcher {
   public event Action<AbilityType, float> OnPlayerAbilityAction;
   public event Action OnPlayerDeathAction;
   public event Action<Player> OnPlayerRespawnAction;
+  public event Action<float> OnScoreUpdateAction;
 
   static Dispatcher() { }
   private Dispatcher() { }
 
   public static Dispatcher Instance {
     get { return instance; }
+  }
+
+  public void OnScoreUpdate(float score) {
+    OnScoreUpdateAction?.Invoke(score);
   }
 
   public void OnPlayerRespawn(Player player) {

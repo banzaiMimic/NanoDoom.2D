@@ -49,6 +49,8 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     Destroy(core.transform.parent.gameObject);
     if (name == "Player") {
       Dispatcher.Instance.OnPlayerDeath();
+    } else {
+      Dispatcher.Instance.OnScoreUpdate(.86f);
     }
     if (drop != null) {
       ThrowDrop();
