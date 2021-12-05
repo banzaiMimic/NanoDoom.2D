@@ -56,7 +56,11 @@ public class Entity : MonoBehaviour {
   }
 
   public virtual bool CheckPlayerInCloseRangeAction() {
-    return Physics2D.Raycast(playerCheck.position, transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
+    if (this.core.Combat.isBeingKnockbacked()) {
+      return false;
+    } else {
+      return Physics2D.Raycast(playerCheck.position, transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
+    }
   }
 
   public virtual void OnDrawGizmos() {

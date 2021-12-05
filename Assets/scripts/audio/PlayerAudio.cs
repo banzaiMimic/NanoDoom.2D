@@ -14,6 +14,7 @@ public class PlayerAudio : MonoBehaviour {
   [SerializeField] private AudioClip land;
   [SerializeField] private AudioClip meleeSwing;
   [SerializeField] private AudioClip meleeHit;
+  [SerializeField] private bool muteBgAudio;
   public float timeBetweenSteps = 0.39f;
 
   private float timer;
@@ -23,7 +24,9 @@ public class PlayerAudio : MonoBehaviour {
     audioSource.clip = bgBoss;
     audioSource.loop = true;
     audioSource.volume = .6f;
-    audioSource.Play();
+    if (!muteBgAudio) {
+      audioSource.Play();
+    }
   }
   
   private void OnEnable() {

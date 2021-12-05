@@ -12,6 +12,7 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
   public float currentHealth;
   private bool isKnockbackActive;
   private float knockbackStartTime;
+  private float knockbackMinDuration = 1.3f;
 
   protected override void Awake() {
     base.Awake();
@@ -25,11 +26,14 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     CheckKnockback();
   }
 
+  public bool isBeingKnockbacked() {
+    return this.isKnockbackActive;
+  }
+
   public void Damage(float amount) {
     if (core != null) {
       this.currentHealth -= amount;
       if (core.transform.parent.name == "Player") {
-        Debug.Log("[Combat]-- playerHealth> " + currentHealth);
         Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
       } else {
         // leaving here for now but should have better way to handle for each entity
@@ -69,10 +73,10 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
   }
 
   public void Knockback(Vector2 angle, float strength, int direction) {
+    knockbackStartTime = Time.time;
+    isKnockbackActive = true;
     core.Movement.SetVelocity(strength, angle, direction);
     core.Movement.canSetVelocity = false;
-    isKnockbackActive = true;
-    knockbackStartTime = Time.time;
   }
 
   public void SuperKnockback() {
@@ -86,8 +90,10 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
 
   private void CheckKnockback() {
     if (isKnockbackActive && core.Movement.currentVelocity.y <= 0.01f && core.CollisionSense.Ground) {
-      isKnockbackActive = false;
       core.Movement.canSetVelocity = true;
+      if (knockbackMinDuration <= (Time.time - knockbackStartTime)) {
+        isKnockbackActive = false;
+      }
     }
   }
 

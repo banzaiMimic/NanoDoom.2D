@@ -24,6 +24,9 @@ public class Enemy1 : Entity {
   [SerializeField]
   private SO_MeleeAttackState meleeAttackStateData;
 
+  private Enemy1 myself;
+  private Vector3 startPos;
+
   [SerializeField]
   private Transform meleeAttackPosition;
 
@@ -37,13 +40,29 @@ public class Enemy1 : Entity {
     meleeAttackState = new E1_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
   }
 
+  public void OnEnable() {
+    myself = this;
+    startPos = this.transform.position;
+  }
+
+  public void OnDisable() {
+    //CloneMyself();
+  }
+
+  private void CloneMyself() {
+    Enemy1 newMe = Instantiate (myself, startPos, Quaternion.identity);
+    newMe.GetComponent<Animator>().enabled = true;
+    newMe.GetComponent<BoxCollider2D>().enabled = true;
+    newMe.enabled = true;
+  }
+
   public override void Start() {
     stateMachine.Initialize(moveState);
   }
 
   public override void OnDrawGizmos() {
     base.OnDrawGizmos();
-    //DrawMeleeAttackRadius();
+    DrawMeleeAttackRadius();
   }
 
   private void DrawMeleeAttackRadius() {

@@ -10,7 +10,7 @@ public class PlayerRespawn : MonoBehaviour {
   [SerializeField] private CinemachineVirtualCamera cinemachine;
   private bool isRespawning = false;
   private float respawnStartedAt = 0f;
-  private float respawnAfter = 5f;
+  private float respawnAfter = 1f;
 
   private void OnEnable() {
     Dispatcher.Instance.OnPlayerDeathAction += this.StartRespawn;

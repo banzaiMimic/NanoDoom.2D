@@ -15035,6 +15035,10 @@ PrefabInstance:
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 2145175088}
+    - target: {fileID: 8628944412376523095, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
+      propertyPath: muteBgAudio
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8628944412376523100, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
       propertyPath: abilityDashUi
       value: 
