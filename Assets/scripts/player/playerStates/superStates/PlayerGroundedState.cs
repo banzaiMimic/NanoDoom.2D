@@ -45,10 +45,9 @@ public class PlayerGroundedState : PlayerState {
     } else if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
       
       PlayerAbilityState abilityState = player.GetActiveAbility();
-      Debug.Log("activeAbility: : " + abilityState);
-      if (abilityState != null) {
-        stateMachine.ChangeState(abilityState);
-      }
+        if (abilityState != null && !AbilityCooldown.isOnCoolDown) {
+          stateMachine.ChangeState(abilityState);
+        }
 
     } else if (jumpInput && player.jumpState.CanJump()) {
       player.inputHandler.UseJumpInput(); // not sure on this, should be a better way to reset our jump bool

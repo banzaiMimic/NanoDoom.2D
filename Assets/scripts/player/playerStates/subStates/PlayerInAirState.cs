@@ -48,7 +48,7 @@ public class PlayerInAirState : PlayerState {
     } else if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
 
       PlayerAbilityState abilityState = player.GetActiveAbility();
-      if (abilityState != null) {
+      if (abilityState != null && !AbilityCooldown.isOnCoolDown) {
         stateMachine.ChangeState(abilityState);
       }
 

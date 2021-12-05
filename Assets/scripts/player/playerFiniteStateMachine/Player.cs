@@ -63,11 +63,9 @@ public class Player : MonoBehaviour {
   }
 
   public void UnlockAbility(PlayerAbilityState abilityState) {
-    Debug.Log("Unlocking ability:" + abilityState);
     if (!this.unlockedAbilities.Contains(abilityState)) {
       this.unlockedAbilities.Add(abilityState);
       this.SetActiveAbility(abilityState);
-      Debug.Log("active ability set to : " + this.activeAbility);
     }
   }
 
@@ -117,7 +115,6 @@ public class Player : MonoBehaviour {
   }
 
   private void HandlePickup(Collectible collectible) {
-    Debug.Log("Collected: " + collectible.type + " abilityType: " + collectible.abilityType);
     switch (collectible.type) {
       case CollectibleType.ABILITY_CHARGE:
         int chargeUpdate = this.dashState.AddCharge();

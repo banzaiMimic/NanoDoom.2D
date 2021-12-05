@@ -8,6 +8,9 @@ public class PlayerAbilityState : PlayerState {
   protected int chargesAvailable;
   protected int chargesTotal;
 
+  //@Todo might want to keep track of cd + timer from actual ability states...
+  //public bool offCoolDown = true;
+
   private string animBoolName;
   private bool isGrounded;
 
@@ -36,6 +39,7 @@ public class PlayerAbilityState : PlayerState {
   public int GetMaxCharges() {
     return this.chargesTotal;
   }
+
 
   public override void DoChecks() {
     base.DoChecks();

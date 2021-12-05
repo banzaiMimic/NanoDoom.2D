@@ -48,7 +48,6 @@ public class MeleeAttackState : AttackState {
       IDamageable damageable = collider.GetComponent<IDamageable>();
       if (damageable != null) {
         Player player = collider.GetComponentInParent<Player>();
-        Debug.Log("player? : " + player);
         if (player != null) {
           if (player.stateMachine.currentState != player.dashState) {
             damageable.Damage(stateData.attackDamage);

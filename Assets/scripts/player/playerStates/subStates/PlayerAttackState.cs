@@ -34,6 +34,15 @@ public class PlayerAttackState : PlayerAbilityState {
   public override void LogicUpdate() {
     base.LogicUpdate();
     xInput = player.inputHandler.normalizedInputX;
+
+    if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
+      
+      PlayerAbilityState abilityState = player.GetActiveAbility();
+      if (abilityState != null && !AbilityCooldown.isOnCoolDown) {
+        stateMachine.ChangeState(abilityState);
+      }
+
+    }
     
     if (shouldCheckFlip) {
       core.Movement.CheckIfShouldFlip(xInput);

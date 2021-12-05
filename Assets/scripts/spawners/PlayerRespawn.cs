@@ -29,8 +29,6 @@ public class PlayerRespawn : MonoBehaviour {
     if (isRespawning) {
       if ((Time.time - respawnStartedAt) >= respawnAfter) {
         respawnStartedAt = Time.time;
-        Debug.Log("[SpawnPlayer!]");
-        //SpawnPlayer();
         isRespawning = false;
         SceneManager.LoadScene("Main", LoadSceneMode.Single);
       }
@@ -38,7 +36,6 @@ public class PlayerRespawn : MonoBehaviour {
   }
 
   private void SpawnPlayer() {
-    Debug.Log("[Spawning player--]");
     GameObject spawn = Instantiate (this.player, this.transform);
     this.cinemachine.Follow = spawn.transform;
     Player playerUpdate = spawn.GetComponent<Player>();

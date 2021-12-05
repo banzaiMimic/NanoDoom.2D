@@ -25,7 +25,6 @@ public class PlayerHud : MonoBehaviour {
   }
 
   public void UpdateHealth(float currentHealth, float maxHealth) {
-    Debug.Log("[PlayerHud]-- < " + currentHealth);
     healthText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
   }
 
