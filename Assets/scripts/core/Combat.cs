@@ -72,6 +72,8 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     blood.AddComponent<BloodSplatterMovement>().cameraTransform = this.cameraTransform;
   }
 
+  //@Recall enemies not able to superKnockback if in knockbackstate
+  // after punching + dashing something gets bugged for dash collision
   public void Knockback(Vector2 angle, float strength, int direction) {
     knockbackStartTime = Time.time;
     isKnockbackActive = true;

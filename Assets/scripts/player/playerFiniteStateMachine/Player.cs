@@ -137,4 +137,21 @@ public class Player : MonoBehaviour {
     
   }
 
+  private void OnTriggerEnter2D(Collider2D collision) {
+
+    this.handleEnemySuperKnockback(collision);
+
+  }
+
+  private void handleEnemySuperKnockback(Collider2D collision) {
+    Debug.Log("Player Collision!");
+    if (this.stateMachine.currentState == this.dashState) {
+      Combat thisEnemy = collision.GetComponentInChildren<Combat>();
+      if (thisEnemy != null) {
+        Debug.Log("player collision - superknockback");
+        thisEnemy.SuperKnockback();
+      }
+    }
+  }
+
 }
