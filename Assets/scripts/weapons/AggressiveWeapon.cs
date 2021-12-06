@@ -7,8 +7,9 @@ using System.Linq;
 public class AggressiveWeapon : Weapon {
 
   protected SO_AggressiveWeaponData aggressiveWeaponData;
-  private List<IDamageable> detectedDamageables = new List<IDamageable>();
-  private List<IKnockbackable> detectedKnockbackables = new List<IKnockbackable>();
+  private List<Entity> entityHitList = new List<Entity>();
+  //private List<IDamageable> detectedDamageables = new List<IDamageable>();
+  //private List<IKnockbackable> detectedKnockbackables = new List<IKnockbackable>();
 
   protected override void Awake() {
     base.Awake();
@@ -26,54 +27,61 @@ public class AggressiveWeapon : Weapon {
 
   private void CheckMeleeAttack() {
     WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[attackCounter];
-    foreach (IDamageable item in detectedDamageables.ToList()) {
-      if (item.HasCore()) {
-        item.Damage(details.damageAmount);
-      } else {
-        RemoveDamageableFromList(item);
-      }
+
+    foreach (Entity entity in entityHitList.ToList()) {
+      Debug.Log("damaging [TryHit] on entity:" + entity.name);
+    }
+
+    // foreach (IDamageable item in detectedDamageables.ToList()) {
+    //   if (item.HasCore()) {
+    //     item.Damage(details.damageAmount);
+    //   } else {
+    //     RemoveDamageableFromList(item);
+    //   }
       
-    }
-    foreach (IKnockbackable item in detectedKnockbackables.ToList()) {
-      if (item.HasCore()) {
-        item.Knockback(details.knockbackAngle, details.knockbackStrength, core.Movement.facingDirection);
-      } else {
-        RemoveKnockbackableFromList(item);
-      }
-    }
+    // }
+    // foreach (IKnockbackable item in detectedKnockbackables.ToList()) {
+    //   if (item.HasCore()) {
+    //     item.Knockback(details.knockbackAngle, details.knockbackStrength, core.Movement.facingDirection);
+    //   } else {
+    //     RemoveKnockbackableFromList(item);
+    //   }
+    // }
   }
 
-  public void AddToDetected(Collider2D collision) {
-    IDamageable damageable = collision.GetComponent<IDamageable>();
+  public void AddEntityToHitList(Entity entity) {
+    entityHitList.Add(entity);
+    // IDamageable damageable = collision.GetComponent<IDamageable>();
 
-    if (damageable != null) {
-      detectedDamageables.Add(damageable);
-    }
+    // if (damageable != null) {
+    //   //detectedDamageables.Add(damageable);
+    // }
 
-    IKnockbackable knockbackable = collision.GetComponent<IKnockbackable>();
-    if (knockbackable != null) {
-      detectedKnockbackables.Add(knockbackable);
-    }
+    // IKnockbackable knockbackable = collision.GetComponent<IKnockbackable>();
+    // if (knockbackable != null) {
+    //   detectedKnockbackables.Add(knockbackable);
+    // }
   }
 
-  private void RemoveDamageableFromList(IDamageable item) {
-    detectedDamageables.Remove(item);
+  public void RemoveEntityFromHitList(Entity entity) {
+    entityHitList.Remove(entity);
   }
 
-  private void RemoveKnockbackableFromList(IKnockbackable item) {
-    detectedKnockbackables.Remove(item);
-  }
+  // private void RemoveKnockbackableFromList(IKnockbackable item) {
+  //   detectedKnockbackables.Remove(item);
+  // }
 
-  public void RemoveFromDetected(Collider2D collision) {
-    IDamageable damageable = collision.GetComponent<IDamageable>();
+  // public void RemoveFromDetected(Entity entity) {
+  //   detectedEntities.Remove(entity);
+  //   //IDamageable damageable = collision.GetComponent<IDamageable>();
 
-    if (damageable != null) {
-      detectedDamageables.Remove(damageable);
-    }
+  //   // if (damageable != null) {
+  //   //   detectedDamageables.Remove(damageable);
+  //   // }
 
-    IKnockbackable knockbackable = collision.GetComponent<IKnockbackable>();
-    if (knockbackable != null) {
-      detectedKnockbackables.Remove(knockbackable);
-    }
-  }
+  //   // IKnockbackable knockbackable = collision.GetComponent<IKnockbackable>();
+  //   // if (knockbackable != null) {
+  //   //   detectedKnockbackables.Remove(knockbackable);
+  //   // }
+  // }
 }

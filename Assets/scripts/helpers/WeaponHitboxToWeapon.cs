@@ -11,11 +11,19 @@ public class WeaponHitboxToWeapon : MonoBehaviour {
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
-    weapon.AddToDetected(collision);
+    Entity entity = collision.GetComponentInParent<Entity>();
+    if (entity != null) {
+      weapon.AddEntityToHitList(entity);
+    }
+    
   }
 
   private void OnTriggerExit2D(Collider2D collision) {
-    weapon.RemoveFromDetected(collision);
+    Entity entity = collision.GetComponentInParent<Entity>();
+    if (entity != null) {
+      weapon.RemoveEntityFromHitList(entity);
+    }
+    //weapon.RemoveFromDetected(collision);
   }
 
 }
