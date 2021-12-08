@@ -11,6 +11,8 @@ public class Entity : MonoBehaviour {
   public AnimationToStateMachine atsm { get; private set; }
   public Vector2 velocityWorkspace;
   public Core core { get; private set; }
+  
+  protected Dictionary<Type, State> states = new Dictionary<Type, State>();
 
   [SerializeField]
   private Transform wallCheck;
@@ -24,6 +26,14 @@ public class Entity : MonoBehaviour {
     animator = GetComponent<Animator>();
     atsm = GetComponent<AnimationToStateMachine>();
     stateMachine = new FiniteStateMachine();
+  }
+
+  public State getState(Type type) {
+    if (this.states.ContainsKey(type)) {
+      return this.states[type];
+    } else {
+      throw new Exception("State [" + type + "] not found on " + this.ToString());
+    }
   }
 
   public virtual void Start() {

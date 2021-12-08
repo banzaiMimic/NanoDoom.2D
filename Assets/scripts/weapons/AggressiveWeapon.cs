@@ -30,6 +30,14 @@ public class AggressiveWeapon : Weapon {
 
     foreach (Entity entity in entityHitList.ToList()) {
       Debug.Log("damaging [TryHit] on entity:" + entity.name);
+      //@Recall
+      // @Todo if entity is in blockState -> switch them to blockStunState
+      // State entityState = entity.stateMachine.currentState;
+      // Debug.Log("entity in " + entityState + " state.");
+      //Debug.Log("entity in " + entityState.ToString() + " state.");
+
+      entity.stateMachine.ChangeState(entity.getState(typeof(HitStunState)));
+      // default -> switch them to hitStunState
     }
 
     // foreach (IDamageable item in detectedDamageables.ToList()) {
