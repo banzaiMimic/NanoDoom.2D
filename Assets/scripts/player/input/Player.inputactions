@@ -51,6 +51,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "529cd553-08e4-4836-9677-0d69ef9b6971",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "gamepad",
+                    "action": "move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "WASD",
                     "id": "4bd88f3f-4b1b-4d95-a629-73d70460963b",
                     "path": "2DVector",

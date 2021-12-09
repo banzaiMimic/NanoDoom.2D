@@ -12,6 +12,7 @@ public class WeaponHitboxToWeapon : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D collision) {
     Entity entity = collision.GetComponentInParent<Entity>();
+    Debug.Log("[WeaponHitboxToWeapon] collision enter");
     if (entity != null) {
       weapon.AddEntityToHitList(entity);
     }

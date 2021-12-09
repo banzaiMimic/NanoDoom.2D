@@ -144,11 +144,9 @@ public class Player : MonoBehaviour {
   }
 
   private void handleEnemySuperKnockback(Collider2D collision) {
-    Debug.Log("Player Collision!");
     if (this.stateMachine.currentState == this.dashState) {
       Combat thisEnemy = collision.GetComponentInChildren<Combat>();
       if (thisEnemy != null) {
-        Debug.Log("player collision - superknockback");
         thisEnemy.SuperKnockback();
       }
     }

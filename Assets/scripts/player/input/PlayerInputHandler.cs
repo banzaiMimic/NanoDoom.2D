@@ -53,6 +53,7 @@ public class PlayerInputHandler : MonoBehaviour {
     rawMovementInput = context.ReadValue<Vector2>();
     normalizedInputX = Mathf.RoundToInt(rawMovementInput.x);
     normalizedInputY = Mathf.RoundToInt(rawMovementInput.y);
+    Combos.Instance.updateLastMovement(normalizedInputX, normalizedInputY);
   }
   
   public void OnJumpInput(InputAction.CallbackContext context) {

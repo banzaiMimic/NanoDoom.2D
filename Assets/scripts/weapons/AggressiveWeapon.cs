@@ -8,8 +8,6 @@ public class AggressiveWeapon : Weapon {
 
   protected SO_AggressiveWeaponData aggressiveWeaponData;
   private List<Entity> entityHitList = new List<Entity>();
-  //private List<IDamageable> detectedDamageables = new List<IDamageable>();
-  //private List<IKnockbackable> detectedKnockbackables = new List<IKnockbackable>();
 
   protected override void Awake() {
     base.Awake();
@@ -29,13 +27,13 @@ public class AggressiveWeapon : Weapon {
     WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[attackCounter];
 
     foreach (Entity entity in entityHitList.ToList()) {
-      Debug.Log("damaging [TryHit] on entity:" + entity.name);
+      Debug.Log("damaging [TryHit] on entity:" + entity.name + " Count is [" + entityHitList.Count);
       //@Recall
       // @Todo if entity is in blockState -> switch them to blockStunState
       // State entityState = entity.stateMachine.currentState;
       // Debug.Log("entity in " + entityState + " state.");
       //Debug.Log("entity in " + entityState.ToString() + " state.");
-
+      
       entity.stateMachine.ChangeState(entity.getState(typeof(HitStunState)));
       // default -> switch them to hitStunState
     }
