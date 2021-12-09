@@ -34,6 +34,23 @@ public class Player : MonoBehaviour {
   private BoxCollider2D bCollider;
   private Vector2 velocityWorkspace;
 
+  private void OnEnable() {
+    Dispatcher.Instance.OnPrimaryAttackAction += this.handlePrimaryAttack;
+    Dispatcher.Instance.OnTriggerPlayerHitAction += this.TriggerPlayerHit;
+    Dispatcher.Instance.OnPickupAction += this.HandlePickup;
+  }
+
+  private void OnDisable() {
+    Dispatcher.Instance.OnPrimaryAttackAction -= this.handlePrimaryAttack;
+    Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
+    Dispatcher.Instance.OnPickupAction -= this.HandlePickup;
+  }
+
+  private void handlePrimaryAttack() {
+    Debug.Log("[PlayerGroundedState] handleprimaryattack");
+    this.stateMachine.ChangeState(this.primaryAttackState);
+  }
+
   private void Awake() {
     this.abilityDashUi.SetActive(false);
     this.unlockedAbilities = new List<PlayerAbilityState>();
@@ -67,16 +84,6 @@ public class Player : MonoBehaviour {
       this.unlockedAbilities.Add(abilityState);
       this.SetActiveAbility(abilityState);
     }
-  }
-
-  private void OnEnable() {
-    Dispatcher.Instance.OnTriggerPlayerHitAction += this.TriggerPlayerHit;
-    Dispatcher.Instance.OnPickupAction += this.HandlePickup;
-  }
-
-  private void OnDisable() {
-    Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
-    Dispatcher.Instance.OnPickupAction -= this.HandlePickup;
   }
 
   private void Start() {

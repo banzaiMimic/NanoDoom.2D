@@ -21,12 +21,18 @@ public sealed class Dispatcher {
   public event Action OnPlayerDeathAction;
   public event Action<Player> OnPlayerRespawnAction;
   public event Action<float> OnScoreUpdateAction;
+  public event Action OnPrimaryAttackAction;
 
   static Dispatcher() { }
   private Dispatcher() { }
 
   public static Dispatcher Instance {
     get { return instance; }
+  }
+
+  public void OnPrimaryAttack() {
+    Debug.Log("[Dispatcher] OnPrimaryAttack");
+    OnPrimaryAttackAction?.Invoke();
   }
 
   public void OnScoreUpdate(float score) {

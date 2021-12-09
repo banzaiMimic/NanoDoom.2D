@@ -9,8 +9,8 @@ public class HitStunState : State {
 
   private float stunTime = 10f;
   private float stunTimeLeft;
-  private bool isStunned = false;
   private float? lastHitTime;
+  private bool isStunned = false;
   private int comboChains = 0;
 
   public HitStunState(
@@ -25,10 +25,10 @@ public class HitStunState : State {
 
   public override void Enter() {
     base.Enter();
-    Debug.Log("lastHitTime was : " + this.lastHitTime);
+    //Debug.Log("lastHitTime was : " + this.lastHitTime);
     
     if (this.hitWithinChainTime()) {
-      Debug.Log("[hitWithinChainTime] lastHitX: " + Combos.Instance.lastNormalizedInputX + " lastY: " + Combos.Instance.lastNormalizedInputY);
+      //Debug.Log("[hitWithinChainTime] lastHitX: " + Combos.Instance.lastNormalizedInputX + " lastY: " + Combos.Instance.lastNormalizedInputY);
       this.comboChains++;
       if (this.comboChains == 3) {
         // @Recall 
@@ -41,12 +41,12 @@ public class HitStunState : State {
     this.isStunned = true;
     this.lastHitTime = Time.time;
     //@Todo apply damage to self
-    Debug.Log("hit stun state entered.. lastHitTime set to: " + this.lastHitTime);
+    //Debug.Log("hit stun state entered.. lastHitTime set to: " + this.lastHitTime);
   }
 
   public override void Exit() {
     base.Exit();
-    Debug.Log("hit stun state exited..");
+    //Debug.Log("hit stun state exited..");
   }
 
   public override void LogicUpdate() {
@@ -59,6 +59,7 @@ public class HitStunState : State {
         this.isStunned = false;
         this.stateMachine.ChangeState(entity.getState(typeof(IdleState)));
       }
+
     }
   }
   

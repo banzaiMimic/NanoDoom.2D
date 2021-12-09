@@ -56,7 +56,10 @@ public class AggressiveWeapon : Weapon {
   }
 
   public void AddEntityToHitList(Entity entity) {
-    entityHitList.Add(entity);
+    Debug.Log("Adding to hitlist...");
+    if (!this.entityHitList.Contains(entity)) {
+      this.entityHitList.Add(entity);
+    }
     // IDamageable damageable = collision.GetComponent<IDamageable>();
 
     // if (damageable != null) {
@@ -70,7 +73,10 @@ public class AggressiveWeapon : Weapon {
   }
 
   public void RemoveEntityFromHitList(Entity entity) {
-    entityHitList.Remove(entity);
+    Debug.Log("Removing from hitlist...");
+    if (this.entityHitList.Contains(entity)) {
+      this.entityHitList.Remove(entity);
+    }
   }
 
   // private void RemoveKnockbackableFromList(IKnockbackable item) {

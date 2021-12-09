@@ -13,11 +13,16 @@ public class PlayerInputHandler : MonoBehaviour {
   public bool jumpInputStop { get; private set; }
   public bool[] attackInputs { get; private set; }
   public PlayerInput playerInput { get; private set; }
+  private Player player;
 
   [SerializeField]
   private float inputHoldTime = 0.2f;
 
   private float jumpInputStartTime;
+
+  private void Awake() {
+    this.player = GetComponent<Player>();
+  }
 
   private void Start() {
     this.playerInput = GetComponent<PlayerInput>();
@@ -31,12 +36,16 @@ public class PlayerInputHandler : MonoBehaviour {
 
   public void OnPrimaryAttackInput(InputAction.CallbackContext context) {
     if (context.started) {
-      attackInputs[(int)CombatInputs.primary] = true;
+      Debug.Log("[PlayerInputHandler] dispatching OnPrimaryAttack");
+      Dispatcher.Instance.OnPrimaryAttack();
     }
+    // if (context.started) {
+    //   attackInputs[(int)CombatInputs.primary] = true;
+    // }
 
-    if (context.canceled) {
-      attackInputs[(int)CombatInputs.primary] = false;
-    }
+    // if (context.canceled) {
+    //   attackInputs[(int)CombatInputs.primary] = false;
+    // }
   }
 
   public void OnSecondaryAttackInput(InputAction.CallbackContext context) {
@@ -50,10 +59,13 @@ public class PlayerInputHandler : MonoBehaviour {
   }
   
   public void OnMoveInput(InputAction.CallbackContext context) {
-    rawMovementInput = context.ReadValue<Vector2>();
-    normalizedInputX = Mathf.RoundToInt(rawMovementInput.x);
-    normalizedInputY = Mathf.RoundToInt(rawMovementInput.y);
-    Combos.Instance.updateLastMovement(normalizedInputX, normalizedInputY);
+    if (this.player.core.Movement.canMove) {
+      Debug.Log("moving...");
+      rawMovementInput = context.ReadValue<Vector2>();
+      normalizedInputX = Mathf.RoundToInt(rawMovementInput.x);
+      normalizedInputY = Mathf.RoundToInt(rawMovementInput.y);
+      Combos.Instance.updateLastMovement(normalizedInputX, normalizedInputY);
+    }
   }
   
   public void OnJumpInput(InputAction.CallbackContext context) {

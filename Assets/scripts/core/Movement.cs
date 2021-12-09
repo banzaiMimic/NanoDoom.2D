@@ -12,16 +12,33 @@ public class Movement : CoreComponent {
   public int facingDirection { get; private set; }
   public bool canSetVelocity { get; set; }
   public bool canFlip { get; set; }
+  public bool canMove { get; private set; }
   public float baseSpeedMultiplier = 1;
 
   private Vector2 velocityWorkspace;
 
   protected override void Awake() {
     base.Awake();
-    rBody = GetComponentInParent<Rigidbody2D>();
+    this.rBody = GetComponentInParent<Rigidbody2D>();
     this.facingDirection = 1;
+    this.canMove = true;
     this.canSetVelocity = true;
     this.canFlip = true;
+  }
+
+  public void DisableMovement() {
+    Debug.Log("Movement disabled.");
+    this.SetVelocityZero();
+    this.canMove = false;
+    this.canSetVelocity = false;
+    this.canFlip = false;
+  }
+
+  public void EnableMovement() {
+    Debug.Log("Movement enabled.");
+    this.canSetVelocity = true;
+    this.canFlip = true;
+    this.canMove = true;
   }
 
   public void LogicUpdate() {
