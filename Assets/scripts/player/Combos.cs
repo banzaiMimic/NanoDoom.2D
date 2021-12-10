@@ -6,6 +6,7 @@ public sealed class Combos {
 
   private static readonly Combos instance = new Combos();
   public float ChainIfWithinTime = 1f;
+  public Vector2 lastRawInput = new Vector2();
   public int lastNormalizedInputX = 0;
   public int lastNormalizedInputY = 0;
 
@@ -14,9 +15,10 @@ public sealed class Combos {
   static Combos() { }
   private Combos() { }
 
-  public void updateLastMovement(int x, int y) {
-    this.lastNormalizedInputX = x;
-    this.lastNormalizedInputY = y;
+  public void updateLastMovement(Vector2 rawInput, int normalizedX, int normalizedY) {
+    this.lastRawInput = rawInput;
+    this.lastNormalizedInputX = normalizedX;
+    this.lastNormalizedInputY = normalizedY;
   }
 
   public static Combos Instance {

@@ -8,6 +8,7 @@ public class AggressiveWeapon : Weapon {
 
   protected SO_AggressiveWeaponData aggressiveWeaponData;
   private List<Entity> entityHitList = new List<Entity>();
+  private float hitDistance = 3f;
 
   protected override void Awake() {
     base.Awake();
@@ -23,20 +24,33 @@ public class AggressiveWeapon : Weapon {
     CheckMeleeAttack();
   }
 
+  private void handleMeleeAttack() {
+    Vector3 startV3 = this.core.transform.position;
+    Vector2 origin = new Vector2( startV3.x, startV3.y );
+    // @Todo end should be direction of d-pad + someDistance from origin 
+    Vector2 lastRawInput = Combos.Instance.lastRawInput;
+    float endX = (origin.x + lastRawInput.x) + hitDistance * this.core.Movement.facingDirection;
+    //float endY = (origin.y + lastRawInput.y) + hitDistance
+    //Vector2 end = new Vector2( ,  );
+    //RaycastHit2D checkEnemies = Physics2D.Linecast( origin, );
+  }
+
   private void CheckMeleeAttack() {
     WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[attackCounter];
 
-    foreach (Entity entity in entityHitList.ToList()) {
-      Debug.Log("damaging [TryHit] on entity:" + entity.name + " Count is [" + entityHitList.Count);
-      //@Recall
-      // @Todo if entity is in blockState -> switch them to blockStunState
-      // State entityState = entity.stateMachine.currentState;
-      // Debug.Log("entity in " + entityState + " state.");
-      //Debug.Log("entity in " + entityState.ToString() + " state.");
+
+
+    // foreach (Entity entity in entityHitList.ToList()) {
+    //   Debug.Log("damaging [TryHit] on entity:" + entity.name + " Count is [" + entityHitList.Count);
+    //   //@Recall
+    //   // @Todo if entity is in blockState -> switch them to blockStunState
+    //   // State entityState = entity.stateMachine.currentState;
+    //   // Debug.Log("entity in " + entityState + " state.");
+    //   //Debug.Log("entity in " + entityState.ToString() + " state.");
       
-      entity.stateMachine.ChangeState(entity.getState(typeof(HitStunState)));
-      // default -> switch them to hitStunState
-    }
+    //   entity.stateMachine.ChangeState(entity.getState(typeof(HitStunState)));
+    //   // default -> switch them to hitStunState
+    // }
 
     // foreach (IDamageable item in detectedDamageables.ToList()) {
     //   if (item.HasCore()) {
