@@ -38,7 +38,7 @@ public class AggressiveWeapon : Weapon {
   private void CheckMeleeAttack() {
     WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[attackCounter];
 
-
+    
 
     // foreach (Entity entity in entityHitList.ToList()) {
     //   Debug.Log("damaging [TryHit] on entity:" + entity.name + " Count is [" + entityHitList.Count);
