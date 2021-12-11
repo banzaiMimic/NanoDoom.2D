@@ -11,7 +11,8 @@
                     "id": "365e0610-1331-4a47-b249-bb6a6de9ab95",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "jump",
@@ -19,7 +20,8 @@
                     "id": "6a2ae04a-10d7-471d-846e-d92ba74f9475",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "primaryAttack",
@@ -27,7 +29,8 @@
                     "id": "7da32da8-6d6c-40a1-b683-ab403639fc61",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "secondaryAttack",
@@ -35,7 +38,8 @@
                     "id": "c99ebb50-3740-471a-985f-8c27e3407f81",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -55,7 +59,7 @@
                     "id": "529cd553-08e4-4836-9677-0d69ef9b6971",
                     "path": "<Gamepad>/dpad",
                     "interactions": "",
-                    "processors": "StickDeadzone",
+                    "processors": "",
                     "groups": "gamepad",
                     "action": "move",
                     "isComposite": false,

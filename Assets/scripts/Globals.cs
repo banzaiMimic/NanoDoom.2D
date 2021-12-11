@@ -15,6 +15,10 @@ public sealed class Globals {
   static Globals() { }
   private Globals() { }
 
+  public static void Log(string msg) {
+    Debug.Log($"<color=#00FF00>" + msg + "</color>");
+  }
+
   public static Globals Instance {
     get {
       return instance;

@@ -27,7 +27,7 @@ public class Movement : CoreComponent {
   }
 
   public void DisableMovement() {
-    Debug.Log("Movement disabled.");
+    //Debug.Log("Movement disabled.");
     this.SetVelocityZero();
     this.canMove = false;
     this.canSetVelocity = false;
@@ -35,7 +35,7 @@ public class Movement : CoreComponent {
   }
 
   public void EnableMovement() {
-    Debug.Log("Movement enabled.");
+    //Debug.Log("Movement enabled.");
     this.canSetVelocity = true;
     this.canFlip = true;
     this.canMove = true;

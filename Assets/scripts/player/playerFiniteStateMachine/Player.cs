@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour {
   }
 
   private void handlePrimaryAttack() {
-    Debug.Log("[PlayerGroundedState] handleprimaryattack");
+    //Debug.Log("[PlayerGroundedState] handleprimaryattack");
     this.stateMachine.ChangeState(this.primaryAttackState);
   }
 
@@ -100,13 +101,6 @@ public class Player : MonoBehaviour {
     core.LogicUpdate();
     stateMachine.currentState.LogicUpdate();
     PreventInfiniteFall();
-
-    Vector3 startV3 = this.core.transform.position;
-    Vector2 origin = new Vector2( startV3.x, startV3.y );
-    Vector2 lastRawInput = Combos.Instance.lastRawInput;
-    //float hitDistance = 1f;
-    Debug.Log("last rawInputX: " + lastRawInput.x + " last rawInputY: " + lastRawInput.y);
-    Debug.DrawLine( new Vector3(origin.x, origin.y), new Vector3(origin.x + lastRawInput.x, origin.y + lastRawInput.y));
   }
 
   private void PreventInfiniteFall() {

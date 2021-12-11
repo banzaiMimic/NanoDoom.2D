@@ -36,7 +36,7 @@ public class PlayerInputHandler : MonoBehaviour {
 
   public void OnPrimaryAttackInput(InputAction.CallbackContext context) {
     if (context.started) {
-      Debug.Log("[PlayerInputHandler] dispatching OnPrimaryAttack");
+      //Debug.Log("[PlayerInputHandler] dispatching OnPrimaryAttack");
       Dispatcher.Instance.OnPrimaryAttack();
     }
     // if (context.started) {
@@ -60,11 +60,19 @@ public class PlayerInputHandler : MonoBehaviour {
   
   public void OnMoveInput(InputAction.CallbackContext context) {
     if (this.player.core.Movement.canMove) {
-      Debug.Log("moving...");
       rawMovementInput = context.ReadValue<Vector2>();
       normalizedInputX = Mathf.RoundToInt(rawMovementInput.x);
       normalizedInputY = Mathf.RoundToInt(rawMovementInput.y);
-      Combos.Instance.updateLastMovement(rawMovementInput, normalizedInputX, normalizedInputY);
+      
+      Vector2 rawMovementHackFix = rawMovementInput;
+
+      // keyboard (d key) movement was showing values at 0.707107, not sure where offset is coming from (gamepad + d-pad are correct)
+      if (rawMovementHackFix.y == -0.707107f) {
+        rawMovementHackFix = new Vector2(rawMovementHackFix.x, rawMovementHackFix.y + 0.707107f);
+      }
+      //Debug.Log("moving... x: " + rawMovementHackFix.x);
+      //Debug.Log("y: " + rawMovementHackFix.y);
+      Combos.Instance.updateLastMovement(rawMovementHackFix, normalizedInputX, normalizedInputY);
     }
   }
   

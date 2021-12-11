@@ -23,19 +23,15 @@ public class PlayerAttackState : PlayerAbilityState {
 
   private bool hitWithinChainTime() {
     bool result = (Time.time - this.lastHitTime) <= Combos.Instance.ChainIfWithinTime;
-    Debug.Log("comboTime: " + result + (Time.time - this.lastHitTime));
+    //Debug.Log("comboTime: " + result + (Time.time - this.lastHitTime));
     return result;
-  }
-
-  public void LogHighlight(string msg) {
-    Debug.Log($"<color=#00FF00>" + msg + "</color>");
   }
 
   public override void Enter() {
     base.Enter();
     // enable player movement
     
-    LogHighlight("entering attack state-- " + this.comboChains + " comboChains.");
+    //LogHighlight("entering attack state-- " + this.comboChains + " comboChains.");
     this.core.Movement.EnableMovement();
     Dispatcher.Instance.OnPlayerMeleeSwing();
     setVelocity = false;
@@ -43,7 +39,7 @@ public class PlayerAttackState : PlayerAbilityState {
 
     if (this.hitWithinChainTime()) {
       //Debug.Log("[PlayerAttackState - hitWithinChainTime] lastHitX: " + Combos.Instance.lastNormalizedInputX + " lastY: " + Combos.Instance.lastNormalizedInputY);
-      Debug.Log("combo++ " + this.comboChains);
+      //Debug.Log("combo++ " + this.comboChains);
       this.comboChains++;
       // first combo chain means 2 consecutive swings
       if (this.comboChains == 2) {
