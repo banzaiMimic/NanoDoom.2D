@@ -194,6 +194,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8628944412599805428, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628944413762768158, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 525788455}
     - target: {fileID: 8628944413762768158, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
       propertyPath: firePoint
       value: 
@@ -1160,19 +1168,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5902797267568308824, guid: 6b941b13325beed4b9bd2fe966da904f, type: 3}
       propertyPath: m_CollisionDetection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5902797268793461591, guid: 6b941b13325beed4b9bd2fe966da904f, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 1087697469}
     - target: {fileID: 5902797268793461592, guid: 6b941b13325beed4b9bd2fe966da904f, type: 3}
+      propertyPath: m_Size.y
+      value: 4.0685873
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902797268793461592, guid: 6b941b13325beed4b9bd2fe966da904f, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5902797268793461592, guid: 6b941b13325beed4b9bd2fe966da904f, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.4891042
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902797268793461592, guid: 6b941b13325beed4b9bd2fe966da904f, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5902797268982552070, guid: 6b941b13325beed4b9bd2fe966da904f, type: 3}
       propertyPath: m_LocalPosition.x

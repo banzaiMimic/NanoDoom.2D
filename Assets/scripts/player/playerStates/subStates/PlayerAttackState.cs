@@ -31,12 +31,13 @@ public class PlayerAttackState : PlayerAbilityState {
 
   public override void Enter() {
     base.Enter();
+    Dispatcher.Instance.OnPrimaryAttack();
     this.timeInState = this.resetTimeInState;
     // enable player movement
     
     //LogHighlight("entering attack state-- " + this.comboChains + " comboChains.");
     this.core.Movement.EnableMovement();
-    Dispatcher.Instance.OnPlayerMeleeSwing();
+    Dispatcher.Instance.onPlayerMeleeSwingSound();
     setVelocity = false;
     weapon.EnterWeapon();
 
@@ -64,11 +65,18 @@ public class PlayerAttackState : PlayerAbilityState {
 
   public override void LogicUpdate() {
     base.LogicUpdate();
+    if (this.isAnimationFinished) {
+      this.stateMachine.ChangeState(this.player.idleState);
+      return;
+    }
     if (this.timeInState > 0) {
       this.timeInState -= Time.deltaTime;
     } else {
       this.timeInState = 0;
-      this.stateMachine.ChangeState(this.player.idleState);
+      Debug.Log("calling change state back to idle...");
+      this.AnimationFinished();
+      
+      //this.stateMachine.ChangeState(this.player.idleState);
     }
     xInput = player.inputHandler.normalizedInputX;
 

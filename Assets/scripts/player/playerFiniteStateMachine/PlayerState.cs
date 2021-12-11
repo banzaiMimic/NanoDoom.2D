@@ -28,6 +28,7 @@ public class PlayerState {
   }
 
   public virtual void Enter() {
+    Globals.Log("entered " + this.animBoolName);
     DoChecks();
     player.animator.SetBool(animBoolName, true);
     startTime = Time.time;
@@ -35,6 +36,7 @@ public class PlayerState {
   }
 
   public virtual void Exit() {
+    Globals.Log("exited " + this.animBoolName);
     player.animator.SetBool(animBoolName, false);
   }
 

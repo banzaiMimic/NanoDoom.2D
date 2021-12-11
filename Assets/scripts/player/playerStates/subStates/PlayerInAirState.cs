@@ -41,11 +41,7 @@ public class PlayerInAirState : PlayerState {
 
     CheckJumpMultiplier();
 
-    if (player.inputHandler.attackInputs[(int)CombatInputs.primary]) {
-
-      stateMachine.ChangeState(player.primaryAttackState);
-
-    } else if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
+    if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
 
       PlayerAbilityState abilityState = player.GetActiveAbility();
       if (abilityState != null && !AbilityCooldown.isOnCoolDown) {

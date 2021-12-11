@@ -21,6 +21,7 @@ public sealed class Dispatcher {
   public event Action OnPlayerDeathAction;
   public event Action<Player> OnPlayerRespawnAction;
   public event Action<float> OnScoreUpdateAction;
+  public event Action OnPrimaryAttackStateChangeRequestAction;
   public event Action OnPrimaryAttackAction;
 
   static Dispatcher() { }
@@ -31,8 +32,11 @@ public sealed class Dispatcher {
   }
 
   public void OnPrimaryAttack() {
-    Debug.Log("[Dispatcher] OnPrimaryAttack");
     OnPrimaryAttackAction?.Invoke();
+  }
+
+  public void OnPrimaryAttackStateChangeRequest() {
+    OnPrimaryAttackStateChangeRequestAction?.Invoke();
   }
 
   public void OnScoreUpdate(float score) {
@@ -61,7 +65,7 @@ public sealed class Dispatcher {
   public void OnPlayerLand() {
     OnPlayerLandAction?.Invoke();
   }
-  public void OnPlayerMeleeSwing() {
+  public void onPlayerMeleeSwingSound() {
     OnPlayerMeleeSwingAction?.Invoke();
   }
   public void OnPlayerMeleeHit() {

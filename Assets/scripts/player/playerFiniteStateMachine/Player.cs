@@ -36,20 +36,21 @@ public class Player : MonoBehaviour {
   private Vector2 velocityWorkspace;
 
   private void OnEnable() {
-    Dispatcher.Instance.OnPrimaryAttackAction += this.handlePrimaryAttack;
+    Dispatcher.Instance.OnPrimaryAttackStateChangeRequestAction += this.handlePrimaryAttack;
     Dispatcher.Instance.OnTriggerPlayerHitAction += this.TriggerPlayerHit;
     Dispatcher.Instance.OnPickupAction += this.HandlePickup;
   }
 
   private void OnDisable() {
-    Dispatcher.Instance.OnPrimaryAttackAction -= this.handlePrimaryAttack;
+    Dispatcher.Instance.OnPrimaryAttackStateChangeRequestAction -= this.handlePrimaryAttack;
     Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
     Dispatcher.Instance.OnPickupAction -= this.HandlePickup;
   }
 
   private void handlePrimaryAttack() {
-    //Debug.Log("[PlayerGroundedState] handleprimaryattack");
-    this.stateMachine.ChangeState(this.primaryAttackState);
+    if (this.stateMachine.currentState != this.primaryAttackState) {
+      this.stateMachine.ChangeState(this.primaryAttackState);
+    }
   }
 
   private void Awake() {

@@ -174,6 +174,7 @@ MonoBehaviour:
   - {fileID: 8100584757332213407, guid: 8c12922fd827e974babd19ba1515d700, type: 3}
   - {fileID: 7018448449344154672, guid: 2e70f904bdc5750498da63a55bed062b, type: 3}
   cameraTransform: {fileID: 0}
+  drop: {fileID: 0}
   deathEffect: {fileID: 2683962649243715554, guid: 47837a5b73fab4d4ca48475a6d485cc2, type: 3}
   currentHealth: 0
 --- !u!61 &8628944412303746064
@@ -214,7 +215,6 @@ GameObject:
   - component: {fileID: 8628944412334475309}
   - component: {fileID: 8628944412334475310}
   - component: {fileID: 8628944412334475308}
-  - component: {fileID: 8628944412334475307}
   m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
@@ -332,18 +332,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6216927, y: 1.6920571}
   m_EdgeRadius: 0
---- !u!114 &8628944412334475307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8628944412334475312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5acc7ef34ca8d4785bf7f4dcb2c921, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8628944412376523105
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: f2a564af7f799094da7972d7be81aa35, type: 2}
+  abilityDashUi: {fileID: 0}
   movementSm: {fileID: 0}
 --- !u!95 &8628944412376523099
 Animator:
@@ -661,6 +650,7 @@ MonoBehaviour:
   land: {fileID: 8300000, guid: 8e075a0b271c6d94faebc22e33fdb740, type: 3}
   meleeSwing: {fileID: 8300000, guid: f6947538a32c67741967e0ecdd708c4c, type: 3}
   meleeHit: {fileID: 8300000, guid: 414908e69a061da4da93ad691d2768ca, type: 3}
+  muteBgAudio: 0
   timeBetweenSteps: 0.39
 --- !u!82 &8628944412376523094
 AudioSource:
@@ -989,6 +979,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: d1d03fba53797bd4ab3dcbb5376bea29, type: 2}
+  firePoint: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &8628944413958613256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,7 +992,6 @@ GameObject:
   - component: {fileID: 8628944413958613255}
   - component: {fileID: 8628944413958613253}
   - component: {fileID: 8628944413958613254}
-  - component: {fileID: 8628944413958613252}
   m_Layer: 10
   m_Name: Base
   m_TagString: Untagged
@@ -1092,15 +1083,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8628944413958613252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8628944413958613256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c8acbb78c076a54ea150b909050cd10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

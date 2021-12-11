@@ -40,7 +40,7 @@ public class PlayerGroundedState : PlayerState {
     jumpInput = player.inputHandler.jumpInput;
 
     //@Todo is touching ceiling check for if ...primary and if ... secondary
-   if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
+    if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
       
       PlayerAbilityState abilityState = player.GetActiveAbility();
         if (abilityState != null && !AbilityCooldown.isOnCoolDown) {

@@ -36,16 +36,8 @@ public class PlayerInputHandler : MonoBehaviour {
 
   public void OnPrimaryAttackInput(InputAction.CallbackContext context) {
     if (context.started) {
-      //Debug.Log("[PlayerInputHandler] dispatching OnPrimaryAttack");
-      Dispatcher.Instance.OnPrimaryAttack();
+      Dispatcher.Instance.OnPrimaryAttackStateChangeRequest();
     }
-    // if (context.started) {
-    //   attackInputs[(int)CombatInputs.primary] = true;
-    // }
-
-    // if (context.canceled) {
-    //   attackInputs[(int)CombatInputs.primary] = false;
-    // }
   }
 
   public void OnSecondaryAttackInput(InputAction.CallbackContext context) {
