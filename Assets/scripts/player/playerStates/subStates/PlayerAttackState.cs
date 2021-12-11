@@ -7,9 +7,11 @@ public class PlayerAttackState : PlayerAbilityState {
   private Weapon weapon;
   private int xInput;
   private float velocityToSet;
+  private float? lastHitTime;
+  private float resetTimeInState = .2f;
+  private float timeInState = .2f;
   private bool setVelocity;
   private bool shouldCheckFlip;
-  private float? lastHitTime;
   private int comboChains = 1;
 
   public PlayerAttackState(
@@ -29,6 +31,7 @@ public class PlayerAttackState : PlayerAbilityState {
 
   public override void Enter() {
     base.Enter();
+    this.timeInState = this.resetTimeInState;
     // enable player movement
     
     //LogHighlight("entering attack state-- " + this.comboChains + " comboChains.");
@@ -45,7 +48,7 @@ public class PlayerAttackState : PlayerAbilityState {
       if (this.comboChains == 2) {
         // @Recall 
         // if user is moving on d-pad, combos dont seem to be incrementing / player movement is not disabled.
-        this.core.Movement.DisableMovement();
+        //this.core.Movement.DisableMovement();
       }
     } else {
       this.comboChains = 1;
@@ -61,6 +64,12 @@ public class PlayerAttackState : PlayerAbilityState {
 
   public override void LogicUpdate() {
     base.LogicUpdate();
+    if (this.timeInState > 0) {
+      this.timeInState -= Time.deltaTime;
+    } else {
+      this.timeInState = 0;
+      this.stateMachine.ChangeState(this.player.idleState);
+    }
     xInput = player.inputHandler.normalizedInputX;
 
     if (player.inputHandler.attackInputs[(int)CombatInputs.secondary]) {
