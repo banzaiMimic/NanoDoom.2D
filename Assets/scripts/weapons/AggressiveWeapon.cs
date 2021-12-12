@@ -41,7 +41,9 @@ public class AggressiveWeapon : Weapon {
     //@Recall i think the hackFix is messing up things on the right direction...
     // if you're super close you can hit
     Debug.Log("[tt1:] " + hitExtensionX + " facing : " + this.core.Movement.facingDirection + " lastRawY: " + lastRawInput.y);
-    Vector2 endV2 = new Vector2(origin.x + hitExtensionX, origin.y + (lastRawInput.y * this.hitRange));
+    //Vector2 endV2 = new Vector2(origin.x + hitExtensionX, origin.y + (lastRawInput.y * this.hitRange));
+    Vector2 endV2 = new Vector2(origin.x + lastRawInput.x, origin.y + lastRawInput.y);
+    
     //Vector2 endV2 = new Vector2(origin.x + hitExtensionX, origin.y + lastRawInput.y);
     
     //Vector2 endV2 = new Vector2(origin.x + hitExtensionX, origin.y);
