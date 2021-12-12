@@ -53,15 +53,17 @@ public class PlayerInputHandler : MonoBehaviour {
   public void OnMoveInput(InputAction.CallbackContext context) {
     if (this.player.core.Movement.canMove) {
       rawMovementInput = context.ReadValue<Vector2>();
+      Globals.Log("rawY: " + rawMovementInput.y);
       normalizedInputX = Mathf.RoundToInt(rawMovementInput.x);
       normalizedInputY = Mathf.RoundToInt(rawMovementInput.y);
       
       Vector2 rawMovementHackFix = rawMovementInput;
 
       // keyboard (d key) movement was showing values at 0.707107, not sure where offset is coming from (gamepad + d-pad are correct)
-      if (rawMovementHackFix.y == -0.707107f) {
-        rawMovementHackFix = new Vector2(rawMovementHackFix.x, rawMovementHackFix.y + 0.707107f);
-      }
+      // if (rawMovementHackFix.y == -0.707107f) {
+      //   rawMovementHackFix = new Vector2(rawMovementHackFix.x, rawMovementHackFix.y + 0.707107f);
+      // }
+
       //Debug.Log("moving... x: " + rawMovementHackFix.x);
       //Debug.Log("y: " + rawMovementHackFix.y);
       Combos.Instance.updateLastMovement(rawMovementHackFix, normalizedInputX, normalizedInputY);
