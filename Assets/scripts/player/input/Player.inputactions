@@ -90,7 +90,7 @@
                 {
                     "name": "down",
                     "id": "1c601b7a-e072-40ac-9dca-5332f433a9d5",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",

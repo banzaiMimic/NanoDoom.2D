@@ -14,6 +14,7 @@ public class PlayerInputHandler : MonoBehaviour {
   public bool[] attackInputs { get; private set; }
   public PlayerInput playerInput { get; private set; }
   private Player player;
+  private Vector2 hitLineEnd = new Vector2();
 
   [SerializeField]
   private float inputHoldTime = 0.2f;
@@ -49,22 +50,54 @@ public class PlayerInputHandler : MonoBehaviour {
       attackInputs[(int)CombatInputs.secondary] = false;
     }
   }
+
+  private void MovePlayerViaKeyboard(bool pressingUp, bool pressingRight, bool pressingDown, bool pressingLeft) {
+    
+  }
   
   public void OnMoveInput(InputAction.CallbackContext context) {
     
     var gamepad = Gamepad.current;
     var keyboard = Keyboard.current;
 
-    //@Todo parse out keyboard specific things...
-    if (keyboard != null) {
+    if (this.player.core.Movement.canMove) {
+      if (keyboard != null) {
 
-      if (keyboard.anyKey.IsPressed()) {
-        // keyboard controls
         bool pressingRight = keyboard.dKey.IsPressed();
-        Debug.Log("pressingRight: " + pressingRight);
-      } else {
-        // gamepad
-        if (this.player.core.Movement.canMove) {
+        bool pressingLeft = keyboard.aKey.IsPressed();
+        bool pressingUp = keyboard.wKey.IsPressed();
+        bool pressingDown = keyboard.sKey.IsPressed();
+        int iX = 0;
+        int iY = 0;
+        Vector3 playerPos = this.player.core.transform.position;
+
+        if (keyboard.anyKey.IsPressed()) {
+
+          if (pressingRight) { iX = 1; } 
+          else if (pressingLeft) { iX = -1; }
+          if (pressingUp) { iY = 1;
+          } else if (pressingDown) { iY = -1; }
+
+          if (this.player.core.Movement.canMove) {
+            this.normalizedInputX = iX;
+            this.normalizedInputY = iY;
+          }
+
+          hitLineEnd = new Vector2( playerPos.x + iX, playerPos.y + iY );
+
+        } else {
+          normalizedInputX = 0;
+          normalizedInputY = 0;
+
+          hitLineEnd = new Vector2( playerPos.x + this.player.core.Movement.facingDirection, playerPos.y );
+        }
+
+        Combos.Instance.updateHitLine(hitLineEnd - new Vector2(playerPos.x, playerPos.y));
+
+      }
+
+      if (gamepad != null) {
+        if (gamepad.wasUpdatedThisFrame) {
           rawMovementInput = context.ReadValue<Vector2>();
           Globals.Log("rawY: " + rawMovementInput.y);
           normalizedInputX = Mathf.RoundToInt(rawMovementInput.x);
@@ -79,7 +112,7 @@ public class PlayerInputHandler : MonoBehaviour {
 
           //Debug.Log("moving... x: " + rawMovementHackFix.x);
           //Debug.Log("y: " + rawMovementHackFix.y);
-          Combos.Instance.updateLastMovement(rawMovementHackFix, normalizedInputX, normalizedInputY);
+          //Combos.Instance.updateLastMovement(rawMovementHackFix, normalizedInputX, normalizedInputY);
         }
       }
     }
