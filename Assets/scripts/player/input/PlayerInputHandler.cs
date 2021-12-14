@@ -62,6 +62,8 @@ public class PlayerInputHandler : MonoBehaviour {
   private void MovePlayerViaKeyboard(bool pressingUp, bool pressingRight, bool pressingDown, bool pressingLeft) {
     
   }
+
+  private Vector2 defaultPlayerHitline(Vector3 playerPos, int playerFacing) => new Vector2( playerPos.x + playerFacing, playerPos.y );
   
   public void OnMoveInput(InputAction.CallbackContext context) {
     
@@ -100,7 +102,7 @@ public class PlayerInputHandler : MonoBehaviour {
           normalizedInputX = 0;
           normalizedInputY = 0;
 
-          hitLineEnd = new Vector2( playerPos.x + playerFacing, playerPos.y );
+          hitLineEnd = defaultPlayerHitline(playerPos, playerFacing);
         }
 
       }
@@ -114,6 +116,11 @@ public class PlayerInputHandler : MonoBehaviour {
           //@Todo rawMovementInput.x trails off, we should do same input control / buffer 
           // as we're doing with keyboard's iX ... 
           hitLineEnd = new Vector2( playerPos.x + rawMovementInput.x, playerPos.y + rawMovementInput.y);
+          bool gamepadMovementStopped = normalizedInputX == 0 && normalizedInputY == 0;
+          if (gamepadMovementStopped) {
+            hitLineEnd = defaultPlayerHitline(playerPos, playerFacing);
+          }
+          Debug.Log("normalizedX:" + normalizedInputX + " normalizedY:" + normalizedInputY);
         }
       }
     }
