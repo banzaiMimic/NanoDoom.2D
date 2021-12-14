@@ -14,7 +14,7 @@ public class PlayerInputHandler : MonoBehaviour {
   public bool[] attackInputs { get; private set; }
   public PlayerInput playerInput { get; private set; }
   private Player player;
-  private Vector2 hitLineEnd = new Vector2();
+  private Vector2 hitLineEnd;
 
   [SerializeField]
   private float inputHoldTime = 0.2f;
@@ -29,6 +29,14 @@ public class PlayerInputHandler : MonoBehaviour {
     this.playerInput = GetComponent<PlayerInput>();
     int count = Enum.GetValues(typeof(CombatInputs)).Length;
     attackInputs = new bool[count];
+    this.initHitLine();
+  }
+
+  private void initHitLine() {
+    Vector3 playerPos = this.player.core.transform.position;
+    Vector2 hitLineStart = new Vector2(playerPos.x, playerPos.y);
+    this.hitLineEnd = new Vector2(this.player.core.transform.position.x + this.player.core.Movement.facingDirection, this.player.core.transform.position.y);
+    Combos.Instance.updateHitLine(hitLineEnd - hitLineStart);
   }
 
   private void Update() {
@@ -57,10 +65,14 @@ public class PlayerInputHandler : MonoBehaviour {
   
   public void OnMoveInput(InputAction.CallbackContext context) {
     
+    Vector3 playerPos = this.player.core.transform.position;
+    Vector2 hitLineStart = new Vector2(playerPos.x, playerPos.y);
+    int playerFacing = this.player.core.Movement.facingDirection;
     var gamepad = Gamepad.current;
     var keyboard = Keyboard.current;
 
     if (this.player.core.Movement.canMove) {
+
       if (keyboard != null) {
 
         bool pressingRight = keyboard.dKey.IsPressed();
@@ -69,7 +81,6 @@ public class PlayerInputHandler : MonoBehaviour {
         bool pressingDown = keyboard.sKey.IsPressed();
         int iX = 0;
         int iY = 0;
-        Vector3 playerPos = this.player.core.transform.position;
 
         if (keyboard.anyKey.IsPressed()) {
 
@@ -89,33 +100,25 @@ public class PlayerInputHandler : MonoBehaviour {
           normalizedInputX = 0;
           normalizedInputY = 0;
 
-          hitLineEnd = new Vector2( playerPos.x + this.player.core.Movement.facingDirection, playerPos.y );
+          hitLineEnd = new Vector2( playerPos.x + playerFacing, playerPos.y );
         }
-
-        Combos.Instance.updateHitLine(hitLineEnd - new Vector2(playerPos.x, playerPos.y));
 
       }
 
       if (gamepad != null) {
         if (gamepad.wasUpdatedThisFrame) {
           rawMovementInput = context.ReadValue<Vector2>();
-          Globals.Log("rawY: " + rawMovementInput.y);
           normalizedInputX = Mathf.RoundToInt(rawMovementInput.x);
           normalizedInputY = Mathf.RoundToInt(rawMovementInput.y);
           
-          Vector2 rawMovementHackFix = rawMovementInput;
-
-          // keyboard (d key) movement was showing values at 0.707107, not sure where offset is coming from (gamepad + d-pad are correct)
-          // if (rawMovementHackFix.y == -0.707107f) {
-          //   rawMovementHackFix = new Vector2(rawMovementHackFix.x, rawMovementHackFix.y + 0.707107f);
-          // }
-
-          //Debug.Log("moving... x: " + rawMovementHackFix.x);
-          //Debug.Log("y: " + rawMovementHackFix.y);
-          //Combos.Instance.updateLastMovement(rawMovementHackFix, normalizedInputX, normalizedInputY);
+          //@Todo rawMovementInput.x trails off, we should do same input control / buffer 
+          // as we're doing with keyboard's iX ... 
+          hitLineEnd = new Vector2( playerPos.x + rawMovementInput.x, playerPos.y + rawMovementInput.y);
         }
       }
     }
+
+    Combos.Instance.updateHitLine(hitLineEnd - hitLineStart);
 
   }
   
