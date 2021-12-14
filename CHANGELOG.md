@@ -9,6 +9,8 @@
 ### Dev
 
 ## Recall
+- [PlayerInputHandler] -> OnMoveInput
+- gamepad still finicky with hitLine control
 - HitStunState -> 
   - after 2 comboChains, disable user movement for x time or if they finish the 3rd combo hit chain
   - on 3rd combo hit chain change entity into HitFlyState
