@@ -5,21 +5,21 @@
   - keeps track of int comboChains if hits are within Combos.Instance.ChainIfWithinTime
   - keeps track of direction user was pressing on d-pad
 - keyboard input rewritten / hitLines for collision detection working much better
+- fixed gamepad melee attack control / hit detection
 
 ### Dev
 
 ## Recall
 - [PlayerInputHandler] -> OnMoveInput
-- gamepad still finicky with hitLine control
-- HitStunState -> 
-  - after 2 comboChains, disable user movement for x time or if they finish the 3rd combo hit chain
+- on combo hits, change animation to playerFist_2 playerFist_3
+- animations for at least a super uppercut and super punch
   - on 3rd combo hit chain change entity into HitFlyState
 - create HitFlyState 
-  - in this state enemy should be sent flying in direction... 
-  - would be cool if any other enemy hit by this entity in this state will be sent to HitStunState 
-  - at the end of this HitFlyState should destroy enemy if health <= 0 OR should return entity to idleState
-  - should have settings to modify things like time-to-chain-combo and even auto-combo for accessibility
-  
+  - in this state enemy should be sent flying in direction user was pressing... 
+  - would be cool if any other enemy hit by this entity in this state will be sent to HitStunState...
+  - at the end of this HitFlyState should destroy flying enemy if health <= 0 OR should return entity to idleState
+  - should have settings to modify things like combo time-to-chain and even auto-combo for accessibility
+
 
 ## bin
 [AggressiveWeapon -> handleMeleeAttack]

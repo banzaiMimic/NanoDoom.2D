@@ -45,7 +45,6 @@ public class PlayerAttackState : PlayerAbilityState {
 
     if (this.hitWithinChainTime()) {
       //Debug.Log("[PlayerAttackState - hitWithinChainTime] lastHitX: " + Combos.Instance.lastNormalizedInputX + " lastY: " + Combos.Instance.lastNormalizedInputY);
-      Globals.Log("combo++ " + this.comboChains);
       this.comboChains++;
       // first combo chain means 2 consecutive swings
       if (this.comboChains == 2) {
