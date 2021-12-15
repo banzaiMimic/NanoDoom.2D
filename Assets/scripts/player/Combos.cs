@@ -5,7 +5,7 @@ using UnityEngine;
 public sealed class Combos {
 
   private static readonly Combos instance = new Combos();
-  public float ChainIfWithinTime = 1f;
+  public float ChainIfWithinTime = .3f;
   public Vector2 hitDirection;
 
   // Explicit static constructor to tell C# compiler

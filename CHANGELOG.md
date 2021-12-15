@@ -18,6 +18,8 @@
   - in this state enemy should be sent flying in direction... 
   - would be cool if any other enemy hit by this entity in this state will be sent to HitStunState 
   - at the end of this HitFlyState should destroy enemy if health <= 0 OR should return entity to idleState
+  - should have settings to modify things like time-to-chain-combo and even auto-combo for accessibility
+  
 
 ## bin
 [AggressiveWeapon -> handleMeleeAttack]

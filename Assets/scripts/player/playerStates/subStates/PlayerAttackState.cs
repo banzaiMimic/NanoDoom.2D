@@ -13,6 +13,7 @@ public class PlayerAttackState : PlayerAbilityState {
   private bool setVelocity;
   private bool shouldCheckFlip;
   private int comboChains = 1;
+  private float attackForce = 3f;
 
   public PlayerAttackState(
     Player player, 
@@ -31,6 +32,7 @@ public class PlayerAttackState : PlayerAbilityState {
 
   public override void Enter() {
     base.Enter();
+    this.SetPlayerVelocity(this.attackForce);
     Dispatcher.Instance.OnPrimaryAttack();
     this.timeInState = this.resetTimeInState;
     // enable player movement
@@ -43,7 +45,7 @@ public class PlayerAttackState : PlayerAbilityState {
 
     if (this.hitWithinChainTime()) {
       //Debug.Log("[PlayerAttackState - hitWithinChainTime] lastHitX: " + Combos.Instance.lastNormalizedInputX + " lastY: " + Combos.Instance.lastNormalizedInputY);
-      //Debug.Log("combo++ " + this.comboChains);
+      Globals.Log("combo++ " + this.comboChains);
       this.comboChains++;
       // first combo chain means 2 consecutive swings
       if (this.comboChains == 2) {

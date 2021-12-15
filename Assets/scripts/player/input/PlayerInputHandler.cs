@@ -108,19 +108,18 @@ public class PlayerInputHandler : MonoBehaviour {
       }
 
       if (gamepad != null) {
+        
         if (gamepad.wasUpdatedThisFrame) {
           rawMovementInput = context.ReadValue<Vector2>();
           normalizedInputX = Mathf.RoundToInt(rawMovementInput.x);
           normalizedInputY = Mathf.RoundToInt(rawMovementInput.y);
           
-          //@Todo rawMovementInput.x trails off, we should do same input control / buffer 
-          // as we're doing with keyboard's iX ... 
           hitLineEnd = new Vector2( playerPos.x + rawMovementInput.x, playerPos.y + rawMovementInput.y);
           bool gamepadMovementStopped = normalizedInputX == 0 && normalizedInputY == 0;
           if (gamepadMovementStopped) {
             hitLineEnd = defaultPlayerHitline(playerPos, playerFacing);
           }
-          Debug.Log("normalizedX:" + normalizedInputX + " normalizedY:" + normalizedInputY);
+
         }
       }
     }
