@@ -32,6 +32,27 @@ TextureImporter:
   - first:
       213: 2880593973892150573
     second: base-player-fist_4
+  - first:
+      213: -4560066103723873450
+    second: base-player-fist_5
+  - first:
+      213: 194546848874873013
+    second: base-player-fist_6
+  - first:
+      213: -4441281361391828158
+    second: base-player-fist_7
+  - first:
+      213: -9036456280524784120
+    second: base-player-fist_8
+  - first:
+      213: 7279097879007295724
+    second: base-player-fist_9
+  - first:
+      213: 3096473194030314391
+    second: base-player-fist_10
+  - first:
+      213: 785224505722855162
+    second: base-player-fist_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -233,6 +254,153 @@ TextureImporter:
       bones: []
       spriteID: d25f8fb05fce9f720800000000000000
       internalID: 2880593973892150573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: base-player-fist_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65b2d37f90467b0c0800000000000000
+      internalID: -4560066103723873450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: base-player-fist_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b0cb5b045b23b200800000000000000
+      internalID: 194546848874873013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: base-player-fist_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2434daaf1266d52c0800000000000000
+      internalID: -4441281361391828158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: base-player-fist_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80ef8fad3ee089280800000000000000
+      internalID: -9036456280524784120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: base-player-fist_9
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce8778364fc840560800000000000000
+      internalID: 7279097879007295724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: base-player-fist_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79332b2d6f1e8fa20800000000000000
+      internalID: 3096473194030314391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: base-player-fist_11
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afeda84178da5ea00800000000000000
+      internalID: 785224505722855162
       vertices: []
       indices: 
       edges: []
