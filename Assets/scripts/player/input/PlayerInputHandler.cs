@@ -60,7 +60,7 @@ public class PlayerInputHandler : MonoBehaviour {
   }
 
   private void MovePlayerViaKeyboard(bool pressingUp, bool pressingRight, bool pressingDown, bool pressingLeft) {
-    
+     
   }
 
   private Vector2 defaultPlayerHitline(Vector3 playerPos, int playerFacing) => new Vector2( playerPos.x + playerFacing, playerPos.y );

@@ -33,11 +33,8 @@ public class PlayerAttackState : PlayerAbilityState {
   public override void Enter() {
     base.Enter();
     this.SetPlayerVelocity(this.attackForce);
-    Dispatcher.Instance.OnPrimaryAttack();
     this.timeInState = this.resetTimeInState;
-    // enable player movement
     
-    //LogHighlight("entering attack state-- " + this.comboChains + " comboChains.");
     this.core.Movement.EnableMovement();
     Dispatcher.Instance.onPlayerMeleeSwingSound();
     setVelocity = false;
@@ -48,15 +45,15 @@ public class PlayerAttackState : PlayerAbilityState {
       this.comboChains++;
       // first combo chain means 2 consecutive swings
       if (this.comboChains == 2) {
-        // @Recall 
-        // if user is moving on d-pad, combos dont seem to be incrementing / player movement is not disabled.
-        //this.core.Movement.DisableMovement();
+
       }
     } else {
       this.comboChains = 1;
     }
 
     this.lastHitTime = Time.time;
+    this.weapon.UpdateComboChains(this.comboChains);
+    Dispatcher.Instance.OnPrimaryAttack();
   }
 
   public override void Exit() {

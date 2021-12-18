@@ -36,7 +36,7 @@ public class AggressiveWeapon : Weapon {
     Globals.Log("[hit -->] " + hits.Length + " count");
     for (int i = 0; i < hits.Length; i++) {
       RaycastHit2D hit = hits[i];
-      Debug.Log("  [hit!] -> " + hit.transform.name);
+      Debug.Log("  [hit!] -> " + hit.transform.name + " comboChains: " + this.comboChains);
     }
   }
 

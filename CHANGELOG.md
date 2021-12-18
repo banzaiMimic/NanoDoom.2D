@@ -6,13 +6,13 @@
   - keeps track of direction user was pressing on d-pad
 - keyboard input rewritten / hitLines for collision detection working much better
 - fixed gamepad melee attack control / hit detection
+- 3 hit animation added if punches are made within x time
 
 ### Dev
 
 ## Recall
-- [PlayerInputHandler] -> OnMoveInput
-- on combo hits, change animation to playerFist_2 playerFist_3
-- animations for at least a super uppercut and super punch
+- [AggressiveWeapon] -> handleMeleeAttack
+  - on each hit call damage/knockback on collision if enemy.
   - on 3rd combo hit chain change entity into HitFlyState
 - create HitFlyState 
   - in this state enemy should be sent flying in direction user was pressing... 
