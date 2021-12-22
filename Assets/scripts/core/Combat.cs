@@ -53,11 +53,39 @@ public class Combat : CoreComponent {
       }
     }
   }
+  public void SuperDamage(float amount, int direction) {
+    if (core != null) {
+      this.currentHealth -= amount;
+      float offsetX = direction * 3f;
+      float randStrength = Random.Range(50f, 100f);
+      
+      Vector2 endLocationV2 = new Vector2( this.core.Movement.transform.position.x + (2f * direction), this.core.Movement.transform.position.y + 3f);
+      Vector2 myLocationV2 = new Vector2( this.core.Movement.transform.position.x, this.core.Movement.transform.position.y );
+      Vector2 angle = endLocationV2 - myLocationV2;
+      
+      Dispatcher.Instance.OnPlayerMeleeHit();
+      this.Knockback(Combos.Instance.hitDirection, randStrength, direction);
+
+      if (this.currentHealth <= 0) {
+        Globals.Log("handle delayed death?");
+        // @Todo handle delayed death?
+        //handleDeath(core.transform.parent.name);
+      }
+    }
+  }
   public void Knockback(Vector2 angle, float strength, int direction) {
     knockbackStartTime = Time.time;
     isKnockbackActive = true;
     core.Movement.SetVelocity(strength, angle, direction);
     core.Movement.canSetVelocity = false;
+  }
+  public void SuperKnockback() {
+    float randDamage = Random.Range(20f, 40f);
+    float randX = Random.Range(20f, 500f);
+    float randY = Random.Range(20f, 500f);
+    float randStrength = Random.Range(50f, 100f);
+    //Damage(randDamage, randStrength);
+    //Knockback(new Vector2(randX, randY), randStrength, 1);
   }
 
   private void handleDeath(string name) {
@@ -85,15 +113,6 @@ public class Combat : CoreComponent {
     GameObject blood = Instantiate(bloodSplatters[randNum], core.transform.position, Quaternion.identity);
     blood.transform.eulerAngles = new Vector3( blood.transform.rotation.x, blood.transform.rotation.y, UnityEngine.Random.Range(0, 360));
     blood.AddComponent<BloodSplatterMovement>().cameraTransform = this.cameraTransform;
-  }
-
-  public void SuperKnockback() {
-    float randDamage = Random.Range(20f, 40f);
-    float randX = Random.Range(20f, 500f);
-    float randY = Random.Range(20f, 500f);
-    float randStrength = Random.Range(50f, 100f);
-    //Damage(randDamage, randStrength);
-    //Knockback(new Vector2(randX, randY), randStrength, 1);
   }
 
   private void CheckKnockback() {

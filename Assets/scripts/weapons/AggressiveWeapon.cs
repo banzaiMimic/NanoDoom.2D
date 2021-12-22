@@ -48,6 +48,7 @@ public class AggressiveWeapon : Weapon {
 
     tryTeleportPlayerToChainCombo();
 
+    int myFacingDirection = this.core.Movement.facingDirection;
     Vector3 originV3 = this.firePoint.transform.position;
     Vector2 origin = new Vector2( originV3.x, originV3.y);
     
@@ -57,9 +58,14 @@ public class AggressiveWeapon : Weapon {
     if (this.comboChains == 3) {
 
       // @Todo if the enemy will die on this last combo hit,
-      // turn enemy into a projectile and it should splatter after x time
-      // splats should show on this hit as well though... 
+      // - turn enemy into a projectile and it should splatter after x time
       // this should also throw enemy in whatever direction user is looking at, skip the hit check
+      // - splats should show on this hit as well though... 
+      Combat lastEnemyCombat = this.lastEnemyHit.GetComponentInParent<Core>().Combat;
+      if (lastEnemyCombat) {
+        Dispatcher.Instance.HitStop(.3f);
+        lastEnemyCombat.SuperDamage(this.hitDamage, myFacingDirection);
+      } 
 
     } else {
 
@@ -70,9 +76,6 @@ public class AggressiveWeapon : Weapon {
         if (hit.transform.name != "Player") {
           Combat enemyCombat = hit.transform.GetComponentInChildren<Combat>();
           if (enemyCombat != null) {
-            int myFacingDirection = this.core.Movement.facingDirection;
-            //@Todo store all references to last enemies hit (make into array)
-            // this will be for last combo hit it will send everyone flying...
             this.lastEnemyHit = enemyCombat.GetComponentInParent<Core>().Movement;
             if (this.comboChains == 1) {
               Dispatcher.Instance.HitStop(.1f);
