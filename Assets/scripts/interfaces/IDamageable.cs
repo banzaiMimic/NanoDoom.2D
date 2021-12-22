@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IDamageable : IHasCore {
   
-  void Damage(float amount);
+  void Damage(float amount, float knockbackStrength);
 
 }

@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour {
   protected int attackCounter;
   protected int comboChains = 1;
   protected Core core;
+  protected Movement lastEnemyHit;
 
   protected virtual void Awake() {
     this.baseAnimator = transform.Find("Base").GetComponent<Animator>();
@@ -28,6 +29,10 @@ public class Weapon : MonoBehaviour {
     weaponAnimator.SetBool("attack", true);
     // Attack state will handle baseAnimator's attackCounter
     weaponAnimator.SetInteger("attackCounter", attackCounter);
+  }
+
+  public virtual void clearLastEnemyHit() {
+    this.lastEnemyHit = null;
   }
 
   public virtual void ExitWeapon() {

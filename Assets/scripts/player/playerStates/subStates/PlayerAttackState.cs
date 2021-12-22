@@ -49,6 +49,7 @@ public class PlayerAttackState : PlayerAbilityState {
       }
     } else {
       this.comboChains = 1;
+      this.weapon.clearLastEnemyHit();
     }
 
     this.lastHitTime = Time.time;

@@ -119,9 +119,9 @@ public class Player : MonoBehaviour {
   private void AnimationFinished() => stateMachine.currentState.AnimationFinished();
 
   private void TriggerPlayerHit(float damage, int direction) {
-    core.Combat.Damage(damage);
     float knockBackStrength = 12f;
-    core.Combat.Knockback(new Vector2(direction, 2), knockBackStrength, direction);
+    core.Combat.Damage(damage, knockBackStrength);
+    //core.Combat.Knockback(new Vector2(direction, 2), knockBackStrength, direction);
   }
 
   private void HandlePickup(Collectible collectible) {

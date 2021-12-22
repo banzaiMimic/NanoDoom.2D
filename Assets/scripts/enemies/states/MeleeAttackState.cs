@@ -51,7 +51,7 @@ public class MeleeAttackState : AttackState {
         if (player != null) {
           if (player.stateMachine.currentState != player.dashState) {
             //Debug.Log("melee state::: damage block");
-            damageable.Damage(stateData.attackDamage);
+            damageable.Damage(stateData.attackDamage, stateData.knockbackStrength);
           } else {
             // Debug.Log("melee state::: superKnockBack");
             // entity.core.Combat.SuperKnockback();

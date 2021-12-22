@@ -30,9 +30,11 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     return this.isKnockbackActive;
   }
 
-  public void Damage(float amount) {
+  public void Damage(float amount, float knockbackStrength) {
     if (core != null) {
       this.currentHealth -= amount;
+      this.Knockback(new Vector2(this.core.Movement.transform.position.x * -this.core.Movement.facingDirection, 3f), knockbackStrength, this.core.Movement.facingDirection);
+
       if (core.transform.parent.name == "Player") {
         Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
       } else {
@@ -86,8 +88,8 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     float randX = Random.Range(20f, 500f);
     float randY = Random.Range(20f, 500f);
     float randStrength = Random.Range(50f, 100f);
-    Damage(randDamage);
-    Knockback(new Vector2(randX, randY), randStrength, 1);
+    Damage(randDamage, randStrength);
+    //Knockback(new Vector2(randX, randY), randStrength, 1);
   }
 
   private void CheckKnockback() {
