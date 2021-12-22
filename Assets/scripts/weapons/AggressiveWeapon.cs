@@ -31,16 +31,18 @@ public class AggressiveWeapon : Weapon {
   }
 
   private void handleMeleeAttack() {
-    Globals.Log("[AggressiveWeapon.handleMeleeAttack] currentState: " + this.player.stateMachine.currentState);
     Vector3 originV3 = this.firePoint.transform.position;
     Vector2 origin = new Vector2( originV3.x, originV3.y);
 
     if (this.comboChains > 1) {
-      //@Todo if lastEnemyHit exists,
+
       if (this.lastEnemyHit != null) {
         // - move player near by that position so follow up hit will land
         Vector3 enemyPos = this.lastEnemyHit.transform.position;
-        this.core.Movement.transform.position = new Vector3(enemyPos.x + -this.core.Movement.facingDirection/2, enemyPos.y, enemyPos.z);
+        float teleportOffsetX = this.core.Movement.facingDirection * 1.2f;
+        Vector3 teleportToV3 = new Vector3(enemyPos.x + -teleportOffsetX, enemyPos.y, enemyPos.z);
+
+        this.core.Movement.rBody.transform.position = teleportToV3;
       }
     }
     
@@ -53,10 +55,10 @@ public class AggressiveWeapon : Weapon {
       if (hit.transform.name != "Player") {
         Combat enemyCombat = hit.transform.GetComponentInChildren<Combat>();
         if (enemyCombat != null) {
-          Globals.Log("  [hit!] -> " + hit.transform.name + " comboChains: " + this.comboChains);
-          enemyCombat.Damage(this.hitDamage * this.comboChains, this.knockbackStrength);
+          int myFacingDirection = this.core.Movement.facingDirection;
+          enemyCombat.Damage(this.hitDamage * this.comboChains, this.knockbackStrength, myFacingDirection);
           //@Todo store reference to last enemy hit
-          this.lastEnemyHit = enemyCombat.GetComponentInParent<Movement>();
+          this.lastEnemyHit = enemyCombat.GetComponentInParent<Core>().Movement;
           if (this.comboChains > 1) {
             // @Todo hit-stop 
           }

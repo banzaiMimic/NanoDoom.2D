@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat : CoreComponent, IDamageable, IKnockbackable {
+public class Combat : CoreComponent {
 
   [SerializeField] public float maxHealth = 10f;
   [SerializeField] public GameObject[] bloodSplatters;
@@ -30,10 +30,17 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     return this.isKnockbackActive;
   }
 
-  public void Damage(float amount, float knockbackStrength) {
+  public void Damage(float amount, float knockbackStrength, int direction) {
     if (core != null) {
       this.currentHealth -= amount;
-      this.Knockback(new Vector2(this.core.Movement.transform.position.x * -this.core.Movement.facingDirection, 3f), knockbackStrength, this.core.Movement.facingDirection);
+      float offsetX = direction * 3f;
+      Globals.Log("current x : " + this.core.Movement.transform.position.x);
+      Globals.Log("sending knockback to offSetX: " + offsetX + " direction: " + direction);
+      Vector2 endLocationV2 = new Vector2( this.core.Movement.transform.position.x + (2f * direction), this.core.Movement.transform.position.y + 3f);
+      Vector2 myLocationV2 = new Vector2( this.core.Movement.transform.position.x, this.core.Movement.transform.position.y );
+      Vector2 angle = endLocationV2 - myLocationV2;
+      
+      this.Knockback(angle, knockbackStrength, direction);
 
       if (core.transform.parent.name == "Player") {
         Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
@@ -45,6 +52,12 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
         handleDeath(core.transform.parent.name);
       }
     }
+  }
+  public void Knockback(Vector2 angle, float strength, int direction) {
+    knockbackStartTime = Time.time;
+    isKnockbackActive = true;
+    core.Movement.SetVelocity(strength, angle, direction);
+    core.Movement.canSetVelocity = false;
   }
 
   private void handleDeath(string name) {
@@ -74,21 +87,12 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     blood.AddComponent<BloodSplatterMovement>().cameraTransform = this.cameraTransform;
   }
 
-  //@Recall enemies not able to superKnockback if in knockbackstate
-  // after punching + dashing something gets bugged for dash collision
-  public void Knockback(Vector2 angle, float strength, int direction) {
-    knockbackStartTime = Time.time;
-    isKnockbackActive = true;
-    core.Movement.SetVelocity(strength, angle, direction);
-    core.Movement.canSetVelocity = false;
-  }
-
   public void SuperKnockback() {
     float randDamage = Random.Range(20f, 40f);
     float randX = Random.Range(20f, 500f);
     float randY = Random.Range(20f, 500f);
     float randStrength = Random.Range(50f, 100f);
-    Damage(randDamage, randStrength);
+    //Damage(randDamage, randStrength);
     //Knockback(new Vector2(randX, randY), randStrength, 1);
   }
 

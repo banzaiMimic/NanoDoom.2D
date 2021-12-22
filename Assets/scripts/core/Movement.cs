@@ -69,7 +69,7 @@ public class Movement : CoreComponent {
 
   public void SetVelocity(float velocity, Vector2 angle, int direction) {
     angle.Normalize();
-    velocityWorkspace.Set(angle.x * velocity * direction, angle.y * velocity);
+    velocityWorkspace.Set(angle.x * velocity, angle.y * velocity);
     rBody.velocity = velocityWorkspace;
     currentVelocity = velocityWorkspace;
   }

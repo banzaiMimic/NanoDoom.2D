@@ -72,10 +72,7 @@ public class PlayerAttackState : PlayerAbilityState {
       this.timeInState -= Time.deltaTime;
     } else {
       this.timeInState = 0;
-      Debug.Log("calling change state back to idle...");
       this.AnimationFinished();
-      
-      //this.stateMachine.ChangeState(this.player.idleState);
     }
     xInput = player.inputHandler.normalizedInputX;
 
