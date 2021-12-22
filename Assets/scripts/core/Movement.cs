@@ -80,6 +80,19 @@ public class Movement : CoreComponent {
     currentVelocity = velocityWorkspace;
   }
 
+  public void QuickBurst(float velocity, Vector2 direction) {
+    velocityWorkspace = direction * velocity;
+    rBody.velocity = velocityWorkspace;
+    currentVelocity = velocityWorkspace;
+    // return velocity to 0 after short time...
+    StartCoroutine(StopBurst(.2f));
+  }
+
+  IEnumerator StopBurst(float duration) {
+    yield return new WaitForSecondsRealtime(duration);
+    this.SetVelocityZero();
+  }
+
   public void SetVelocity(float velX, float velY) {
     velocityWorkspace = new Vector2(velX, velY);
     rBody.velocity = velocityWorkspace;

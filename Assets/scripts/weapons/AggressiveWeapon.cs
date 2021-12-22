@@ -36,9 +36,12 @@ public class AggressiveWeapon : Weapon {
       if (this.lastEnemyHit != null) {
         // - move player near by that position so follow up hit will land
         Vector3 enemyPos = this.lastEnemyHit.transform.position;
+        Vector2 enemyAngle = new Vector2(enemyPos.x, enemyPos.y) - new Vector2( this.core.Movement.rBody.transform.position.x, this.core.Movement.rBody.transform.position.y );
         float teleportOffsetX = this.core.Movement.facingDirection * 1.2f;
         Vector3 teleportToV3 = new Vector3(enemyPos.x + -teleportOffsetX, enemyPos.y, enemyPos.z);
+        //this.core.Movement.QuickBurst(20f, enemyAngle);
         this.core.Movement.rBody.transform.position = teleportToV3;
+        // @Todo try adding a smoke cloud where player was...
         
       }
     }
@@ -46,7 +49,7 @@ public class AggressiveWeapon : Weapon {
 
   private void handleMeleeAttack() {
 
-    tryTeleportPlayerToChainCombo();
+    //tryTeleportPlayerToChainCombo();
 
     int myFacingDirection = this.core.Movement.facingDirection;
     Vector3 originV3 = this.firePoint.transform.position;
@@ -63,7 +66,7 @@ public class AggressiveWeapon : Weapon {
       // - splats should show on this hit as well though... 
       Combat lastEnemyCombat = this.lastEnemyHit.GetComponentInParent<Core>().Combat;
       if (lastEnemyCombat) {
-        Dispatcher.Instance.HitStop(.3f);
+        Dispatcher.Instance.HitStop(.2f);
         lastEnemyCombat.SuperDamage(this.hitDamage, myFacingDirection);
       } 
 
@@ -78,10 +81,10 @@ public class AggressiveWeapon : Weapon {
           if (enemyCombat != null) {
             this.lastEnemyHit = enemyCombat.GetComponentInParent<Core>().Movement;
             if (this.comboChains == 1) {
-              Dispatcher.Instance.HitStop(.1f);
+              //Dispatcher.Instance.HitStop(.1f);
               enemyCombat.Damage(this.hitDamage, this.knockbackStrength, myFacingDirection);
             } else if (this.comboChains == 2) {
-              Dispatcher.Instance.HitStop(.2f);
+              //Dispatcher.Instance.HitStop(.2f);
               enemyCombat.Damage(this.hitDamage, this.knockbackStrength, myFacingDirection);
             } 
           } 
