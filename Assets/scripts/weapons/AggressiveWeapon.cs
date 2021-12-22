@@ -30,21 +30,25 @@ public class AggressiveWeapon : Weapon {
     }
   }
 
-  private void handleMeleeAttack() {
-    Vector3 originV3 = this.firePoint.transform.position;
-    Vector2 origin = new Vector2( originV3.x, originV3.y);
-
+  // to help chain combos, will teleport player to enemy with a slight offset on x so that following hit will land
+  private void tryTeleportPlayerToEnemy() {
     if (this.comboChains > 1) {
-
       if (this.lastEnemyHit != null) {
         // - move player near by that position so follow up hit will land
         Vector3 enemyPos = this.lastEnemyHit.transform.position;
         float teleportOffsetX = this.core.Movement.facingDirection * 1.2f;
         Vector3 teleportToV3 = new Vector3(enemyPos.x + -teleportOffsetX, enemyPos.y, enemyPos.z);
-
         this.core.Movement.rBody.transform.position = teleportToV3;
       }
     }
+  }
+
+  private void handleMeleeAttack() {
+
+    tryTeleportPlayerToEnemy();
+
+    Vector3 originV3 = this.firePoint.transform.position;
+    Vector2 origin = new Vector2( originV3.x, originV3.y);
     
     Debug.DrawRay( new Vector3(origin.x, origin.y), Combos.Instance.hitDirection * this.hitDistance, Color.yellow, 1f);
     RaycastHit2D[] hits = Physics2D.RaycastAll( origin, Combos.Instance.hitDirection, this.hitDistance);
