@@ -31,7 +31,7 @@ public class AggressiveWeapon : Weapon {
   }
 
   // to help chain combos, will teleport player to enemy with a slight offset on x so that following hit will land
-  private void tryTeleportPlayerToEnemy() {
+  private void tryTeleportPlayerToChainCombo() {
     if (this.comboChains > 1) {
       if (this.lastEnemyHit != null) {
         // - move player near by that position so follow up hit will land
@@ -39,13 +39,17 @@ public class AggressiveWeapon : Weapon {
         float teleportOffsetX = this.core.Movement.facingDirection * 1.2f;
         Vector3 teleportToV3 = new Vector3(enemyPos.x + -teleportOffsetX, enemyPos.y, enemyPos.z);
         this.core.Movement.rBody.transform.position = teleportToV3;
+        Dispatcher.Instance.HitStop(.1f);
+        // @Todo if the enemy will die on this last combo hit,
+        // turn enemy into a projectile and it should splatter after x time
+        // splats should show on this hit as well though... 
       }
     }
   }
 
   private void handleMeleeAttack() {
 
-    tryTeleportPlayerToEnemy();
+    tryTeleportPlayerToChainCombo();
 
     Vector3 originV3 = this.firePoint.transform.position;
     Vector2 origin = new Vector2( originV3.x, originV3.y);

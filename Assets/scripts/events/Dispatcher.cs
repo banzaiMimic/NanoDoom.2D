@@ -32,7 +32,7 @@ public sealed class Dispatcher {
     get { return instance; }
   }
 
-  public void OnHitStop(float duration) {
+  public void HitStop(float duration) {
     OnHitStopAction?.Invoke(duration);
   }
 
