@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 8628944412376523096}
   - component: {fileID: 8628944412376523095}
   - component: {fileID: 8628944412376523094}
+  - component: {fileID: 2836722445284129436}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -748,6 +749,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2836722445284129436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8628944412376523105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab5af131566636e4a81bb0548abbf77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8628944412393520620
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +992,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: d1d03fba53797bd4ab3dcbb5376bea29, type: 2}
+  baseAnimator: {fileID: 0}
+  knockbackStrength: 12
+  hitDamage: 5
   firePoint: {fileID: 0}
   player: {fileID: 0}
 --- !u!1 &8628944413958613256

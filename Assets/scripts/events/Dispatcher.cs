@@ -23,12 +23,17 @@ public sealed class Dispatcher {
   public event Action<float> OnScoreUpdateAction;
   public event Action OnPrimaryAttackStateChangeRequestAction;
   public event Action OnPrimaryAttackAction;
+  public event Action<float> OnHitStopAction;
 
   static Dispatcher() { }
   private Dispatcher() { }
 
   public static Dispatcher Instance {
     get { return instance; }
+  }
+
+  public void OnHitStop(float duration) {
+    OnHitStopAction?.Invoke(duration);
   }
 
   public void OnPrimaryAttack() {
