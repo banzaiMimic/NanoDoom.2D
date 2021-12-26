@@ -34,13 +34,29 @@ public class Combat : CoreComponent {
     if (core != null) {
       this.currentHealth -= amount;
       float offsetX = direction * 3f;
-      Globals.Log("current x : " + this.core.Movement.transform.position.x);
-      Globals.Log("sending knockback to offSetX: " + offsetX + " direction: " + direction);
       Vector2 endLocationV2 = new Vector2( this.core.Movement.transform.position.x + (2f * direction), this.core.Movement.transform.position.y + 3f);
       Vector2 myLocationV2 = new Vector2( this.core.Movement.transform.position.x, this.core.Movement.transform.position.y );
       Vector2 angle = endLocationV2 - myLocationV2;
       
       this.Knockback(angle, knockbackStrength, direction);
+
+      if (core.transform.parent.name == "Player") {
+        Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
+      } else {
+        
+      }
+      if (this.currentHealth <= 0) {
+        handleDeath(core.transform.parent.name);
+      }
+    }
+  }
+  public void DamageWithoutKnockback(float amount, float knockbackStrength, int direction) {
+    if (core != null) {
+      this.currentHealth -= amount;
+      float offsetX = direction * 3f;
+      Vector2 endLocationV2 = new Vector2( this.core.Movement.transform.position.x + (2f * direction), this.core.Movement.transform.position.y + 3f);
+      Vector2 myLocationV2 = new Vector2( this.core.Movement.transform.position.x, this.core.Movement.transform.position.y );
+      Vector2 angle = endLocationV2 - myLocationV2;
 
       if (core.transform.parent.name == "Player") {
         Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
@@ -82,8 +98,11 @@ public class Combat : CoreComponent {
     float randX = Random.Range(20f, 500f);
     float randY = Random.Range(20f, 500f);
     float randStrength = Random.Range(50f, 100f);
-    //Damage(randDamage, randStrength);
-    //Knockback(new Vector2(randX, randY), randStrength, 1);
+    int randDirection = randDamage >= 30f ? 1 : -1;
+    
+    Globals.Log("SuperKnockback --: " + randDamage + " randX: " + randX + " randY: " + randY);
+    DamageWithoutKnockback(randDamage, randStrength, randDirection);
+    Knockback(new Vector2(randX, randY), randStrength, 1);
   }
 
   private void handleDeath(string name) {

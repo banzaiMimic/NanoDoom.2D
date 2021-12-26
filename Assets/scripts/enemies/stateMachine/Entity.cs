@@ -73,6 +73,33 @@ public class Entity : MonoBehaviour {
     }
   }
 
+  private void OnTriggerEnter2D(Collider2D collision) {
+
+    var player = collision.GetComponent<Player>();
+    if (this.transform.name == "Enemy1(Clone)") {
+      Debug.Log("enemy collision -- ");
+      Debug.Log("player: " + player);
+      Player playerCheck = collision.GetComponentInChildren<Player>();
+      Debug.Log("playerCheck: " + collision.transform.name);
+    }
+    if (player) {
+      Debug.Log("entity collision...: " + player + " playerCurrentState: " + player.stateMachine.currentState);
+    }
+    if (player && player.stateMachine.currentState != player.dashState) {
+      if (collision.transform.position.x < collision.transform.position.x) {
+        // player on left
+        Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
+      } else {
+        // player on right
+        Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
+      }
+    } else if (player && player.stateMachine.currentState == player.dashState) {
+      // entity collided while player in dash state
+      this.core.Combat.SuperKnockback();
+    }
+
+  }
+
   public void DestroyEntity() {
     Destroy(this.gameObject);
   }

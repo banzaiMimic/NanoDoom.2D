@@ -276,7 +276,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013579369, y: -0.31604946}
+  m_Offset: {x: -0.013579369, y: -0.32360673}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -287,7 +287,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.88647795, y: 1.1868405}
+  m_Size: {x: 0.88647795, y: 1.171726}
   m_EdgeRadius: 0
 --- !u!114 &5902797267568308826
 MonoBehaviour:
@@ -464,6 +464,7 @@ MonoBehaviour:
   - {fileID: 8100584757332213407, guid: 8c12922fd827e974babd19ba1515d700, type: 3}
   - {fileID: 7018448449344154672, guid: 2e70f904bdc5750498da63a55bed062b, type: 3}
   cameraTransform: {fileID: 0}
+  drop: {fileID: 0}
   deathEffect: {fileID: 2683962649243715554, guid: 47837a5b73fab4d4ca48475a6d485cc2, type: 3}
   currentHealth: 0
 --- !u!61 &5902797268793461592
@@ -479,7 +480,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.11510366}
+  m_Offset: {x: -0.007557392, y: -0.07353869}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -490,7 +491,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.1205848}
+  m_Size: {x: 1.4080935, y: 1.430433}
   m_EdgeRadius: 0
 --- !u!1 &5902797268833147308
 GameObject:
