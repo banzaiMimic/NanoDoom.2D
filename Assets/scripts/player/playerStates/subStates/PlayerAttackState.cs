@@ -13,7 +13,7 @@ public class PlayerAttackState : PlayerAbilityState {
   private bool setVelocity;
   private bool shouldCheckFlip;
   private int comboChains = 1;
-  private float attackForce = 3f;
+  private float attackForce = 6f;
 
   public PlayerAttackState(
     Player player, 
@@ -46,6 +46,9 @@ public class PlayerAttackState : PlayerAbilityState {
       // first combo chain means 2 consecutive swings
       if (this.comboChains == 2) {
 
+      }
+      if (this.comboChains == 4) {
+        this.comboChains = 1;
       }
     } else {
       this.comboChains = 1;

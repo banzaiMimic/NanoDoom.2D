@@ -45,8 +45,7 @@ public class Combat : CoreComponent {
       if (core.transform.parent.name == "Player") {
         Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
       } else {
-        // leaving here for now but should have better way to handle for each entity
-        Dispatcher.Instance.OnPlayerMeleeHit();
+        
       }
       if (this.currentHealth <= 0) {
         handleDeath(core.transform.parent.name);
@@ -63,7 +62,6 @@ public class Combat : CoreComponent {
       Vector2 myLocationV2 = new Vector2( this.core.Movement.transform.position.x, this.core.Movement.transform.position.y );
       Vector2 angle = endLocationV2 - myLocationV2;
       
-      Dispatcher.Instance.OnPlayerMeleeHit();
       this.Knockback(Combos.Instance.hitDirection, randStrength, direction);
 
       if (this.currentHealth <= 0) {

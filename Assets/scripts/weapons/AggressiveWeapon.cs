@@ -11,7 +11,7 @@ public class AggressiveWeapon : Weapon {
   private List<Entity> entityHitList = new List<Entity>();
   private float hitRange = 4.86f;
   private float hitDistance = 3f;
-  [SerializeField] private float knockbackStrength = 12f;
+  [SerializeField] private float knockbackStrength = 2f;
   [SerializeField] private float hitDamage = 5f;
   [SerializeField] private Transform firePoint;
   [SerializeField] private Player player;
@@ -49,7 +49,7 @@ public class AggressiveWeapon : Weapon {
 
   private void handleMeleeAttack() {
 
-    //tryTeleportPlayerToChainCombo();
+    tryTeleportPlayerToChainCombo();
 
     int myFacingDirection = this.core.Movement.facingDirection;
     Vector3 originV3 = this.firePoint.transform.position;
@@ -58,42 +58,30 @@ public class AggressiveWeapon : Weapon {
     Debug.DrawRay( new Vector3(origin.x, origin.y), Combos.Instance.hitDirection * this.hitDistance, Color.yellow, 1f);
     RaycastHit2D[] hits = Physics2D.RaycastAll( origin, Combos.Instance.hitDirection, this.hitDistance);
 
-    if (this.comboChains == 3) {
-
-      // @Todo if the enemy will die on this last combo hit,
-      // - turn enemy into a projectile and it should splatter after x time
-      // this should also throw enemy in whatever direction user is looking at, skip the hit check
-      // - splats should show on this hit as well though... 
-      Combat lastEnemyCombat = this.lastEnemyHit.GetComponentInParent<Core>().Combat;
-      if (lastEnemyCombat) {
-        Dispatcher.Instance.HitStop(.2f);
-        lastEnemyCombat.SuperDamage(this.hitDamage, myFacingDirection);
-      } 
-
-    } else {
-
-      // check hits
-      for (int i = 0; i < hits.Length; i++) {
-        RaycastHit2D hit = hits[i];
-        
-        if (hit.transform.name != "Player") {
-          Combat enemyCombat = hit.transform.GetComponentInChildren<Combat>();
-          if (enemyCombat != null) {
-            this.lastEnemyHit = enemyCombat.GetComponentInParent<Core>().Movement;
-            if (this.comboChains == 1) {
-              //Dispatcher.Instance.HitStop(.1f);
-              enemyCombat.Damage(this.hitDamage, this.knockbackStrength, myFacingDirection);
-            } else if (this.comboChains == 2) {
-              //Dispatcher.Instance.HitStop(.2f);
-              enemyCombat.Damage(this.hitDamage, this.knockbackStrength, myFacingDirection);
-            } 
-          } 
-        }
+    bool hitMade = false;
+    // check hits
+    for (int i = 0; i < hits.Length; i++) {
+      RaycastHit2D hit = hits[i];
+      
+      if (hit.transform.name != "Player") {
+        Combat enemyCombat = hit.transform.GetComponentInChildren<Combat>();
+        if (enemyCombat != null) {
+          hitMade = true;
+          this.lastEnemyHit = enemyCombat.GetComponentInParent<Core>().Movement;
+          if (this.comboChains == 1) {
+            //Dispatcher.Instance.HitStop(.1f);
+            enemyCombat.Damage(this.hitDamage, this.knockbackStrength, myFacingDirection);
+          } else if (this.comboChains == 2) {
+            //Dispatcher.Instance.HitStop(.2f);
+            enemyCombat.Damage(this.hitDamage, this.knockbackStrength, myFacingDirection);
+          } else if (this.comboChains == 3) {
+            enemyCombat.SuperDamage(this.hitDamage, myFacingDirection);
+          }
+        } 
       }
-
     }
-
-    
+    if (hitMade) {
+      Dispatcher.Instance.OnPlayerMeleeHit();
+    }
   }
-
 }
