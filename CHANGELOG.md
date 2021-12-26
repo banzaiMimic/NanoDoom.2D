@@ -11,14 +11,8 @@
 ### Dev
 
 ## Recall
-- [AggressiveWeapon] -> handleMeleeAttack
-  - on each hit call damage/knockback on collision if enemy.
-  - on 3rd combo hit chain change entity into HitFlyState
-- create HitFlyState 
-  - in this state enemy should be sent flying in direction user was pressing... 
-  - would be cool if any other enemy hit by this entity in this state will be sent to HitStunState...
-  - at the end of this HitFlyState should destroy flying enemy if health <= 0 OR should return entity to idleState
-  - should have settings to modify things like combo time-to-chain and even auto-combo for accessibility
+- for some reason `Entity`'s `OnTriggerEnter2D` is not recognizing Player collision
+- fix this and if player is in dashState call SuperKnockback on entity
 
 
 ## bin
