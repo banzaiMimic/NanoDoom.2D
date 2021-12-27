@@ -51,6 +51,9 @@ public class AggressiveWeapon : Weapon {
 
     tryTeleportPlayerToChainCombo();
 
+    if (this.core == null) {
+      return;
+    }
     int myFacingDirection = this.core.Movement.facingDirection;
     Vector3 originV3 = this.firePoint.transform.position;
     Vector2 origin = new Vector2( originV3.x, originV3.y);
