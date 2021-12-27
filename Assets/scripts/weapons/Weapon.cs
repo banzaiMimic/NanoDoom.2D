@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour {
   protected Animator weaponAnimator;
   protected PlayerAttackState attackState;
   protected int attackCounter;
-  protected int comboChains = 1;
+  public int comboChains = 1;
   protected Core core;
   protected Movement lastEnemyHit;
 

@@ -8,6 +8,7 @@ public class Combat : CoreComponent {
   [SerializeField] public GameObject[] bloodSplatters;
   [SerializeField] private Transform cameraTransform;
   [SerializeField] private GameObject drop;
+  public Weapon weapon;
   public GameObject deathEffect;
   public float currentHealth;
   private bool isKnockbackActive;

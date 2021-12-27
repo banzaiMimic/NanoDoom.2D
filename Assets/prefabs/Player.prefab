@@ -205,6 +205,7 @@ MonoBehaviour:
   - {fileID: 7018448449344154672, guid: 2e70f904bdc5750498da63a55bed062b, type: 3}
   cameraTransform: {fileID: 0}
   drop: {fileID: 0}
+  weapon: {fileID: 8628944413762768158}
   deathEffect: {fileID: 2683962649243715554, guid: 47837a5b73fab4d4ca48475a6d485cc2, type: 3}
   currentHealth: 0
 --- !u!61 &8628944412303746064

@@ -11,8 +11,7 @@
 ### Dev
 
 ## Recall
-- for some reason `Entity`'s `OnTriggerEnter2D` is not recognizing Player collision
-- fix this and if player is in dashState call SuperKnockback on entity
+- when hitting enemy, player is also damaged -_-
 
 
 ## bin

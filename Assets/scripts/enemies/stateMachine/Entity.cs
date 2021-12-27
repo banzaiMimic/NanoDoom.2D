@@ -78,13 +78,20 @@ public class Entity : MonoBehaviour {
     var player = collision.GetComponent<Player>();
     Player playerCheck = collision.GetComponentInParent<Player>();
 
+    Debug.Log("collision is : " + collision.transform.name);
+
     if (playerCheck && playerCheck.stateMachine.currentState != playerCheck.dashState) {
+      bool playerHittable = playerCheck.core.Combat.weapon.comboChains <= 1;
       if (collision.transform.position.x < collision.transform.position.x) {
         // player on left
-        Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
+        if (playerHittable) {
+          Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
+        }
       } else {
         // player on right
-        Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
+        if (playerHittable) {
+          Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
+        }
       }
     } 
     
