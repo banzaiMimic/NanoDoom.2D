@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5814404048530529270, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8628944412303746063, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
       propertyPath: cameraTransform
       value: 
@@ -189,6 +193,10 @@ PrefabInstance:
     - target: {fileID: 8628944412376523102, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628944412376523104, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
+      propertyPath: m_Simulated
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8628944412376523105, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
       propertyPath: m_Name
@@ -501,7 +509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3248867363464508751, guid: 14a817ed067842e4c963c8dc322d6d97, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14a817ed067842e4c963c8dc322d6d97, type: 3}
@@ -3721,7 +3729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1719620799
 Transform:
   m_ObjectHideFlags: 0
@@ -4293,7 +4301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1970045827
 Transform:
   m_ObjectHideFlags: 0
