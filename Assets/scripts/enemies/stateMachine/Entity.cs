@@ -78,7 +78,7 @@ public class Entity : MonoBehaviour {
     var player = collision.GetComponent<Player>();
     Player playerCheck = collision.GetComponentInParent<Player>();
 
-    if (player && player.stateMachine.currentState != player.dashState) {
+    if (playerCheck && playerCheck.stateMachine.currentState != playerCheck.dashState) {
       if (collision.transform.position.x < collision.transform.position.x) {
         // player on left
         Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
