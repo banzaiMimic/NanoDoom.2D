@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,6 +35,25 @@ public class Player : MonoBehaviour {
   private BoxCollider2D bCollider;
   private Vector2 velocityWorkspace;
 
+  private void OnEnable() {
+    Dispatcher.Instance.OnPrimaryAttackStateChangeRequestAction += this.handlePrimaryAttackStateChange;
+    Dispatcher.Instance.OnTriggerPlayerHitAction += this.TriggerPlayerHit;
+    Dispatcher.Instance.OnPickupAction += this.HandlePickup;
+  }
+
+  private void OnDisable() {
+    Dispatcher.Instance.OnPrimaryAttackStateChangeRequestAction -= this.handlePrimaryAttackStateChange;
+    Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
+    Dispatcher.Instance.OnPickupAction -= this.HandlePickup;
+  }
+
+  private void handlePrimaryAttackStateChange() {
+    // if (this.stateMachine.currentState != this.primaryAttackState) {
+      
+    // }
+    this.stateMachine.ChangeState(this.primaryAttackState);
+  }
+
   private void Awake() {
     this.abilityDashUi.SetActive(false);
     this.unlockedAbilities = new List<PlayerAbilityState>();
@@ -63,22 +83,10 @@ public class Player : MonoBehaviour {
   }
 
   public void UnlockAbility(PlayerAbilityState abilityState) {
-    Debug.Log("Unlocking ability:" + abilityState);
     if (!this.unlockedAbilities.Contains(abilityState)) {
       this.unlockedAbilities.Add(abilityState);
       this.SetActiveAbility(abilityState);
-      Debug.Log("active ability set to : " + this.activeAbility);
     }
-  }
-
-  private void OnEnable() {
-    Dispatcher.Instance.OnTriggerPlayerHitAction += this.TriggerPlayerHit;
-    Dispatcher.Instance.OnPickupAction += this.HandlePickup;
-  }
-
-  private void OnDisable() {
-    Dispatcher.Instance.OnTriggerPlayerHitAction -= this.TriggerPlayerHit;
-    Dispatcher.Instance.OnPickupAction -= this.HandlePickup;
   }
 
   private void Start() {
@@ -111,13 +119,12 @@ public class Player : MonoBehaviour {
   private void AnimationFinished() => stateMachine.currentState.AnimationFinished();
 
   private void TriggerPlayerHit(float damage, int direction) {
-    core.Combat.Damage(damage);
     float knockBackStrength = 12f;
-    core.Combat.Knockback(new Vector2(direction, 2), knockBackStrength, direction);
+    core.Combat.Damage(damage, knockBackStrength, direction);
+    //core.Combat.Knockback(new Vector2(direction, 2), knockBackStrength, direction);
   }
 
   private void HandlePickup(Collectible collectible) {
-    Debug.Log("Collected: " + collectible.type + " abilityType: " + collectible.abilityType);
     switch (collectible.type) {
       case CollectibleType.ABILITY_CHARGE:
         int chargeUpdate = this.dashState.AddCharge();
@@ -138,6 +145,21 @@ public class Player : MonoBehaviour {
       break;
     }
     
+  }
+
+  private void OnTriggerEnter2D(Collider2D collision) {
+
+    this.handleEnemySuperKnockback(collision);
+
+  }
+
+  private void handleEnemySuperKnockback(Collider2D collision) {
+    if (this.stateMachine.currentState == this.dashState) {
+      Combat enemyCombat = collision.GetComponentInChildren<Combat>();
+      if (enemyCombat != null) {
+        //enemyCombat.SuperKnockback();
+      }
+    }
   }
 
 }

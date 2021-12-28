@@ -12,16 +12,33 @@ public class Movement : CoreComponent {
   public int facingDirection { get; private set; }
   public bool canSetVelocity { get; set; }
   public bool canFlip { get; set; }
+  public bool canMove { get; private set; }
   public float baseSpeedMultiplier = 1;
 
   private Vector2 velocityWorkspace;
 
   protected override void Awake() {
     base.Awake();
-    rBody = GetComponentInParent<Rigidbody2D>();
+    this.rBody = GetComponentInParent<Rigidbody2D>();
     this.facingDirection = 1;
+    this.canMove = true;
     this.canSetVelocity = true;
     this.canFlip = true;
+  }
+
+  public void DisableMovement() {
+    //Debug.Log("Movement disabled.");
+    this.SetVelocityZero();
+    this.canMove = false;
+    this.canSetVelocity = false;
+    this.canFlip = false;
+  }
+
+  public void EnableMovement() {
+    //Debug.Log("Movement enabled.");
+    this.canSetVelocity = true;
+    this.canFlip = true;
+    this.canMove = true;
   }
 
   public void LogicUpdate() {
@@ -52,7 +69,7 @@ public class Movement : CoreComponent {
 
   public void SetVelocity(float velocity, Vector2 angle, int direction) {
     angle.Normalize();
-    velocityWorkspace.Set(angle.x * velocity * direction, angle.y * velocity);
+    velocityWorkspace.Set(angle.x * velocity, angle.y * velocity);
     rBody.velocity = velocityWorkspace;
     currentVelocity = velocityWorkspace;
   }
@@ -61,6 +78,19 @@ public class Movement : CoreComponent {
     velocityWorkspace = direction * velocity;
     rBody.velocity = velocityWorkspace;
     currentVelocity = velocityWorkspace;
+  }
+
+  public void QuickBurst(float velocity, Vector2 direction) {
+    velocityWorkspace = direction * velocity;
+    rBody.velocity = velocityWorkspace;
+    currentVelocity = velocityWorkspace;
+    // return velocity to 0 after short time...
+    StartCoroutine(StopBurst(.2f));
+  }
+
+  IEnumerator StopBurst(float duration) {
+    yield return new WaitForSecondsRealtime(duration);
+    this.SetVelocityZero();
   }
 
   public void SetVelocity(float velX, float velY) {

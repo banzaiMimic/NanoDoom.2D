@@ -6,7 +6,7 @@ public class CombatTestDummy : MonoBehaviour, IDamageable {
 
   [SerializeField] private GameObject drop;
 
-  public void Damage(float amount) {
+  public void Damage(float amount, float knockbackStrength) {
     Instantiate(drop, transform.position, Quaternion.identity);
     //Destroy(gameObject);
   }

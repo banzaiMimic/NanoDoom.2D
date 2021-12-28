@@ -48,12 +48,13 @@ public class MeleeAttackState : AttackState {
       IDamageable damageable = collider.GetComponent<IDamageable>();
       if (damageable != null) {
         Player player = collider.GetComponentInParent<Player>();
-        Debug.Log("player? : " + player);
         if (player != null) {
           if (player.stateMachine.currentState != player.dashState) {
-            damageable.Damage(stateData.attackDamage);
+            //Debug.Log("melee state::: damage block");
+            damageable.Damage(stateData.attackDamage, stateData.knockbackStrength);
           } else {
-            entity.core.Combat.SuperKnockback();
+            // Debug.Log("melee state::: superKnockBack");
+            //entity.core.Combat.SuperKnockback();
           }
         }
       }

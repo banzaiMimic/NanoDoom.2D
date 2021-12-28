@@ -11,7 +11,7 @@ public class AbilityCooldown : MonoBehaviour {
   [SerializeField] private Image imageCooldown;
   [SerializeField] private TMP_Text textCooldown;
 
-  private bool isCooldown = false;
+  public static bool isOnCoolDown = false;
   private float cooldownTime = 10.0f;
   private float cooldownTimer = 0.0f;
 
@@ -34,7 +34,7 @@ public class AbilityCooldown : MonoBehaviour {
   }
 
   void Update() {
-    if (isCooldown) {
+    if (isOnCoolDown) {
       ApplyCooldown();
     }
   }
@@ -43,7 +43,7 @@ public class AbilityCooldown : MonoBehaviour {
     cooldownTimer -= Time.deltaTime;
 
     if (cooldownTimer < 0.0f) {
-      isCooldown = false;
+      isOnCoolDown = false;
       textCooldown.gameObject.SetActive(false);
       imageCooldown.fillAmount = 0.0f;
     } else {
@@ -53,10 +53,10 @@ public class AbilityCooldown : MonoBehaviour {
   }
 
   public void UseAbility() {
-    if (isCooldown) {
+    if (isOnCoolDown) {
 
     } else {
-      isCooldown = true;
+      isOnCoolDown = true;
       textCooldown.gameObject.SetActive(true);
       cooldownTimer = cooldownTime;
     }

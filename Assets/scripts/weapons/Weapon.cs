@@ -6,11 +6,13 @@ public class Weapon : MonoBehaviour {
 
   [SerializeField] protected SO_WeaponData weaponData;
 
-  protected Animator baseAnimator;
+  public Animator baseAnimator;
   protected Animator weaponAnimator;
   protected PlayerAttackState attackState;
   protected int attackCounter;
+  public int comboChains = 1;
   protected Core core;
+  protected Movement lastEnemyHit;
 
   protected virtual void Awake() {
     this.baseAnimator = transform.Find("Base").GetComponent<Animator>();
@@ -20,13 +22,17 @@ public class Weapon : MonoBehaviour {
 
   public virtual void EnterWeapon() {
     gameObject.SetActive(true);
-    if (attackCounter >= weaponData.amountOfAttacks) {
-      attackCounter = 0;
-    }
+    // if (attackCounter >= weaponData.amountOfAttacks) {
+    //   attackCounter = 0;
+    // }
     baseAnimator.SetBool("attack", true);
     weaponAnimator.SetBool("attack", true);
-    baseAnimator.SetInteger("attackCounter", attackCounter);
+    // Attack state will handle baseAnimator's attackCounter
     weaponAnimator.SetInteger("attackCounter", attackCounter);
+  }
+
+  public virtual void clearLastEnemyHit() {
+    this.lastEnemyHit = null;
   }
 
   public virtual void ExitWeapon() {
@@ -34,6 +40,11 @@ public class Weapon : MonoBehaviour {
     weaponAnimator.SetBool("attack", false);
     attackCounter++;
     gameObject.SetActive(false);
+  }
+
+  public virtual void UpdateComboChains(int num) {
+    baseAnimator.SetInteger("attackCounter", num);
+    this.comboChains = num;
   }
 
   public virtual void AnimationFinishTrigger() {

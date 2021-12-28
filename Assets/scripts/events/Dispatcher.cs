@@ -21,12 +21,27 @@ public sealed class Dispatcher {
   public event Action OnPlayerDeathAction;
   public event Action<Player> OnPlayerRespawnAction;
   public event Action<float> OnScoreUpdateAction;
+  public event Action OnPrimaryAttackStateChangeRequestAction;
+  public event Action OnPrimaryAttackAction;
+  public event Action<float> OnHitStopAction;
 
   static Dispatcher() { }
   private Dispatcher() { }
 
   public static Dispatcher Instance {
     get { return instance; }
+  }
+
+  public void HitStop(float duration) {
+    OnHitStopAction?.Invoke(duration);
+  }
+
+  public void OnPrimaryAttack() {
+    OnPrimaryAttackAction?.Invoke();
+  }
+
+  public void OnPrimaryAttackStateChangeRequest() {
+    OnPrimaryAttackStateChangeRequestAction?.Invoke();
   }
 
   public void OnScoreUpdate(float score) {
@@ -55,7 +70,7 @@ public sealed class Dispatcher {
   public void OnPlayerLand() {
     OnPlayerLandAction?.Invoke();
   }
-  public void OnPlayerMeleeSwing() {
+  public void onPlayerMeleeSwingSound() {
     OnPlayerMeleeSwingAction?.Invoke();
   }
   public void OnPlayerMeleeHit() {

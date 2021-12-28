@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat : CoreComponent, IDamageable, IKnockbackable {
+public class Combat : CoreComponent {
 
   [SerializeField] public float maxHealth = 10f;
   [SerializeField] public GameObject[] bloodSplatters;
   [SerializeField] private Transform cameraTransform;
   [SerializeField] private GameObject drop;
+  public Weapon weapon;
   public GameObject deathEffect;
   public float currentHealth;
   private bool isKnockbackActive;
   private float knockbackStartTime;
+  private float knockbackMinDuration = 1.3f;
 
   protected override void Awake() {
     base.Awake();
@@ -25,20 +27,83 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     CheckKnockback();
   }
 
-  public void Damage(float amount) {
+  public bool isBeingKnockbacked() {
+    return this.isKnockbackActive;
+  }
+
+  public void Damage(float amount, float knockbackStrength, int direction) {
     if (core != null) {
       this.currentHealth -= amount;
+      float offsetX = direction * 3f;
+      Vector2 endLocationV2 = new Vector2( this.core.Movement.transform.position.x + (2f * direction), this.core.Movement.transform.position.y + 3f);
+      Vector2 myLocationV2 = new Vector2( this.core.Movement.transform.position.x, this.core.Movement.transform.position.y );
+      Vector2 angle = endLocationV2 - myLocationV2;
+      
+      this.Knockback(angle, knockbackStrength, direction);
+
       if (core.transform.parent.name == "Player") {
-        Debug.Log("[Combat]-- playerHealth> " + currentHealth);
         Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
       } else {
-        // leaving here for now but should have better way to handle for each entity
-        Dispatcher.Instance.OnPlayerMeleeHit();
+        
       }
       if (this.currentHealth <= 0) {
         handleDeath(core.transform.parent.name);
       }
     }
+  }
+  public void DamageWithoutKnockback(float amount, float knockbackStrength, int direction) {
+    if (core != null) {
+      this.currentHealth -= amount;
+      float offsetX = direction * 3f;
+      Vector2 endLocationV2 = new Vector2( this.core.Movement.transform.position.x + (2f * direction), this.core.Movement.transform.position.y + 3f);
+      Vector2 myLocationV2 = new Vector2( this.core.Movement.transform.position.x, this.core.Movement.transform.position.y );
+      Vector2 angle = endLocationV2 - myLocationV2;
+
+      if (core.transform.parent.name == "Player") {
+        Dispatcher.Instance.OnUpdatePlayerHealth(currentHealth, maxHealth);
+      } else {
+        
+      }
+      if (this.currentHealth <= 0) {
+        handleDeath(core.transform.parent.name);
+      }
+    }
+  }
+  public void SuperDamage(float amount, int direction) {
+    if (core != null) {
+      this.currentHealth -= amount;
+      float offsetX = direction * 3f;
+      float randStrength = Random.Range(50f, 100f);
+      
+      Vector2 endLocationV2 = new Vector2( this.core.Movement.transform.position.x + (2f * direction), this.core.Movement.transform.position.y + 3f);
+      Vector2 myLocationV2 = new Vector2( this.core.Movement.transform.position.x, this.core.Movement.transform.position.y );
+      Vector2 angle = endLocationV2 - myLocationV2;
+      
+      this.Knockback(Combos.Instance.hitDirection, randStrength, direction);
+
+      if (this.currentHealth <= 0) {
+        Globals.Log("handle delayed death?");
+        // @Todo handle delayed death?
+        //handleDeath(core.transform.parent.name);
+      }
+    }
+  }
+  public void Knockback(Vector2 angle, float strength, int direction) {
+    knockbackStartTime = Time.time;
+    isKnockbackActive = true;
+    core.Movement.SetVelocity(strength, angle, direction);
+    core.Movement.canSetVelocity = false;
+  }
+  public void SuperKnockback() {
+    float randDamage = Random.Range(20f, 40f);
+    float randX = Random.Range(20f, 500f);
+    float randY = Random.Range(20f, 500f);
+    float randStrength = Random.Range(50f, 100f);
+    int randDirection = randDamage >= 30f ? 1 : -1;
+    
+    Globals.Log("SuperKnockback --: " + randDamage + " randX: " + randX + " randY: " + randY);
+    DamageWithoutKnockback(randDamage, randStrength, randDirection);
+    Knockback(new Vector2(randX, randY), randStrength, 1);
   }
 
   private void handleDeath(string name) {
@@ -68,26 +133,12 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable {
     blood.AddComponent<BloodSplatterMovement>().cameraTransform = this.cameraTransform;
   }
 
-  public void Knockback(Vector2 angle, float strength, int direction) {
-    core.Movement.SetVelocity(strength, angle, direction);
-    core.Movement.canSetVelocity = false;
-    isKnockbackActive = true;
-    knockbackStartTime = Time.time;
-  }
-
-  public void SuperKnockback() {
-    float randDamage = Random.Range(20f, 40f);
-    float randX = Random.Range(20f, 500f);
-    float randY = Random.Range(20f, 500f);
-    float randStrength = Random.Range(50f, 100f);
-    Damage(randDamage);
-    Knockback(new Vector2(randX, randY), randStrength, 1);
-  }
-
   private void CheckKnockback() {
     if (isKnockbackActive && core.Movement.currentVelocity.y <= 0.01f && core.CollisionSense.Ground) {
-      isKnockbackActive = false;
       core.Movement.canSetVelocity = true;
+      if (knockbackMinDuration <= (Time.time - knockbackStartTime)) {
+        isKnockbackActive = false;
+      }
     }
   }
 

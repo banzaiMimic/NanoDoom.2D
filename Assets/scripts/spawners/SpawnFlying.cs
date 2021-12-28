@@ -15,7 +15,6 @@ public class SpawnFlying : MonoBehaviour {
   private float spawnTime;
 
   private float minSpeedY = 1f;
-  private float maxSpeedY = 6f;
   private float minSpeedX = 3f;
   private float maxSpeedX = 6f;
 

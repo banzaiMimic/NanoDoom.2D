@@ -11,6 +11,8 @@ public class Entity : MonoBehaviour {
   public AnimationToStateMachine atsm { get; private set; }
   public Vector2 velocityWorkspace;
   public Core core { get; private set; }
+  
+  protected Dictionary<Type, State> states = new Dictionary<Type, State>();
 
   [SerializeField]
   private Transform wallCheck;
@@ -24,6 +26,14 @@ public class Entity : MonoBehaviour {
     animator = GetComponent<Animator>();
     atsm = GetComponent<AnimationToStateMachine>();
     stateMachine = new FiniteStateMachine();
+  }
+
+  public State getState(Type type) {
+    if (this.states.ContainsKey(type)) {
+      return this.states[type];
+    } else {
+      throw new Exception("State [" + type + "] not found on " + this.ToString());
+    }
   }
 
   public virtual void Start() {
@@ -56,17 +66,40 @@ public class Entity : MonoBehaviour {
   }
 
   public virtual bool CheckPlayerInCloseRangeAction() {
-    return Physics2D.Raycast(playerCheck.position, transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
+    if (this.core.Combat.isBeingKnockbacked()) {
+      return false;
+    } else {
+      return Physics2D.Raycast(playerCheck.position, transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
+    }
   }
 
-  public virtual void OnDrawGizmos() {
-    if (core != null) {
-      Debug.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * core.Movement.facingDirection * entityData.wallCheckDistance), Color.blue);
-      Debug.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * entityData.ledgeCheckDistance), Color.blue);
-      Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.closeRangeActionDistance), 0.2f);
-      Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.minAggroDistance), 0.2f);
-      Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * entityData.maxAggroDistance), 0.2f);
+  private void OnTriggerEnter2D(Collider2D collision) {
+
+    var player = collision.GetComponent<Player>();
+    Player playerCheck = collision.GetComponentInParent<Player>();
+
+    Debug.Log("collision is : " + collision.transform.name);
+
+    if (playerCheck && playerCheck.stateMachine.currentState != playerCheck.dashState) {
+      bool playerHittable = playerCheck.core.Combat.weapon.comboChains <= 1;
+      if (collision.transform.position.x < collision.transform.position.x) {
+        // player on left
+        if (playerHittable) {
+          Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
+        }
+      } else {
+        // player on right
+        if (playerHittable) {
+          Dispatcher.Instance.OnTriggerPlayerHit(10f, -1);
+        }
+      }
+    } 
+    
+    if (playerCheck && collision.transform.name == "PlayerCombat" && playerCheck.stateMachine.currentState == playerCheck.dashState) {
+      // entity collided while player in dash state
+      this.core.Combat.SuperKnockback();
     }
+
   }
 
   public void DestroyEntity() {

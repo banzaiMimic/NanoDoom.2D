@@ -63,6 +63,7 @@ public class PlayerDashState : PlayerAbilityState {
   private void checkDash() {
     if (isDashing) {
       if (dashTimeLeft > 0) {
+        // go dash
         player.core.movement.canSetVelocity = false;
         player.core.movement.canFlip = false;
         player.core.movement.SetVelocity(dashSpeed * player.core.movement.facingDirection, player.core.movement.rBody.velocity.y);
@@ -72,9 +73,8 @@ public class PlayerDashState : PlayerAbilityState {
           PlayerAfterImagePool.Instance.GetFromPool();
           lastImageXpos = player.core.transform.position.x;
         }
-      }
-      //@Todo add or is touchingWall
-      if (dashTimeLeft <= 0) {
+      } else if (dashTimeLeft <= 0) {
+        //give control back to player
         player.core.movement.canSetVelocity = true;
         player.core.movement.canFlip = true;
         this.isAbilityDone = true;

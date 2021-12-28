@@ -38,7 +38,8 @@ public class PlayerState {
     player.animator.SetBool(animBoolName, false);
   }
 
-  public virtual void LogicUpdate() {}
+  public virtual void LogicUpdate() {
+  }
 
   public virtual void PhysicsUpdate() {
     DoChecks();

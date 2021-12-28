@@ -10,6 +10,7 @@ public class Enemy1 : Entity {
   public E1_ChargeState chargeState { get; private set; }
   public E1_LookForPlayerState lookForPlayerState { get; private set; }
   public E1_MeleeAttackState meleeAttackState { get; private set; }
+  public HitStunState hitStunState { get; private set; }
 
   [SerializeField]
   private SO_IdleState idleStateData;
@@ -24,30 +25,36 @@ public class Enemy1 : Entity {
   [SerializeField]
   private SO_MeleeAttackState meleeAttackStateData;
 
+  private Vector3 startPos;
+
   [SerializeField]
   private Transform meleeAttackPosition;
 
   public override void Awake() {
     base.Awake();
-    moveState = new E1_MoveState(this, stateMachine, "move", moveStateData, this);
-    idleState = new E1_IdleState(this, stateMachine, "idle", idleStateData, this);
-    playerDetectedState = new E1_PlayerDetectedState(this, stateMachine, "playerDetected", playerDetectedStateData, this);
-    chargeState = new E1_ChargeState(this, stateMachine, "charge", chargeStateData, this);
-    lookForPlayerState = new E1_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerStateData, this);
-    meleeAttackState = new E1_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
+    this.moveState = new E1_MoveState(this, stateMachine, "move", moveStateData, this);
+    this.idleState = new E1_IdleState(this, stateMachine, "idle", idleStateData, this);
+    this.playerDetectedState = new E1_PlayerDetectedState(this, stateMachine, "playerDetected", playerDetectedStateData, this);
+    this.chargeState = new E1_ChargeState(this, stateMachine, "charge", chargeStateData, this);
+    this.lookForPlayerState = new E1_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerStateData, this);
+    this.meleeAttackState = new E1_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
+    this.hitStunState = new HitStunState(this, stateMachine, "hitStun" );
+    
+    this.states.Add(typeof(MoveState), this.moveState);
+    this.states.Add(typeof(IdleState), this.idleState);
+    this.states.Add(typeof(PlayerDetectedState), this.playerDetectedState);
+    this.states.Add(typeof(ChargeState), this.chargeState);
+    this.states.Add(typeof(LookForPlayerState), this.lookForPlayerState);
+    this.states.Add(typeof(MeleeAttackState), this.meleeAttackState);
+    this.states.Add(typeof(HitStunState), this.hitStunState);
+  }
+
+  public void OnEnable() {
+    startPos = this.transform.position;
   }
 
   public override void Start() {
     stateMachine.Initialize(moveState);
-  }
-
-  public override void OnDrawGizmos() {
-    base.OnDrawGizmos();
-    //DrawMeleeAttackRadius();
-  }
-
-  private void DrawMeleeAttackRadius() {
-    Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackStateData.attackRadius);
   }
 
 }

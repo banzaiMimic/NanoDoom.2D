@@ -14,6 +14,7 @@ public class PlayerAudio : MonoBehaviour {
   [SerializeField] private AudioClip land;
   [SerializeField] private AudioClip meleeSwing;
   [SerializeField] private AudioClip meleeHit;
+  [SerializeField] private bool muteBgAudio;
   public float timeBetweenSteps = 0.39f;
 
   private float timer;
@@ -23,7 +24,9 @@ public class PlayerAudio : MonoBehaviour {
     audioSource.clip = bgBoss;
     audioSource.loop = true;
     audioSource.volume = .6f;
-    audioSource.Play();
+    if (!muteBgAudio) {
+      audioSource.Play();
+    }
   }
   
   private void OnEnable() {
@@ -31,7 +34,7 @@ public class PlayerAudio : MonoBehaviour {
     Dispatcher.Instance.OnPlayerMoveStateExitAction += this.exitMove;
     Dispatcher.Instance.OnPlayerJumpAction += this.onPlayerJump;
     Dispatcher.Instance.OnPlayerLandAction += this.onPlayerLand;
-    Dispatcher.Instance.OnPlayerMeleeSwingAction += this.onPlayerMeleeSwing;
+    Dispatcher.Instance.OnPlayerMeleeSwingAction += this.onPlayerMeleeSwingSound;
     Dispatcher.Instance.OnPlayerMeleeHitAction += this.onPlayerMeleeHit;
   }
 
@@ -40,7 +43,7 @@ public class PlayerAudio : MonoBehaviour {
     Dispatcher.Instance.OnPlayerMoveStateExitAction -= this.exitMove;
     Dispatcher.Instance.OnPlayerJumpAction -= this.onPlayerJump;
     Dispatcher.Instance.OnPlayerLandAction -= this.onPlayerLand;
-    Dispatcher.Instance.OnPlayerMeleeSwingAction -= this.onPlayerMeleeSwing;
+    Dispatcher.Instance.OnPlayerMeleeSwingAction -= this.onPlayerMeleeSwingSound;
     Dispatcher.Instance.OnPlayerMeleeHitAction -= this.onPlayerMeleeHit;
   }
 
@@ -50,7 +53,7 @@ public class PlayerAudio : MonoBehaviour {
   public void onPlayerLand() {
     audioSource.PlayOneShot(land, .7f);
   }
-  public void onPlayerMeleeSwing() {
+  public void onPlayerMeleeSwingSound() {
     audioSource.PlayOneShot(meleeSwing, 1f);
   }
   public void onPlayerMeleeHit() {
