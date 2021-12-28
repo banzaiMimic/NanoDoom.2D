@@ -143,8 +143,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8628944412376523095, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
+      propertyPath: bgBoss
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a307bced2dd9df4abe0c28062d740e2, type: 3}
+    - target: {fileID: 8628944412376523095, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
+      propertyPath: bgAmbient
+      value: 
+      objectReference: {fileID: 8300000, guid: f7cbf756b3c7ecf40971bddc18cd2b29, type: 3}
+    - target: {fileID: 8628944412376523095, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
       propertyPath: muteBgAudio
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8628944412376523100, guid: 16bbdf36576b1214393bc149c65eb2f4, type: 3}
       propertyPath: abilityDashUi

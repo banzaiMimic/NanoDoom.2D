@@ -1467,6 +1467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -5980,7 +5981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1957595401}
-  bgAmbient: {fileID: 8300000, guid: a97d3b335c900e542af301ade4927947, type: 3}
+  bgAmbient: {fileID: 8300000, guid: f7cbf756b3c7ecf40971bddc18cd2b29, type: 3}
 --- !u!4 &1957595400
 Transform:
   m_ObjectHideFlags: 0
