@@ -7,11 +7,15 @@
 - keyboard input rewritten / hitLines for collision detection working much better
 - fixed gamepad melee attack control / hit detection
 - 3 hit animation added if punches are made within x time
+- new music
+  - intro
+  - core game loop
+- fight mechanics reworked
 
 ### Dev
 
 ## Recall
-- when hitting enemy, player is also damaged -_-
+- ui from photoshop.c -> https://www.youtube.com/watch?v=vqZjZ6yv1lA
 
 
 ## bin
