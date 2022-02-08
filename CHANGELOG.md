@@ -16,6 +16,7 @@
 
 ## Recall
 - ui from photoshop.c -> https://www.youtube.com/watch?v=vqZjZ6yv1lA
+- replace all sfx with custom sfx & update collaborators
 
 
 ## bin
